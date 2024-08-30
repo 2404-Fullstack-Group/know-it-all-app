@@ -9,6 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "prisma": {
+  "seed": "node db/seed.js"
+  },
   "dependencies": {
     "@prisma/client": "^5.19.0",
     "bcrypt": "^5.1.1",
