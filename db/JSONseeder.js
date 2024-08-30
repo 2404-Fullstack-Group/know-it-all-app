@@ -2,10 +2,17 @@ import https from "https";
 import fs from "fs";
 
 const QUESTIONS_PER_REQUEST = 50;
-const MAX_QUESTIONS = 10000;
+const FILE_PATH = "./trivia-questions.json";
 
 let allQuestions = [];
-let offset = 0;
+let offset = 10000;
+
+if (fs.existsSync(FILE_PATH)) {
+  const fileData = fs.readFileSync(FILE_PATH, "utf-8");
+  allQuestions = JSON.parse(fileData);
+  offset = allQuestions.length;
+}
+const MAX_QUESTIONS = 1000 + allQuestions.length;
 
 function fetchTriviaBatch(limit, offset) {
   return new Promise((resolve, reject) => {
@@ -40,7 +47,7 @@ async function fetchAllTriviaQuestions() {
       console.log(`Fetched ${allQuestions.length} questions so far...`);
 
       fs.writeFileSync(
-        "trivia-questions.json",
+        FILE_PATH,
         JSON.stringify(allQuestions, null, 2),
         "utf-8"
       );
