@@ -33,7 +33,7 @@ model Question {
   difficulty       String
   regions          String[]
   isNiche          Boolean
-  question         Json
+  question         String
   correctAnswer    String
   incorrectAnswers String[]
   type             String
