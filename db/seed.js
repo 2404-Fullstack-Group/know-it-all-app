@@ -1,29 +1,30 @@
-const require = createRequire(import.meta.url)
-const { PrismaClient } = require("@prisma/client") 
-const prisma = new PrismaClient()
-import { createRequire } from "module"
+const require = createRequire(import.meta.url);
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+import { createRequire } from "module";
 
-const data = require("./trivia-questions.json")
+const data = require("./trivia-questions.json");
 
 // 10 categories of questions pulled from the api
 const categories = [
-  'General Knowledge',
-  'Geography',
-  'Society & Culture',
-  'Music',
-  'Food & Drink',
-  'Sport & Leisure',
-  'Film & TV',
-  'Science',
-  'Arts & Literature',
-  'History'
-]
+  "General Knowledge",
+  "Geography",
+  "Society & Culture",
+  "Music",
+  "Food & Drink",
+  "Sport & Leisure",
+  "Film & TV",
+  "Science",
+  "Arts & Literature",
+  "History",
+];
 
 const seed = async () => {
   await prisma.quiz.deleteMany({})
   await prisma.question.deleteMany({})
   await prisma.user.deleteMany({})
   // Creates the Admin user
+
   const user = await prisma.user.create({
     data: {
       first_name: "Ryan",
@@ -104,3 +105,4 @@ const seed = async () => {
 
 
 seed()
+module.exports = { prisma };
