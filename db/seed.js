@@ -20,6 +20,7 @@ const categories = [
 ];
 
 const seed = async () => {
+  await prisma.q_junction.deleteMany({})
   await prisma.quiz.deleteMany({})
   await prisma.question.deleteMany({})
   await prisma.user.deleteMany({})
@@ -105,4 +106,4 @@ const seed = async () => {
 
 
 seed()
-module.exports = { prisma };
+// module.exports = { prisma };
