@@ -5,6 +5,7 @@ import { createRequire } from "module";
 
 const data = require("./trivia-questions.json");
 
+// 10 categories of questions pulled from the api
 const categories = [
   "General Knowledge",
   "Geography",
@@ -18,34 +19,22 @@ const categories = [
   "History",
 ];
 
-// const findUnique = async () => {
-//   const questions = await prisma.question.findMany({})
-//   const categories = []
-//   for (let i = 0; i<questions.length; i++) {
-//     categories.push(questions[i].category)
-//   }
-
-//   let outputArray = categories.filter(function (v, i, self) {
-
-//     return i == self.indexOf(v)})
-
-//   console.log(outputArray)
-// }
-
 const seed = async () => {
-  await prisma.question.deleteMany({});
-  await prisma.user.deleteMany({});
+  await prisma.quiz.deleteMany({})
+  await prisma.question.deleteMany({})
+  await prisma.user.deleteMany({})
+  // Creates the Admin user
 
   const user = await prisma.user.create({
     data: {
-      first_name: "Kai",
+      first_name: "Ryan",
       last_name: "Fuller",
       username: "Admin",
       email: "admin@knowitall.com",
-      password: "password",
-    },
-  });
-
+      password: "password"
+    }
+  })
+  // inputs data from trivia-questions.json into the questions table
   data.forEach(async (item) => {
     await prisma.question.create({
       data: {
@@ -60,28 +49,60 @@ const seed = async () => {
         type: item.type,
         user: {
           connect: {
-            id: user.id,
-          },
-        },
-      },
-    });
-  });
-
+            id: user.id
+          }
+        }
+      }
+    })
+  })
+  // Creates a quiz for each category that includes 10 random questions
   categories.forEach(async (category) => {
-    // const quiz = await prisma.quiz.create({
-    //   data: {
-    //     created_by:
-    //   }
-    // })
+    // Creates the category quiz
+    const quiz = await prisma.quiz.create({
+      data: {
+        user: {
+          connect: {
+            id: user.id
+          }
+        } 
+      }
+    })
+    // find all questions from the questions table that is in a category
     const categoryQuestions = await prisma.question.findMany({
-      where: {
-        category: category,
-      },
-    });
-  });
-};
+      where:{
+        category:category
+      }
+    })
+    // List that will include non-repeating random numbers
+    const indexList = []
+    // While loop to generate non-repeating random numbers and push to indexList
+    while (indexList.length<10) {
+        const randomNum = Math.floor(Math.random()*categoryQuestions.length)
+        if (!indexList.includes(randomNum)) {
+            indexList.push(randomNum)
+          }
+        }
+    // Creates a q_junction entry for the quiz and questions
+    // q_junction allows for a many-to-many relationship between quizzes and questions
+    indexList.forEach(async (i) => {
+      await prisma.q_junction.create({
+        data: {
+          quiz: {
+            connect:{
+              id: quiz.id
+            }
+          },
+          question: {
+            connect: {
+              id: categoryQuestions[i].id
+            }
+          }
+        }
+      })
+    })
+  })
+}
 
-// seed()
-findUnique();
 
+seed()
 module.exports = { prisma };
