@@ -2,6 +2,7 @@ const { prisma } = require("./seed");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
 const JWT = process.env.SECRET;
 
 const authenticate = async ({ username, password }) => {
@@ -44,7 +45,4 @@ const findUserByToken = async (token) => {
   return response;
 };
 
-module.exports = {
-  authenticate,
-  findUserByToken,
-};
+module.exports = { authenticate, findUserByToken };

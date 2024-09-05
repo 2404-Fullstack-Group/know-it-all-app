@@ -2,7 +2,7 @@
   "name": "know-it-all-app",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "prisma": {
-  "seed": "node db/seed.js"
+    "seed": "node db/seed.js"
   },
   "dependencies": {
     "@prisma/client": "^5.19.0",
