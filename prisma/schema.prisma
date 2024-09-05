@@ -24,6 +24,7 @@ model User {
   updated_at DateTime   @default(now())
   questions  Question[]
   reviews    Review[]
+  quizzes    Quiz[]
 }
 
 model Question {
@@ -46,6 +47,7 @@ model Question {
 
 model Quiz {
   id          String       @id @default(uuid())
+  user        User         @relation(fields: [created_by], references: [id])
   created_by  String
   created_at  DateTime     @default(now())
   updated_at  DateTime     @default(now())

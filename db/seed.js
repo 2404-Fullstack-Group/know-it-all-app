@@ -5,6 +5,32 @@ import { createRequire } from "module"
 
 const data = require("./trivia-questions.json")
 
+const categories = [
+  'General Knowledge',
+  'Geography',
+  'Society & Culture',
+  'Music',
+  'Food & Drink',
+  'Sport & Leisure',
+  'Film & TV',
+  'Science',
+  'Arts & Literature',
+  'History'
+]
+
+// const findUnique = async () => {
+//   const questions = await prisma.question.findMany({})
+//   const categories = []
+//   for (let i = 0; i<questions.length; i++) {
+//     categories.push(questions[i].category)
+//   }
+
+//   let outputArray = categories.filter(function (v, i, self) {
+
+//     return i == self.indexOf(v)})
+
+//   console.log(outputArray)
+// }
 
 const seed = async () => {
   await prisma.question.deleteMany({})
@@ -41,6 +67,20 @@ const seed = async () => {
     })
   })
 
+  categories.forEach(async (category) => {
+    // const quiz = await prisma.quiz.create({
+    //   data: {
+    //     created_by: 
+    //   }
+    // })
+    const categoryQuestions = await prisma.question.findMany({
+      where:{
+        category:category
+      }
+    
+    })
+  })
 }
 
-seed()
+// seed()
+findUnique()
