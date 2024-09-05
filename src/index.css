@@ -1,0 +1,51 @@
+/* Inter Font Family Import */
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
+}
+
+/* ---------- COLOR SETTINGS ---------- */
+:root {
+  --font-primary: "Inter";
+  --color-primary: #2e292e;
+  --color-secondary: #ffffff;
+  --color-tertiary: #6e6e6e;
+  --color-light-blue: #91dae6;
+  --color-light-green: #b3db82;
+  --color-lavender-purple: #a99dec;
+  --color-yellow: #f9d978;
+  --color-orange: #ee9d70;
+  --color-red: #ed6c89;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  font-family: var(--font-primary);
+}
+::placeholder {
+  color: var(--color-tertiary);
+}
+
+/* -------------------- ELEMENTS -------------------- */
+.button {
+  color: var(--color-primary);
+  background-color: var(--color-light-blue);
+  border: 0.05rem solid var(--color-light-blue);
+  width: fit-content;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  user-select: none; /* Standard */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+}
+.button:hover {
+  border: 0.05rem solid var(--color-secondary);
+}
+.button:active {
+  background-color: var(--color-secondary);
+}
