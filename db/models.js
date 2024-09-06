@@ -20,6 +20,7 @@ const authenticate = async ({ username, password }) => {
     throw error;
   }
   const token = await jwt.sign({ id: response[0].id }, JWT);
+  await prisma.$disconnect;
   return { token };
 };
 

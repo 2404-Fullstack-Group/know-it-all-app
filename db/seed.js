@@ -22,8 +22,8 @@ const seed = async () => {
   await prisma.quiz.deleteMany({});
   await prisma.question.deleteMany({});
   await prisma.user.deleteMany({});
-  // Creates the Admin user
 
+  // Creates the Admin user
   const user = await prisma.user.create({
     data: {
       first_name: "Ryan",
@@ -33,6 +33,7 @@ const seed = async () => {
       password: "password",
     },
   });
+
   // inputs data from trivia-questions.json into the questions table
   data.forEach(async (item) => {
     await prisma.question.create({
@@ -54,6 +55,7 @@ const seed = async () => {
       },
     });
   });
+  
   // Creates a quiz for each category that includes 10 random questions
   categories.forEach(async (category) => {
     // Creates the category quiz
