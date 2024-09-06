@@ -55,7 +55,7 @@ const seed = async () => {
       },
     });
   });
-  
+
   // Creates a quiz for each category that includes 10 random questions
   categories.forEach(async (category) => {
     // Creates the category quiz
