@@ -8,6 +8,7 @@ app.use(require("morgan")("dev"))
 
 app.use("/api/users", require("./routes/userRouter"))
 app.use("/api/questions", require("./routes/questionRouter"))
+app.use("/api/users/:user_id/questions", require("./routes/userQuestionRouter"))
 
 const init = async () => {
   app.listen(port, () => {

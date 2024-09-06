@@ -3,7 +3,7 @@ const prisma = new PrismaClient()
 const express = require("express")
 const questionRouter = express.Router()
 
-
+// Get all questions
 questionRouter.get("/", async (req, res, next) => {
   try {
     const response = await prisma.question.findMany({})
@@ -14,12 +14,13 @@ questionRouter.get("/", async (req, res, next) => {
   }
 })
 
-questionRouter.get("/:questionId", async (req, res, next) => {
+// Get question by id
+questionRouter.get("/:question_id", async (req, res, next) => {
   try {
-    const { questionId } = req.params
+    const { question_id } = req.params
     const response = await prisma.question.findMany({
       where: {
-        id: questionId
+        id: question_id
       }
     })
     res.send(response)

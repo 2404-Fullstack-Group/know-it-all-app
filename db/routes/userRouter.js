@@ -46,13 +46,13 @@ userRouter.post("/login", async (req, res, next) => {
 })
 
 // Update User
-userRouter.put("/:userId", async (req, res, next) => {
+userRouter.put("/:user_id", async (req, res, next) => {
   try {
-    const {userId} = req.params
+    const {user_id} = req.params
     const {first_name, last_name, username, email, password} = req.body
     const response = await prisma.user.update({
       where: {
-        id: userId
+        id: user_id
       },
       data: {
         first_name: first_name,
@@ -70,12 +70,12 @@ userRouter.put("/:userId", async (req, res, next) => {
 })
 
 // Delete User
-userRouter.delete("/:userId", async (req, res, next) => {
+userRouter.delete("/:user_id", async (req, res, next) => {
   try {
-    const {userId} = req.params
+    const {user_id} = req.params
     await prisma.user.delete({
       where:{
-        id:userId
+        id:user_id
       }
     })
     res.sendStatus(204)
