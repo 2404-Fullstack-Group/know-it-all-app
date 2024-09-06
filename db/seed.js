@@ -41,7 +41,6 @@ const seed = async () => {
         category: item.category,
         tags: item.tags,
         difficulty: item.difficulty,
-        regions: item.regions,
         isNiche: item.isNiche,
         question: item.question,
         correctAnswer: item.correctAnswer,
