@@ -2,9 +2,10 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const express = require("express");
 const userQuestionRouter = express.Router({ mergeParams: true });
+const { isLoggedIn } = require("../models");
 
 // Get all questions from user
-userQuestionRouter.get("/", async (req, res, next) => {
+userQuestionRouter.get("/", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id } = req.params;
     const response = await prisma.question.findMany({
@@ -20,7 +21,7 @@ userQuestionRouter.get("/", async (req, res, next) => {
 });
 
 // Create question
-userQuestionRouter.post("/", async (req, res, next) => {
+userQuestionRouter.post("/", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id } = req.params;
     const {
@@ -58,7 +59,7 @@ userQuestionRouter.post("/", async (req, res, next) => {
 });
 
 // Update question
-userQuestionRouter.put("/:question_id", async (req, res, next) => {
+userQuestionRouter.put("/:question_id", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id, question_id } = req.params;
     const {
@@ -99,20 +100,24 @@ userQuestionRouter.put("/:question_id", async (req, res, next) => {
 });
 
 // Delete question
-userQuestionRouter.delete("/:question_id", async (req, res, next) => {
-  try {
-    const { user_id, question_id } = req.params;
-    await prisma.question.delete({
-      where: {
-        id: question_id,
-        created_by: user_id,
-      },
-    });
-    res.sendStatus(204);
-    await prisma.$disconnect;
-  } catch (error) {
-    next(error);
+userQuestionRouter.delete(
+  "/:question_id",
+  isLoggedIn,
+  async (req, res, next) => {
+    try {
+      const { user_id, question_id } = req.params;
+      await prisma.question.delete({
+        where: {
+          id: question_id,
+          created_by: user_id,
+        },
+      });
+      res.sendStatus(204);
+      await prisma.$disconnect;
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 module.exports = userQuestionRouter;
