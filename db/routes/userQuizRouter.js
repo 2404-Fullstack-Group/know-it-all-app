@@ -45,6 +45,7 @@ userQuizRouter.get("/:quiz_id", isLoggedIn, async (req, res, next) => {
 userQuizRouter.post("/", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id } = req.params;
+    const { category } = req.body;
     const response = await prisma.quiz.create({
       data: {
         user: {
@@ -52,6 +53,7 @@ userQuizRouter.post("/", isLoggedIn, async (req, res, next) => {
             id: user_id,
           },
         },
+        category: category
       },
     });
     res.send(response);

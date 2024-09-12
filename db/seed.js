@@ -66,6 +66,7 @@ const seed = async () => {
             id: user.id,
           },
         },
+        category: category
       },
     });
     // find all questions from the questions table that is in a category
