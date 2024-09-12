@@ -27,6 +27,28 @@
 }
 ::placeholder {
   color: var(--color-tertiary);
+  font-family: var(--font-primary);
+}
+a {
+  text-decoration: none;
+  color: var(--color-light-blue);
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+/* -------------------- MARGIN SCALING -------------------- */
+body {
+  margin: 1rem 10%;
+}
+main {
+  margin: 0 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* -------------------- ELEMENTS -------------------- */
@@ -43,9 +65,88 @@
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
 }
+.call {
+  background-color: var(--color-orange);
+}
+.action {
+  background-color: var(--color-red);
+}
 .button:hover {
   border: 0.05rem solid var(--color-secondary);
 }
 .button:active {
   background-color: var(--color-secondary);
 }
+
+.input {
+  padding: 0.3rem 0.5rem;
+  width: 80%;
+}
+.correct {
+  background-color: var(--color-light-green);
+}
+.incorrect {
+  background-color: var(--color-red);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.label {
+  text-align: center;
+}
+/* -------------------- HEADER / NAVBAR -------------------- */
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+  a {
+    text-decoration: none;
+    color: var(--color-secondary);
+  }
+}
+/* -------------------- FORMS -------------------- */
+.question-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 20rem;
+  height: 20rem;
+  text-align: center;
+  .input {
+    align-self: center;
+  }
+}
+
+/* -------------------- TEMPLATES -------------------- */
+.auth-template {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 15rem;
+}
+.grid-template {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  .button {
+    font-size: 2rem;
+    height: 4rem;
+    width: 4rem;
+    align-self: center;
+    margin: 8rem;
+  }
+}
+
+/* -------------------- PAGES -------------------- */
