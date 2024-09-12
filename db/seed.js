@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const bcrypt = require("bcrypt")
 
 const data = require("./trivia-questions.json");
 
@@ -30,7 +31,7 @@ const seed = async () => {
       last_name: "Fuller",
       username: "Admin",
       email: "admin@knowitall.com",
-      password: "password",
+      password: await bcrypt.hash("password", 5),
     },
   });
 

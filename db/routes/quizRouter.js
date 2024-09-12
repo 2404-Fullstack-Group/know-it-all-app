@@ -18,9 +18,9 @@ quizRouter.get("/", async (req, res, next) => {
 quizRouter.get("/:quiz_id", async (req, res, next) => {
   try {
     const { quiz_id } = req.params;
-    const response = await prisma.quiz.findMany({
+    const response = await prisma.q_junction.findMany({
       where: {
-        id: quiz_id,
+        quiz_id: quiz_id,
       },
     });
     res.send(response);
