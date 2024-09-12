@@ -1,11 +1,28 @@
-import Button from "./components/elements/Button";
-import Input from "./components/elements/Input";
+// react imports
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+// component imports
+import NavBar from "./components/sections/NavBar";
+import HomePage from "./components/pages/HomePage";
+import LoginPage from "./components/pages/LoginPage";
+import RegistrationPage from "./components/pages/RegistrationPage";
+import CreateQuizPage from "./components/pages/CreateQuizPage";
 
 export default function App() {
   return (
-    <>
-      <Button text={"test"} />
-      <Input type={"password"} />
-    </>
+    <Router>
+      <header>
+        <NavBar />
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/quiz-creator" element={<CreateQuizPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegistrationPage />} />
+        </Routes>
+      </main>
+      <footer></footer>
+    </Router>
   );
 }

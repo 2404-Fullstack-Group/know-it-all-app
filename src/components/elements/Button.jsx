@@ -1,3 +1,11 @@
-export default function Button({ text }) {
-  return <div className="button">{text}</div>;
+export default function Button({ text, type, call, action, onClick }) {
+  return (
+    <button
+      className={"button" + (call ? " call" : action ? " action" : "")}
+      type={type}
+      onClick={onClick}
+    >
+      {text}
+    </button>
+  );
 }
