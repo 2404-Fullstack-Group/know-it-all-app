@@ -47,7 +47,7 @@ model Question {
 model Quiz {
   id          String       @id @default(uuid())
   user        User         @relation(fields: [created_by], references: [id])
-  category    String @default("")
+  category    String       @default("")
   created_by  String
   created_at  DateTime     @default(now())
   updated_at  DateTime     @default(now())
