@@ -2,9 +2,10 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const express = require("express");
 const userReviewRouter = express.Router({ mergeParams: true });
+const { isLoggedIn } = require("../models");
 
 // Get all reviews from user
-userReviewRouter.get("/", async (req, res, next) => {
+userReviewRouter.get("/", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id } = req.params;
     const response = await prisma.review.findMany({
@@ -20,7 +21,7 @@ userReviewRouter.get("/", async (req, res, next) => {
 });
 
 // Create review
-userReviewRouter.post("/", async (req, res, next) => {
+userReviewRouter.post("/", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id } = req.params;
     const { quiz_id, rating } = req.body;
@@ -47,7 +48,7 @@ userReviewRouter.post("/", async (req, res, next) => {
 });
 
 // Update review
-userReviewRouter.put("/:review_id", async (req, res, next) => {
+userReviewRouter.put("/:review_id", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id, review_id } = req.params;
     const { quiz_id, rating } = req.body;
@@ -77,7 +78,7 @@ userReviewRouter.put("/:review_id", async (req, res, next) => {
 });
 
 // Delete review
-userReviewRouter.delete("/:review_id", async (req, res, next) => {
+userReviewRouter.delete("/:review_id", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id, review_id } = req.params;
     await prisma.review.delete({

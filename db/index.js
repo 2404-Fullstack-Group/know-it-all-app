@@ -13,6 +13,7 @@ app.use(
   require("./routes/userQuestionRouter")
 );
 app.use("/api/quizzes", require("./routes/quizRouter"));
+app.use("/api/users/:user_id/quizzes", require("./routes/userQuizRouter"));
 app.use("/api/users/:user_id/reviews", require("./routes/userReviewRouter"));
 
 const init = async () => {
