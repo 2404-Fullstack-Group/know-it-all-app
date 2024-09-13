@@ -1,5 +1,6 @@
 // react imports
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
 
 // component imports
 import NavBar from "./components/sections/NavBar";
@@ -11,6 +12,7 @@ import BrowsePage from "./components/pages/BrowsePage";
 import AccountPage from "./components/pages/AccountPage";
 
 export default function App() {
+  const [token, setToken] = useState(null);
   return (
     <Router>
       <header>
@@ -22,7 +24,7 @@ export default function App() {
           <Route path="/browse" element={<BrowsePage />} />
           <Route path="/quiz-creator" element={<CreateQuizPage />} />
           <Route path="/account" element={<AccountPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage setToken={setToken} />} />
           <Route path="/register" element={<RegistrationPage />} />
         </Routes>
       </main>

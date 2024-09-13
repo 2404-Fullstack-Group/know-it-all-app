@@ -2,10 +2,10 @@
 import LoginForm from "../forms/LoginForm";
 import FormTemplate from "../templates/FormTemplate";
 
-export default function LoginPage() {
+export default function LoginPage( { setToken }) {
   return (
     <>
-      <FormTemplate form={<LoginForm />} />
+      <FormTemplate form={<LoginForm setToken={setToken}/>} />
     </>
   );
 }
