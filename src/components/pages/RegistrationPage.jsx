@@ -1,11 +1,11 @@
 // component imports
 import RegistrationForm from "../forms/RegistrationForm";
-import AuthTemplate from "../templates/AuthTemplate";
+import FormTemplate from "../templates/FormTemplate";
 
 export default function RegistrationPage() {
   return (
     <>
-      <AuthTemplate form={<RegistrationForm />} />
+      <FormTemplate form={<RegistrationForm />} />
     </>
   );
 }
