@@ -1,11 +1,11 @@
 // component imports
 import LoginForm from "../forms/LoginForm";
-import AuthTemplate from "../templates/AuthTemplate";
+import FormTemplate from "../templates/FormTemplate";
 
 export default function LoginPage( { setToken }) {
   return (
     <>
-      <AuthTemplate form={<LoginForm setToken={setToken}/>} />
+      <FormTemplate form={<LoginForm setToken={setToken}/>} />
     </>
   );
 }
