@@ -7,6 +7,8 @@ import HomePage from "./components/pages/HomePage";
 import LoginPage from "./components/pages/LoginPage";
 import RegistrationPage from "./components/pages/RegistrationPage";
 import CreateQuizPage from "./components/pages/CreateQuizPage";
+import BrowsePage from "./components/pages/BrowsePage";
+import AccountPage from "./components/pages/AccountPage";
 
 export default function App() {
   return (
@@ -17,7 +19,9 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/browse" element={<BrowsePage />} />
           <Route path="/quiz-creator" element={<CreateQuizPage />} />
+          <Route path="/account" element={<AccountPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
         </Routes>

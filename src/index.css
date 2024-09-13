@@ -97,6 +97,31 @@ main {
 .label {
   text-align: center;
 }
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+  background-color: var(--color-primary);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  text-align: center;
+  user-select: none; /* Standard */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  img {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+.menu-item:hover {
+  filter: brightness(150%);
+}
 /* -------------------- HEADER / NAVBAR -------------------- */
 .nav-bar {
   display: flex;
@@ -109,6 +134,9 @@ main {
   a {
     text-decoration: none;
     color: var(--color-secondary);
+    h1 {
+      font-weight: 500;
+    }
   }
 }
 /* -------------------- FORMS -------------------- */
