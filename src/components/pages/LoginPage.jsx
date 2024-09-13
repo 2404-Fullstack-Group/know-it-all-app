@@ -1,11 +1,11 @@
 // component imports
 import LoginForm from "../forms/LoginForm";
-import AuthTemplate from "../templates/AuthTemplate";
+import FormTemplate from "../templates/FormTemplate";
 
 export default function LoginPage() {
   return (
     <>
-      <AuthTemplate form={<LoginForm />} />
+      <FormTemplate form={<LoginForm />} />
     </>
   );
 }

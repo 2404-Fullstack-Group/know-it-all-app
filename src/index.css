@@ -50,6 +50,9 @@ main {
   flex-direction: column;
   align-items: center;
 }
+select {
+  padding: 0.3rem 0.5rem;
+}
 
 /* -------------------- ELEMENTS -------------------- */
 .button {
@@ -140,20 +143,36 @@ main {
   }
 }
 /* -------------------- FORMS -------------------- */
+.form-header {
+  display: flex;
+  width: 100%;
+}
 .question-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  width: 20rem;
-  height: 20rem;
-  text-align: center;
-  .input {
-    align-self: center;
-  }
+  width: 50rem;
+}
+.question-form-container {
+  display: flex;
+  justify-content: center;
+}
+.question-details {
+  flex: 3;
+}
+.question-aside {
+  flex: 1;
+}
+.question-aside,
+.question-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0.2rem;
 }
 
 /* -------------------- TEMPLATES -------------------- */
-.auth-template {
+.form-template {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -161,7 +180,6 @@ main {
   color: var(--color-primary);
   border-radius: 1rem;
   padding: 1rem;
-  width: 15rem;
 }
 .grid-template {
   display: flex;
