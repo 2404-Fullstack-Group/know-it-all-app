@@ -45,51 +45,53 @@ userQuizRouter.get("/:quiz_id", isLoggedIn, async (req, res, next) => {
 userQuizRouter.post("/", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id } = req.params;
-    const { category } = req.body;
-    const response = await prisma.quiz.create({
+    const { category, questions } = req.body;
+    const quiz = await prisma.quiz.create({
       data: {
         user: {
           connect: {
             id: user_id,
           },
         },
-        category: category
+        category: category,
       },
     });
-    res.send(response);
-    res.send(response);
+    questions.forEach(async (question) => {
+      await prisma.q_junction.create({
+        data: {
+          quiz: {
+            connect: {
+              id: quiz.id,
+            },
+          },
+          question: {
+            create: {
+              category: question.category,
+              tags: question.tags,
+              difficulty: question.difficulty,
+              isNiche: question.isNiche,
+              question: question.question,
+              correctAnswer: question.correctAnswer,
+              incorrectAnswers: question.incorrectAnswers,
+              type: question.type,
+              user: {
+                connect: {
+                  id: user_id,
+                },
+              },
+            },
+          },
+        },
+      });
+    });
+
+    res.send(quiz);
   } catch (error) {
     next(error);
   }
 });
 
-// Add questions to quiz
-userQuizRouter.post("/:quiz_id", isLoggedIn, async (req, res, next) => {
-  try {
-    const { quiz_id } = req.params;
-    const { question_id } = req.body;
-
-    const response = await prisma.q_junction.create({
-      data: {
-        quiz: {
-          connect: {
-            id: quiz_id,
-          },
-        },
-        question: {
-          connect: {
-            id: question_id,
-          },
-        },
-      },
-    });
-    res.send(response);
-  } catch (error) {
-    next(error);
-  }
-});
-
-// Delete question from quiz
+// Delete question from quiz or Delete entire Quiz
 userQuizRouter.delete("/:quiz_id", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id, quiz_id } = req.params;
@@ -100,22 +102,44 @@ userQuizRouter.delete("/:quiz_id", isLoggedIn, async (req, res, next) => {
         id: quiz_id,
       },
     });
-    console.log(quizResponse);
-    console.log(quizResponse.created_by);
     if (!(user_id === quizResponse[0].created_by)) {
       const error = Error("not authorized");
       error.status = 401;
       throw error;
     }
-
-    await prisma.q_junction.delete({
-      where: {
-        quiz_id_question_id: {
-          quiz_id: quiz_id,
-          question_id: question_id,
+    // If question_id exist then delete the question from the quiz
+    // If question_id doesn't exist then delete quiz
+    if (question_id) {
+      await prisma.q_junction.delete({
+        where: {
+          quiz_id_question_id: {
+            quiz_id: quiz_id,
+            question_id: question_id,
+          },
         },
-      },
-    });
+      });
+    } else {
+      const entries = await prisma.q_junction.findMany({
+        where: {
+          quiz_id: quiz_id
+        }
+      })
+      entries.forEach(async (entry) => {
+        await prisma.q_junction.delete({
+          where: {
+            quiz_id_question_id: {
+              quiz_id: entry.quiz_id,
+              question_id: entry.question_id
+            },
+          },
+        });
+      })
+      await prisma.quiz.delete({
+        where: {
+          id: quiz_id
+        }
+      })
+    }
     res.sendStatus(204);
   } catch (error) {
     next(error);
