@@ -1,26 +1,32 @@
 // react imports
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // component imports
-import Button from "../elements/Button";
-import Input from "../elements/Input";
-import Label from "../elements/Label";
-import Title from "../elements/Title";
+import { JSXSpan, JSXButton, JSXInput } from "../Elements.jsx";
 
 export default function RegistrationForm() {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   return (
-    <form className="registration-form">
-      <Title text="Register" />
-      <Input type="text" name="firstName" placeholder="first name" />
-      <Input type="text" name="lastName" placeholder="last name" />
-      <Input type="email" name="email" placeholder="email" />
-      <Input type="text" name="username" placeholder="username" />
-      <Input type="password" name="password" placeholder="password" />
-      <Button text="create account" />
-      <Label
+    <form>
+      <h2>
+        <JSXSpan text="Create An Account" />
+      </h2>
+      <JSXInput type="text" placeholder="first name" />
+      <JSXInput type="text" placeholder="last name" />
+      <JSXInput type="text" placeholder="username" />
+      <JSXInput type="email" placeholder="email" />
+      <JSXInput type="password" placeholder="password" />
+      <JSXInput
+        type={isPasswordVisible ? "text" : "password"}
+        placeholder="confirm password"
+      />
+      <JSXButton text="Create Account" />
+      <JSXSpan
         text={
           <>
-            Already have an account? <Link to="/login">Login here.</Link>
+            Already have an account? <Link to="/login">Login Here.</Link>
           </>
         }
       />
