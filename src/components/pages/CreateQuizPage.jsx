@@ -1,10 +1,7 @@
-import QuizCreatorForm from "../forms/QuizCreatorForm";
-import FormTemplate from "../templates/FormTemplate";
+// component imports
+import { SectionForm } from "../templates/FormTemplates";
+import QuizForm from "../forms/QuizForm";
 
 export default function CreateQuizPage() {
-  return (
-    <>
-      <FormTemplate form={<QuizCreatorForm />} />
-    </>
-  );
+  return <SectionForm form={<QuizForm />} />;
 }
