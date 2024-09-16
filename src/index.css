@@ -56,6 +56,16 @@ form {
   flex-direction: column;
   gap: 1rem;
 }
+.quiz-result-correct {
+  .result {
+    color: var(--color-success);
+  }
+}
+.quiz-result-incorrect {
+  .result {
+    color: var(--color-error);
+  }
+}
 /* --------------- FORMS --------------- */
 /* ----- QuestionForm */
 .question-form {
