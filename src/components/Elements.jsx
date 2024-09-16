@@ -6,15 +6,17 @@ function JSXButton({ text, type, onClick }) {
   );
 }
 
-function JSXInput({ type, name, value, placeholder, onChange }) {
+function JSXInput({ id, type, name, value, placeholder, onChange, checked }) {
   return (
     <input
+      id={id}
       className="jsx-input"
       type={type}
       name={name}
       value={value}
       placeholder={placeholder}
       onChange={onChange}
+      checked={checked}
     />
   );
 }
