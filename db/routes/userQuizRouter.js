@@ -69,7 +69,6 @@ userQuizRouter.post("/", isLoggedIn, async (req, res, next) => {
               category: question.category,
               tags: question.tags,
               difficulty: question.difficulty,
-              isNiche: question.isNiche,
               question: question.question,
               correctAnswer: question.correctAnswer,
               incorrectAnswers: question.incorrectAnswers,

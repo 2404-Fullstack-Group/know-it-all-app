@@ -32,7 +32,6 @@ model Question {
   category         String
   tags             String[]
   difficulty       String
-  isNiche          Boolean
   question         String
   correctAnswer    String
   incorrectAnswers String[]

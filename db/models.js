@@ -21,11 +21,12 @@ const authenticate = async ({ username, password }) => {
   }
   const token = await jwt.sign({ id: response[0].id }, JWT);
   await prisma.$disconnect;
-  return { token };
+  return { token: token, user: await findUserByToken(`Bearer ${token}`) };
 };
 
 const findUserByToken = async (token) => {
   try {
+    console.log(`token: ${token}`)
     const tokenSplit = token.split(" ")[1];
     const payload = await jwt.verify(tokenSplit, JWT);
     const id = payload.id;
@@ -41,7 +42,7 @@ const findUserByToken = async (token) => {
     }
     return response;
   } catch (ex) {
-    const error = Error("not authorized");
+    const error = Error("not2 authorized");
     error.status = 401;
     throw error;
   }
