@@ -26,7 +26,7 @@ const authenticate = async ({ username, password }) => {
 
 const findUserByToken = async (token) => {
   try {
-    console.log(`token: ${token}`)
+    console.log(`token: ${token}`);
     const tokenSplit = token.split(" ")[1];
     const payload = await jwt.verify(tokenSplit, JWT);
     const id = payload.id;
@@ -42,7 +42,7 @@ const findUserByToken = async (token) => {
     }
     return response;
   } catch (ex) {
-    const error = Error("not2 authorized");
+    const error = Error("not authorized");
     error.status = 401;
     throw error;
   }
