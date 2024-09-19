@@ -66,6 +66,10 @@ form {
     color: var(--color-error);
   }
 }
+/* ----- QuizCard */
+.quiz-card {
+  border: 1px solid black;
+}
 /* --------------- FORMS --------------- */
 /* ----- QuestionForm */
 .question-form {
@@ -105,3 +109,8 @@ form {
 /* --------------- PAGES --------------- */
 
 /* --------------- TEMPLATES --------------- */
+.grid-template {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

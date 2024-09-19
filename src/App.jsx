@@ -24,7 +24,7 @@ export default function App() {
           <Route path="/quizzes" element={<QuizPage />} />
           <Route path="/create-quiz" element={<CreateQuizPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage setToken={setToken} />} />
           <Route path="/register" element={<RegistrationPage />} />
         </Routes>
       </main>
