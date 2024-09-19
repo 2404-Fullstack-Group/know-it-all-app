@@ -7,6 +7,9 @@ const shuffleArray = (array) => {
 };
 
 export default function Quiz({ quiz }) {
+  // set quiz-difficulty
+  const [difficulty, setDifficulty] = useState(null);
+
   // shuffle questions on component load
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
 
@@ -22,11 +25,44 @@ export default function Quiz({ quiz }) {
     const shuffled = shuffleArray(quiz.questions);
     setShuffledQuestions(shuffled);
     setStartTime(Date.now()); // start timer
-  }, []);
+  }, [quiz.questions]);
+
+  // set difficulty AFTER questions are loaded
+  useEffect(() => {
+    if (shuffledQuestions.length > 0) {
+      setDifficulty(getDifficulty());
+    }
+  }, [shuffledQuestions]);
+
+  useEffect(() => {
+    console.log(results);
+  }, [results]);
+
+  // find difficulty (find mode) (returns harder difficulty in event of tie)
+  // CHANGE TO AVERAGE LOGIC
+  const getDifficulty = () => {
+    const difficultyCounts = { easy: 0, medium: 0, hard: 0 };
+    shuffledQuestions.forEach((question) => {
+      difficultyCounts[question.difficulty] += 1;
+    });
+    const maxCount = Math.max(
+      difficultyCounts.easy,
+      difficultyCounts.medium,
+      difficultyCounts.hard
+    );
+    if (difficultyCounts.hard === maxCount) {
+      return "Hard";
+    } else if (difficultyCounts.medium === maxCount) {
+      return "Medium";
+    } else {
+      return "Easy";
+    }
+  };
 
   // handle quiz-submission
   const handleSubmit = () => {
-    setEndTime(Date.now()); // stop timer
+    const now = Date.now();
+    setEndTime(now); // stop timer
     const quizResults = shuffledQuestions.map((question) => ({
       question: question.question,
       correctAnswer: question.correctAnswer,
@@ -46,13 +82,13 @@ export default function Quiz({ quiz }) {
 
   // calculate timer and render result
   const getTimeTaken = () => {
-    if (startTime && endTime) {
+    if (startTime && endTime && endTime >= startTime) {
       const timeDiff = endTime - startTime; // milliseconds
       const seconds = Math.floor((timeDiff / 1000) % 60);
       const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
       return `${minutes} minute(s) and ${seconds} second(s)`;
     }
-    return null;
+    return "Invalid Time";
   };
 
   // calculate score and render result
@@ -65,27 +101,39 @@ export default function Quiz({ quiz }) {
 
   return (
     <div className="quiz">
-      <h2>
-        <JSXSpan text={`${quiz.category} Quiz`} />
-      </h2>
-      {shuffledQuestions.map((question) => (
-        <Question
-          key={question.id}
-          question={question}
-          selectedAnswer={userAnswers[question.id]}
-          onAnswerChange={handleAnswerChange}
-        />
-      ))}
-      <JSXButton text="Submit" onClick={handleSubmit} />
+      <header>
+        <h2>
+          <JSXSpan text={`${quiz.category} Quiz`} />
+        </h2>
+        <div>
+          <strong>Difficulty:</strong>&nbsp;
+          <JSXSpan text={difficulty} />
+        </div>
+      </header>
+      {!results ? (
+        <>
+          {shuffledQuestions.map((question) => (
+            <Question
+              key={question.id}
+              question={question}
+              selectedAnswer={userAnswers[question.id]}
+              onAnswerChange={handleAnswerChange}
+            />
+          ))}
+          <hr />
+          <JSXButton text="Submit" onClick={handleSubmit} />
+        </>
+      ) : null}
       {results && (
         <div className="results">
-          <h2>Results</h2>
+          <h3>Results</h3>
           <p>
             <strong>Score:</strong> {getScore()}
           </p>
           <p>
             <strong>Time Taken:</strong> {getTimeTaken()}
           </p>
+          <hr />
           {results.map((result, index) => (
             <div
               key={index}

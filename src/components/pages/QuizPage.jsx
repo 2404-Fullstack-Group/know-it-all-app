@@ -4,7 +4,46 @@ const testQuiz = {
   questions: [
     {
       category: "Science",
-      id: "646339ce01d576cfac3aa3b5",
+      id: "646339ce01d576fdasfdascfac3aa3b5",
+      correctAnswer: "Ritalin",
+      incorrectAnswers: ["Amoxicillin", "Prozac", "Zoloft"],
+      question:
+        "Which of these medicines is often used to treat attention deficit hyperactivity disorder?",
+      tags: ["pharmaceuticals", "drugs", "medicine", "psychology", "science"],
+      type: "Multiple Choice",
+      difficulty: "medium",
+      regions: [],
+      isNiche: false,
+    },
+    {
+      category: "Science",
+      id: "646339ce01dfadsfads576cfac3aa3b5",
+      correctAnswer: "Ritalin",
+      incorrectAnswers: ["Amoxicillin", "Prozac", "Zoloft"],
+      question:
+        "Which of these medicines is often used to treat attention deficit hyperactivity disorder?",
+      tags: ["pharmaceuticals", "drugs", "medicine", "psychology", "science"],
+      type: "Multiple Choice",
+      difficulty: "medium",
+      regions: [],
+      isNiche: false,
+    },
+    {
+      category: "Science",
+      id: "646339ce01d5adsfads76cfac3aa3b5",
+      correctAnswer: "Ritalin",
+      incorrectAnswers: ["Amoxicillin", "Prozac", "Zoloft"],
+      question:
+        "Which of these medicines is often used to treat attention deficit hyperactivity disorder?",
+      tags: ["pharmaceuticals", "drugs", "medicine", "psychology", "science"],
+      type: "Multiple Choice",
+      difficulty: "medium",
+      regions: [],
+      isNiche: false,
+    },
+    {
+      category: "Science",
+      id: "646339ce01dvxdfvcx576cfac3aa3b5",
       correctAnswer: "Ritalin",
       incorrectAnswers: ["Amoxicillin", "Prozac", "Zoloft"],
       question:
