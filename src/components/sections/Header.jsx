@@ -13,7 +13,7 @@ export default function Header() {
         </h1>
       </Link>
       <nav>
-        <Link to="/">
+        <Link to="/browse">
           <JSXButton text="Browse" />
         </Link>
         <Link to="/quizzes">

@@ -9,6 +9,7 @@ import BrowsePage from "./components/pages/BrowsePage";
 import CreateQuizPage from "./components/pages/CreateQuizPage";
 import ProfilePage from "./components/pages/ProfilePage";
 import RegistrationPage from "./components/pages/RegistrationPage";
+import QuizPage from "./components/pages/QuizPage";
 
 export default function App() {
   const [token, setToken] = useState(null);
@@ -19,7 +20,8 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/quizzes" element={<BrowsePage />} />
+          <Route path="/browse" element={<BrowsePage />} />
+          <Route path="/quizzes" element={<QuizPage />} />
           <Route path="/create-quiz" element={<CreateQuizPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/login" element={<LoginPage />} />
