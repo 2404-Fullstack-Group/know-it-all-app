@@ -1,12 +1,15 @@
 // react imports
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // component imports
 import { ArticleForm } from "../templates/FormTemplates.jsx";
 import { JSXSpan, JSXButton } from "../Elements.jsx";
 import QuestionForm from "./QuestionForm.jsx";
 
-export default function QuizForm() {
+import axios from "axios";
+
+export default function QuizForm({ userId, token }) {
   const [quizData, setQuizData] = useState({
     category: "",
     questions: Array(5).fill({
@@ -16,8 +19,10 @@ export default function QuizForm() {
       correctAnswer: "",
       incorrectAnswers: Array(3).fill(""),
       tags: Array(3).fill(""),
+      type: "Multiple Choice",
     }),
   });
+  const navigate = useNavigate()
 
   const addQuestion = (event) => {
     event.preventDefault();
@@ -33,6 +38,7 @@ export default function QuizForm() {
             correctAnswer: "",
             incorrectAnswers: Array(3).fill(""),
             tags: Array(3).fill(""),
+            type: "Multiple Choice",
           },
         ],
       }));
@@ -64,9 +70,22 @@ export default function QuizForm() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(quizData);
+    console.log(token);
+    await axios.post(
+      `http://localhost:3000/api/users/${userId}/quizzes`,
+      {
+        category: quizData.category,
+        questions: quizData.questions,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    
   };
 
   return (

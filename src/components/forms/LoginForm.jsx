@@ -3,23 +3,25 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"
 
+
 // component imports
 import { JSXSpan, JSXButton, JSXInput } from "../Elements.jsx";
 
 
-export default function LoginForm({ setToken }) {
+export default function LoginForm({ setToken, setUserId }) {
   const [username, setUsername] = useState(null)
   const [password, setPassword] = useState(null)
-  const navigate = useNavigate()
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const navigate = useNavigate()
 
   const handleOnClick = async (e) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:3000/api/users/login", {
+    const response = await axios.post(`http://localhost:3000/api/users/login`, {
       username: username,
       password: password
     })
     setToken(response.data.token)
+    setUserId(response.data.user[0].id)
     navigate("/")
   }
 
