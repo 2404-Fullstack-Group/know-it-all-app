@@ -69,7 +69,6 @@ userQuizRouter.post("/", isLoggedIn, async (req, res, next) => {
               category: question.category,
               tags: question.tags,
               difficulty: question.difficulty,
-              isNiche: question.isNiche,
               question: question.question,
               correctAnswer: question.correctAnswer,
               incorrectAnswers: question.incorrectAnswers,
@@ -121,24 +120,24 @@ userQuizRouter.delete("/:quiz_id", isLoggedIn, async (req, res, next) => {
     } else {
       const entries = await prisma.q_junction.findMany({
         where: {
-          quiz_id: quiz_id
-        }
-      })
+          quiz_id: quiz_id,
+        },
+      });
       entries.forEach(async (entry) => {
         await prisma.q_junction.delete({
           where: {
             quiz_id_question_id: {
               quiz_id: entry.quiz_id,
-              question_id: entry.question_id
+              question_id: entry.question_id,
             },
           },
         });
-      })
+      });
       await prisma.quiz.delete({
         where: {
-          id: quiz_id
-        }
-      })
+          id: quiz_id,
+        },
+      });
     }
     res.sendStatus(204);
   } catch (error) {

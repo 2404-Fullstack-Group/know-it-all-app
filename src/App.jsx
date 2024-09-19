@@ -13,6 +13,7 @@ import QuizPage from "./components/pages/QuizPage";
 
 export default function App() {
   const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   return (
     <Router>
@@ -22,9 +23,15 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/browse" element={<BrowsePage />} />
           <Route path="/quizzes" element={<QuizPage />} />
-          <Route path="/create-quiz" element={<CreateQuizPage />} />
+          <Route
+            path="/create-quiz"
+            element={<CreateQuizPage userId={userId} token={token} />}
+          />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login"
+            element={<LoginPage setToken={setToken} setUserId={setUserId} />}
+          />
           <Route path="/register" element={<RegistrationPage />} />
         </Routes>
       </main>

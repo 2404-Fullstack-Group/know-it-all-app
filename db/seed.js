@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 
 const data = require("./trivia-questions.json");
 
@@ -42,7 +42,6 @@ const seed = async () => {
         category: item.category,
         tags: item.tags,
         difficulty: item.difficulty,
-        isNiche: item.isNiche,
         question: item.question,
         correctAnswer: item.correctAnswer,
         incorrectAnswers: item.incorrectAnswers,
@@ -66,7 +65,7 @@ const seed = async () => {
             id: user.id,
           },
         },
-        category: category
+        category: category,
       },
     });
     // find all questions from the questions table that is in a category
