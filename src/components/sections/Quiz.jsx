@@ -22,7 +22,6 @@ export default function Quiz({ quiz }) {
   const [endTime, setEndTime] = useState(null);
 
   useEffect(() => {
-    console.log(quiz);
     const shuffled = shuffleArray(quiz.questions);
     setShuffledQuestions(shuffled);
     setStartTime(Date.now()); // start timer
@@ -39,24 +38,39 @@ export default function Quiz({ quiz }) {
     console.log(results);
   }, [results]);
 
-  // find difficulty (find mode) (returns harder difficulty in event of tie)
-  // CHANGE TO AVERAGE LOGIC
+  // find quiz difficulty
   const getDifficulty = () => {
+    const difficultyValues = { easy: 1, medium: 3, hard: 5 };
     const difficultyCounts = { easy: 0, medium: 0, hard: 0 };
+
+    // count difficulties
     shuffledQuestions.forEach((question) => {
       difficultyCounts[question.difficulty] += 1;
     });
-    const maxCount = Math.max(
-      difficultyCounts.easy,
-      difficultyCounts.medium,
-      difficultyCounts.hard
-    );
-    if (difficultyCounts.hard === maxCount) {
-      return "Hard";
-    } else if (difficultyCounts.medium === maxCount) {
-      return "Medium";
-    } else {
+
+    // calc totals (scores and questions)
+    let totalScore = 0;
+    let totalCount = 0;
+
+    for (const difficulty in difficultyCounts) {
+      totalScore += difficultyCounts[difficulty] * difficultyValues[difficulty];
+      totalCount += difficultyCounts[difficulty];
+    }
+
+    // calc avg
+    const averageDifficulty = totalCount ? totalScore / totalCount : 0;
+
+    // label difficulty
+    if (averageDifficulty === 1) {
+      return "Very Easy";
+    } else if (averageDifficulty > 1 && averageDifficulty <= 2.499) {
       return "Easy";
+    } else if (averageDifficulty > 2.499 && averageDifficulty <= 3.599) {
+      return "Medium";
+    } else if (averageDifficulty > 3.599 && averageDifficulty < 4.999) {
+      return "Hard";
+    } else if (averageDifficulty === 5) {
+      return "Very Hard";
     }
   };
 
@@ -175,6 +189,7 @@ function Question({ question, selectedAnswer, onAnswerChange }) {
       {shuffledAnswers.map((answer, index) => (
         <label key={index}>
           <JSXInput
+            key={index}
             type="radio"
             name={`question-${question.id}`}
             value={answer}
