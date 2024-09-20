@@ -20,9 +20,9 @@ export default function App() {
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/browse" element={<BrowsePage />} />
-          <Route path="/quizzes" element={<QuizPage />} />
+          <Route path="/" element={<BrowsePage />} />
+          <Route path="/quizzes/:quiz_id" element={<QuizPage />} />
+          {/* <Route path="/quizzes" element={<QuizPage />} /> */}
           <Route
             path="/create-quiz"
             element={<CreateQuizPage userId={userId} token={token} />}

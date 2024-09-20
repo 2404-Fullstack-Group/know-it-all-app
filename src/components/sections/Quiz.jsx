@@ -22,6 +22,7 @@ export default function Quiz({ quiz }) {
   const [endTime, setEndTime] = useState(null);
 
   useEffect(() => {
+    console.log(quiz);
     const shuffled = shuffleArray(quiz.questions);
     setShuffledQuestions(shuffled);
     setStartTime(Date.now()); // start timer

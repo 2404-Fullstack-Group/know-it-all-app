@@ -1,9 +1,13 @@
 // react imports
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
+// component imports
+import { JSXButton } from "../Elements";
+
 export default function QuizCard({ quiz_id }) {
-  const [quiz, setQuiz] = useState([]);
+  const [quiz, setQuiz] = useState(null); // Change to null
 
   const loadQuiz = async () => {
     const response = await axios.get(
@@ -13,13 +17,16 @@ export default function QuizCard({ quiz_id }) {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      await loadQuiz();
-    };
-    fetchData();
-    console.log(quiz);
-  }, []);
+    loadQuiz();
+  }, [quiz_id]); // Add quiz_id as a dependency
+
   return (
-    <div className="quiz-card">{quiz[0] ? <p>{quiz[0].quiz_id}</p> : null}</div>
+    <div className="quiz-card">
+      {quiz ? <p>{quiz.category}</p> : <p>Loading quiz...</p>}{" "}
+      {/* Display the quiz category */}
+      <Link to={`/quizzes/${quiz_id}`}>
+        <JSXButton text="play" />
+      </Link>
+    </div>
   );
 }
