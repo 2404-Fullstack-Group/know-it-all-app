@@ -20,7 +20,8 @@ export default function App() {
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<BrowsePage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/browse" element={<BrowsePage />} />
           <Route path="/quizzes/:quiz_id" element={<QuizPage />} />
           {/* <Route path="/quizzes" element={<QuizPage />} /> */}
           <Route
