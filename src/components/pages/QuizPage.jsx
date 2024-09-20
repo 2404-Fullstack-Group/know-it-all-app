@@ -114,7 +114,7 @@ import Quiz from "../sections/Quiz";
 export default function QuizPage() {
   const { quiz_id } = useParams();
   const [quiz, setQuiz] = useState({
-    category: "",
+    quiz_id: "",
     questions: Array(1).fill({
       category: "",
       difficulty: "",
