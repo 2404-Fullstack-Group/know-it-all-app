@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <Router>
-      <Header />
+      <Header token={token} setToken={setToken} setUserId={setUserId}/>
       <main>
         <Routes>
           <Route path="/" element={<BrowsePage />} />

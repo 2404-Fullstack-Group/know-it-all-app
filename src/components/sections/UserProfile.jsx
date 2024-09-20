@@ -1,3 +1,7 @@
+// component imports
+
 export default function UserProfile() {
-  return <div className="user-profile"></div>;
+  return <div className="user-profile">
+    
+  </div>;
 }

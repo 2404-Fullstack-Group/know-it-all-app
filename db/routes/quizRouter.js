@@ -28,6 +28,7 @@ quizRouter.get("/:quiz_id", async (req, res, next) => {
     });
     const finalResponse = {
       quiz_id: response[0].quiz_id,
+      category: response[0].question.category,
       questions: response.map(({ question }) => question),
     };
     res.send(finalResponse);
