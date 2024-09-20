@@ -1,4 +1,3 @@
-import Quiz from "../sections/Quiz";
 const testQuiz = {
   category: "Science",
   questions: [
@@ -13,7 +12,6 @@ const testQuiz = {
       type: "Multiple Choice",
       difficulty: "medium",
       regions: [],
-      isNiche: false,
     },
     {
       category: "Science",
@@ -26,7 +24,6 @@ const testQuiz = {
       type: "Multiple Choice",
       difficulty: "medium",
       regions: [],
-      isNiche: false,
     },
     {
       category: "Science",
@@ -39,7 +36,6 @@ const testQuiz = {
       type: "Multiple Choice",
       difficulty: "medium",
       regions: [],
-      isNiche: false,
     },
     {
       category: "Science",
@@ -52,7 +48,6 @@ const testQuiz = {
       type: "Multiple Choice",
       difficulty: "medium",
       regions: [],
-      isNiche: false,
     },
     {
       category: "Science",
@@ -65,7 +60,6 @@ const testQuiz = {
       type: "Multiple Choice",
       difficulty: "medium",
       regions: [],
-      isNiche: false,
     },
     {
       category: "Science",
@@ -82,7 +76,6 @@ const testQuiz = {
       type: "Multiple Choice",
       difficulty: "hard",
       regions: [],
-      isNiche: false,
     },
     {
       category: "Science",
@@ -95,7 +88,6 @@ const testQuiz = {
       type: "Multiple Choice",
       difficulty: "medium",
       regions: [],
-      isNiche: false,
     },
     {
       category: "Science",
@@ -107,11 +99,47 @@ const testQuiz = {
       type: "Multiple Choice",
       difficulty: "hard",
       regions: [],
-      isNiche: false,
     },
   ],
 };
 
+// react imports
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+// component imports
+import Quiz from "../sections/Quiz";
+
 export default function QuizPage() {
-  return <Quiz quiz={testQuiz} />;
+  const { quiz_id } = useParams();
+  const [quiz, setQuiz] = useState({
+    category: "",
+    questions: Array(1).fill({
+      category: "",
+      difficulty: "",
+      question: "",
+      correctAnswer: "",
+      incorrectAnswers: Array(3).fill(""),
+      tags: Array(3).fill(""),
+      type: "Multiple Choice",
+    }),
+  });
+
+  const loadQuiz = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/quizzes/${quiz_id}`
+      );
+      setQuiz(response.data);
+    } catch (error) {
+      console.error("Error loading quiz:", error);
+    }
+  };
+
+  useEffect(() => {
+    loadQuiz();
+  }, [quiz_id]);
+
+  return <div>{quiz ? <Quiz quiz={quiz} /> : <p>Loading quiz...</p>}</div>;
 }

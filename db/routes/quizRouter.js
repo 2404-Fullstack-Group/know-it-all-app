@@ -22,10 +22,17 @@ quizRouter.get("/:quiz_id", async (req, res, next) => {
       where: {
         quiz_id: quiz_id,
       },
+      include: {
+        question: true,
+      },
     });
-    res.send(response);
-    await prisma.$disconnect;
+    const finalResponse = {
+      quiz_id: response[0].quiz_id,
+      questions: response.map(({ question }) => question),
+    };
+    res.send(finalResponse);
   } catch (error) {
+    console.error("Error fetching quiz:", error);
     next(error);
   }
 });
