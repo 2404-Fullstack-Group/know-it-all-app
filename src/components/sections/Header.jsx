@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 // component imports
 import { JSXSpan, JSXButton } from "../Elements.jsx";
 
-export default function Header({ token, setToken, setUserId }) {
-
+export default function Header({ token, setToken, userId, setUserId }) {
   const handleClick = () => {
-    setToken(null)
-    setUserId(null)
-  }
+    setToken(null);
+    setUserId(null);
+  };
   return (
     <header className="site-header">
       <Link to="/">
@@ -28,13 +27,13 @@ export default function Header({ token, setToken, setUserId }) {
           <JSXButton text="Create" />
         </Link>
         {token ? (
-          <Link to="/profile">
+          <Link to={`/profile/${userId}`}>
             <JSXButton text="Profile" />
           </Link>
         ) : null}
         {token ? (
           <Link to="/">
-            <JSXButton text="Logout" onClick={handleClick}/>
+            <JSXButton text="Logout" onClick={handleClick} />
           </Link>
         ) : (
           <Link to="/login">
