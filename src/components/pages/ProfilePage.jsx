@@ -9,6 +9,7 @@ import axios from "axios";
 export default function ProfilePage({ token }) {
   const { user_id } = useParams();
   const [userData, setUserData] = useState("");
+  const [userQuizList, setUserQuizList] = useState([]);
 
   const getUserInfo = async () => {
     const response = await axios.get(
@@ -22,8 +23,21 @@ export default function ProfilePage({ token }) {
     setUserData(response.data);
   };
 
+  const loadQuizzes = async () => {
+    const response = await axios.get(
+      `http://localhost:3000/api/users/${user_id}/quizzes`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setUserQuizList(response.data);
+  };
+
   useEffect(() => {
     getUserInfo();
+    loadQuizzes();
   }, []);
   return (
     <>
@@ -31,7 +45,10 @@ export default function ProfilePage({ token }) {
         <JSXSpan text="My Profile" />
       </h2>
       <UserProfile userData={userData} setUserData={setUserData} />
-      <UserQuizzes />
+      <h2>
+        <JSXSpan text="My Quizzes" />
+      </h2>
+      <UserQuizzes userQuizList={userQuizList} />
     </>
   );
 }
