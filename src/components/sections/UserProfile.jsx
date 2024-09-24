@@ -2,20 +2,10 @@
 import axios from "axios";
 import ProfileForm from "../forms/ProfileForm";
 import { useNavigate } from "react-router-dom";
+import { JSXSpan, JSXButton } from "../Elements"
 
 export default function UserProfile({ userData, setUserData }) {
   const navigate = useNavigate();
-  const updateEntry = async (username) => {
-    console.log("userData")
-    const response = await axios.put(
-      `http://localhost:3000/api/users/${userData.id}`,
-      {
-        username: username,
-      }
-    );
-    console.log("Put")
-    console.log(response)
-  };
 
   const handleUsernameChange = async (changedUsername) => {
     console.log(changedUsername);
@@ -34,12 +24,23 @@ export default function UserProfile({ userData, setUserData }) {
   };
   return (
     <div className="user-profile">
-      <ProfileForm
-        userData={userData}
-        setUsername={setUserData}
-        field={"username"}
-        onClick={() => handleUsernameChange("Admin2")}
-      />
+      <div className="profile-username">
+        <JSXSpan text="Username:"/>
+        <JSXSpan text={userData.username}/>
+      </div>
+      <div className="profile-firstname">
+        <JSXSpan text="First Name:"/>
+        <JSXSpan text={userData.first_name}/>
+      </div>
+      <div className="profile-lastname">
+        <JSXSpan text="Last Name:"/>
+        <JSXSpan text={userData.last_name}/>
+      </div>
+      <div className="profile-email">
+        <JSXSpan text="Email:"/>
+        <JSXSpan text={userData.email}/>
+      </div>
+      <JSXButton text={"Change Account Information"} />
     </div>
   );
 }

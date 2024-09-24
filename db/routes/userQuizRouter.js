@@ -14,6 +14,7 @@ userQuizRouter.get("/", isLoggedIn, async (req, res, next) => {
       },
     });
     res.send(response);
+    await prisma.$disconnect
   } catch (error) {
     next(error);
   }
