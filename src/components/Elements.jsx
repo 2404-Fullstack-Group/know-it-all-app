@@ -25,4 +25,15 @@ function JSXSpan({ text }) {
   return <span className="jsx-span">{text}</span>;
 }
 
-export { JSXButton, JSXInput, JSXSpan };
+function Modal({ content }) {
+  return (
+    <div className="modal">
+      <div className="modal-overlay"></div>
+      <div className="modal-body">
+        <div className="modal-content">{content}</div>
+      </div>
+    </div>
+  );
+}
+
+export { JSXButton, JSXInput, JSXSpan, Modal };
