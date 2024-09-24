@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const express = require("express");
 const userRouter = express.Router();
-const { authenticate } = require("../models");
+const { authenticate, isLoggedIn, findUserByToken } = require("../models");
 const bcrypt = require("bcrypt");
 
 // Get all Users
@@ -11,6 +11,21 @@ userRouter.get("/", async (req, res, next) => {
     const response = await prisma.user.findMany({});
     res.send(response);
     await prisma.$disconnect;
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get logged in User
+userRouter.get("/:user_id", isLoggedIn, async (req, res, next) => {
+  try {
+    const { user_id } = req.params;
+    const response = await prisma.user.findMany({
+      where: {
+        id: user_id,
+      },
+    });
+    res.send(response[0]);
   } catch (error) {
     next(error);
   }
@@ -55,11 +70,7 @@ userRouter.put("/:user_id", async (req, res, next) => {
         id: user_id,
       },
       data: {
-        first_name: first_name,
-        last_name: last_name,
         username: username,
-        email: email,
-        password: await bcrypt.hash(password, 5),
       },
     });
     res.send(response);

@@ -17,7 +17,12 @@ export default function App() {
 
   return (
     <Router>
-      <Header token={token} setToken={setToken} setUserId={setUserId}/>
+      <Header
+        token={token}
+        setToken={setToken}
+        setUserId={setUserId}
+        userId={userId}
+      />
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -28,7 +33,7 @@ export default function App() {
             path="/create-quiz"
             element={<CreateQuizPage userId={userId} token={token} />}
           />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/:user_id" element={<ProfilePage token={token}/>} />
           <Route
             path="/login"
             element={<LoginPage setToken={setToken} setUserId={setUserId} />}
