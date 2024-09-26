@@ -44,7 +44,7 @@ export default function ProfilePage({ token }) {
       <h2>
         <JSXSpan text="My Profile" />
       </h2>
-      <UserProfile userData={userData} setUserData={setUserData} />
+      <UserProfile userData={userData} setUserData={setUserData} token={token} user_id={user_id} />
       <h2>
         <JSXSpan text="My Quizzes" />
       </h2>
