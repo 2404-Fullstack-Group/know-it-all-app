@@ -64,7 +64,7 @@ userRouter.post("/login", async (req, res, next) => {
 userRouter.put("/:user_id", async (req, res, next) => {
   try {
     const { user_id } = req.params;
-    const { first_name, last_name, username, email, password } = req.body;
+    const { first_name, last_name, username, email } = req.body;
     const response = await prisma.user.update({
       where: {
         id: user_id,
@@ -73,7 +73,6 @@ userRouter.put("/:user_id", async (req, res, next) => {
         first_name: first_name,
         last_name: last_name,
         email: email,
-        password: password,
         username: username,
       },
     });
