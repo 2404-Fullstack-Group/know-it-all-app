@@ -3,7 +3,7 @@ import { JSXButton, Modal } from "../Elements";
 import ProfileForm from "../forms/ProfileForm";
 import LoginForm from "../forms/LoginForm";
 
-export default function HomePage() {
+export default function HomePage({ setToken, setUserId }) {
   const [isModal, setIsModal] = useState(false);
 
   const handleClick = () => {
@@ -17,7 +17,17 @@ export default function HomePage() {
     <>
       <JSXButton text={"Open Modal"} onClick={handleClick} />
       {isModal ? (
-        <Modal content={<LoginForm />} closeModal={handleModalClose} />
+        <Modal
+          content={
+            <LoginForm
+              setToken={setToken}
+              setUserId={setUserId}
+              isModal={isModal}
+              setIsModal={setIsModal}
+            />
+          }
+          closeModal={handleModalClose}
+        />
       ) : null}
     </>
   );
