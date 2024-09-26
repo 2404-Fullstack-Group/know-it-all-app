@@ -78,9 +78,9 @@ export default function QuestionForm({
                 }
               >
                 <option disabled>Select Difficulty</option>
-                <option value="Easy">Easy</option>
-                <option value="Medium">Medium</option>
-                <option value="Hard">Hard</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
               </select>
               {questionData.tags.map((tag, index) => (
                 <JSXInput

@@ -1,5 +1,34 @@
-import { Modal } from "../Elements";
+import { useState } from "react";
+import { JSXButton, Modal } from "../Elements";
+import ProfileForm from "../forms/ProfileForm";
+import LoginForm from "../forms/LoginForm";
 
-export default function HomePage() {
-  return <>{/* <Modal content={"Hello I am Mr. Modal"} /> */}</>;
+export default function HomePage({ setToken, setUserId }) {
+  const [isModal, setIsModal] = useState(false);
+
+  const handleClick = () => {
+    setIsModal(true);
+  };
+  const handleModalClose = () => {
+    setIsModal(false);
+  };
+
+  return (
+    <>
+      <JSXButton text={"Open Modal"} onClick={handleClick} />
+      {isModal ? (
+        <Modal
+          content={
+            <LoginForm
+              setToken={setToken}
+              setUserId={setUserId}
+              isModal={isModal}
+              setIsModal={setIsModal}
+            />
+          }
+          closeModal={handleModalClose}
+        />
+      ) : null}
+    </>
+  );
 }

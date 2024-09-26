@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { JSXInput, JSXSpan, JSXButton } from "../Elements";
+import { getDifficulty } from "../../utilities/getDifficulty";
 
 // shuffle
 const shuffleArray = (array) => {
@@ -30,49 +31,13 @@ export default function Quiz({ quiz }) {
   // set difficulty AFTER questions are loaded
   useEffect(() => {
     if (shuffledQuestions.length > 0) {
-      setDifficulty(getDifficulty());
+      setDifficulty(getDifficulty(shuffledQuestions));
     }
   }, [shuffledQuestions]);
 
   useEffect(() => {
     console.log(results);
   }, [results]);
-
-  // find quiz difficulty
-  const getDifficulty = () => {
-    const difficultyValues = { easy: 1, medium: 3, hard: 5 };
-    const difficultyCounts = { easy: 0, medium: 0, hard: 0 };
-
-    // count difficulties
-    shuffledQuestions.forEach((question) => {
-      difficultyCounts[question.difficulty] += 1;
-    });
-
-    // calc totals (scores and questions)
-    let totalScore = 0;
-    let totalCount = 0;
-
-    for (const difficulty in difficultyCounts) {
-      totalScore += difficultyCounts[difficulty] * difficultyValues[difficulty];
-      totalCount += difficultyCounts[difficulty];
-    }
-
-    // calc avg
-    const averageDifficulty = totalCount ? totalScore / totalCount : 0;
-
-    // label difficulty
-    if (averageDifficulty === 1) {
-      return "Very Easy";
-    } else if (averageDifficulty > 1 && averageDifficulty <= 2.499) {
-      return "Easy";
-    } else if (averageDifficulty > 2.499 && averageDifficulty <= 3.599) {
-      return "Medium";
-    } else if (averageDifficulty > 3.599 && averageDifficulty < 4.999) {
-      return "Hard";
-    } else if (averageDifficulty === 5) {
-      return "Very Hard";
-    }
-  };
 
   // handle quiz-submission
   const handleSubmit = () => {

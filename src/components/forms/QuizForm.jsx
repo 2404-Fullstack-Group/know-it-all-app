@@ -1,13 +1,15 @@
 // react imports
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // component imports
 import { ArticleForm } from "../templates/FormTemplates.jsx";
 import { JSXSpan, JSXButton } from "../Elements.jsx";
 import QuestionForm from "./QuestionForm.jsx";
 
-import axios from "axios";
+// function imports
+import { getDifficulty } from "../../utilities/getDifficulty.js";
 
 export default function QuizForm({ userId, token }) {
   const [quizData, setQuizData] = useState({
@@ -22,7 +24,8 @@ export default function QuizForm({ userId, token }) {
       type: "Multiple Choice",
     }),
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [difficulty, setDifficulty] = useState(null);
 
   const addQuestion = (event) => {
     event.preventDefault();
@@ -85,8 +88,14 @@ export default function QuizForm({ userId, token }) {
         },
       }
     );
-    
   };
+
+  useEffect(() => {
+    const diffCalc = getDifficulty(quizData.questions);
+    diffCalc
+      ? setDifficulty(diffCalc)
+      : setDifficulty("Please Select Question Difficulties");
+  }, [quizData]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -113,6 +122,7 @@ export default function QuizForm({ userId, token }) {
           <option value="History">History</option>
         </select>
       </header>
+      <JSXSpan text={`Difficulty: ${difficulty}`} />
       {quizData.questions.map((_, index) => (
         <ArticleForm
           key={index}
