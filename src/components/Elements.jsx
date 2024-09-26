@@ -25,10 +25,10 @@ function JSXSpan({ text }) {
   return <span className="jsx-span">{text}</span>;
 }
 
-function Modal({ content }) {
+function Modal({ content, closeModal }) {
   return (
     <div className="modal">
-      <div className="modal-overlay"></div>
+      <div className="modal-overlay" onClick={closeModal}></div>
       <div className="modal-body">
         <div className="modal-content">{content}</div>
       </div>
