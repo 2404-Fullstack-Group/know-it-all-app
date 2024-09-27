@@ -10,6 +10,23 @@ export default function UserProfile({ userData, setUserData, token, user_id }) {
   const [isModal, setIsModal] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
 
+  const handleModalClose = () => {
+    handlePasswordChange("")
+    setIsModal(false);
+  };
+
+  const handlePasswordClose = () => {
+    handlePasswordChange("")
+    setIsPassword(false);
+  };
+
+  const handlePasswordChange = (value) => {
+    setUserData((prevState) => ({
+      ...prevState,
+      password: value,
+    }));
+  };
+
   return (
     <div className="user-profile">
       <div className="profile-username">
@@ -37,13 +54,14 @@ export default function UserProfile({ userData, setUserData, token, user_id }) {
         <Modal
           content={
             <ConfirmPasswordForm
-              setIsPassword={setIsPassword}
+            setIsPassword={setIsPassword}
               setIsModal={setIsModal}
               setUserData={setUserData}
               userData={userData}
               token={token}
             />
           }
+          closeModal={handlePasswordClose}
         />
       ) : null}
 
@@ -52,12 +70,13 @@ export default function UserProfile({ userData, setUserData, token, user_id }) {
           content={
             <ProfileForm
               userData={userData}
-              setIsModal={setIsModal}
+              handleModalClose={handleModalClose}
               setUserData={setUserData}
               user_id={user_id}
               token={token}
             />
           }
+          closeModal={handleModalClose}
         />
       ) : null}
     </div>
