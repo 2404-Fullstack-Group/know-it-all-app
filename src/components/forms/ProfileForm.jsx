@@ -4,7 +4,7 @@ import axios from "axios";
 export default function ProfileForm({
   userData,
   setUserData,
-  setIsModal,
+  handleModalClose,
   user_id,
   token
 }) {
@@ -62,7 +62,7 @@ export default function ProfileForm({
         },
       }
     );
-    setIsModal(false);
+    handleModalClose();
   };
 
   return (
