@@ -43,6 +43,11 @@ form {
 /* ------------------------- COMPONENTS ------------------------- */
 
 /* --------------- ELEMENTS --------------- */
+/* ----- Error Message */
+.error-message {
+  color: var(--color-error);
+}
+
 /* ----- PopUp */
 .modal {
   position: fixed;
