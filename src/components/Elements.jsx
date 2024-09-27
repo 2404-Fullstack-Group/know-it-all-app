@@ -36,4 +36,11 @@ function Modal({ content, closeModal }) {
   );
 }
 
-export { JSXButton, JSXInput, JSXSpan, Modal };
+function errorMessage({ text }) {
+  return <span className="error-message">{text}</span>;
+}
+function loadingMessage({ text }) {
+  return <span className="loading-message">{text}</span>;
+}
+
+export { JSXButton, JSXInput, JSXSpan, Modal, errorMessage, loadingMessage };
