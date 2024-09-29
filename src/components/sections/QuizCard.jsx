@@ -17,7 +17,6 @@ export default function QuizCard({ quiz_id }) {
       `http://localhost:3000/api/quizzes/${quiz_id}`
     );
     setQuiz(response.data);
-    console.log(response.data);
   };
 
   useEffect(() => {

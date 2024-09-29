@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { JSXButton, JSXInput } from "../Elements";
+import { JSXButton, JSXInput, ErrorMessage } from "../Elements";
 import axios from "axios";
 
 export default function ConfirmPasswordForm({
@@ -7,32 +7,34 @@ export default function ConfirmPasswordForm({
   setIsModal,
   setUserData,
   userData,
-  token
+  token,
 }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const handleClick = async (e) => {
     e.preventDefault();
-    console.log(userData.username)
-    console.log(userData.password)
-    console.log(token)
-    const response = await axios.post(
-      `http://localhost:3000/api/users/login`,
-      {
-        username: userData.username,
-        password: userData.password,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/api/users/login`,
+        {
+          username: userData.username,
+          password: userData.password,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setIsPassword(false);
+        setIsModal(true);
       }
-    );
-    console.log(response)
-    if (response.status === 200) {
-      setIsPassword(false);
-      setIsModal(true);
+    } catch (error) {
+      setErrorMessage(true)
     }
+
   };
 
   const handlePasswordChange = (value) => {
@@ -44,6 +46,7 @@ export default function ConfirmPasswordForm({
 
   return (
     <form>
+      {errorMessage ? <ErrorMessage text="Incorrect Password" /> : null}
       <JSXInput
         type={isPasswordVisible ? "text" : "password"}
         name="password"
