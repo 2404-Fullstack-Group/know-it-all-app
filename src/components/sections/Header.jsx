@@ -18,7 +18,8 @@ export default function Header({
   };
   
   return (
-    <>
+
+     <>
       {(location.pathname !== "/" || !isHeader) ? 
       <header className="site-header">
         {isHeader ? (
@@ -26,8 +27,8 @@ export default function Header({
             <h1>
               <JSXSpan text="Know It All" />
             </h1>
-          </Link>
-        ) : null}
+  </Link>
+        ) : null}  
         <nav>
           <Link to="/browse">
             <JSXButton text="Browse" />
@@ -35,7 +36,7 @@ export default function Header({
           <Link to="/quizzes">
             <JSXButton text="Play" />
           </Link>
-          <Link to="/create-quiz">
+          <Link to="/create">
             <JSXButton text="Create" />
           </Link>
           {token ? (

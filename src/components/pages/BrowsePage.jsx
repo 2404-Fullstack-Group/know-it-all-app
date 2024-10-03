@@ -24,14 +24,14 @@ export default function BrowsePage() {
         if (category.includes(search.toLowerCase())) {
           return true;
         }
-        const questions = quiz.questions
-        for (let i = 0; i<questions.length; i++) {
-          const tags = questions[i].tags
+        const questions = quiz.questions;
+        for (let i = 0; i < questions.length; i++) {
+          const tags = questions[i].tags;
           if (tags.length > 0) {
-            for (let j = 0; j<tags.length; j++) {
-              const tag = tags[j].toLowerCase()
+            for (let j = 0; j < tags.length; j++) {
+              const tag = tags[j].toLowerCase();
               if (tag.includes(search.toLowerCase())) {
-                return true
+                return true;
               }
             }
           }
