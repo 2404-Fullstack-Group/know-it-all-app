@@ -12,7 +12,11 @@ export default function Header({
   isHeader,
 }) {
   const location = useLocation()
-  console.log((location.pathname !== "/" || isHeader))
+  const handleClick = () => {
+    setToken(null);
+    setUserId(null);
+  };
+  
   return (
     <>
       {(location.pathname !== "/" || !isHeader) ? 
