@@ -6,11 +6,15 @@ import axios from "axios";
 // component imports
 import { JSXSpan, JSXButton, JSXInput } from "../Elements.jsx";
 
-export default function LoginForm({ setToken, setUserId }) {
+export default function LoginForm({
+  setToken,
+  setUserId,
+  isModal,
+  setIsModal,
+}) {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [isModal, setIsModal] = useState(false)
   const navigate = useNavigate();
 
   const handleOnClick = async (e) => {

@@ -2,12 +2,20 @@ import { useState } from "react";
 import { JSXButton, JSXInput, JSXSpan } from "../Elements";
 import axios from "axios";
 import Quiz from "../sections/Quiz";
+import { Modal } from "../Elements";
+import LoginForm from "./LoginForm";
 
-export default function GenerateQuizForm(userId, token) {
+export default function GenerateQuizForm({
+  userId,
+  setUserId,
+  token,
+  setToken,
+}) {
   const [category, setCategory] = useState("Select Category");
   const [difficulty, setDifficulty] = useState("Select Difficulty");
   const [questionCount, setQuestionCount] = useState(5);
   const [quizData, setQuizData] = useState(null);
+  const [isModal, setIsModal] = useState(false);
 
   const handleCategoryChange = (e) => setCategory(e.target.value);
   const handleDifficultyChange = (e) => setDifficulty(e.target.value);
@@ -64,7 +72,7 @@ export default function GenerateQuizForm(userId, token) {
         questions: [...allQuestions],
       };
 
-      console.log("Generated Quiz Object:", quizData);
+      console.log(userId, token);
       setQuizData(quizData);
     } catch (error) {
       console.error("Error generating quiz:", error);
@@ -72,10 +80,53 @@ export default function GenerateQuizForm(userId, token) {
     }
   };
 
+  const handleModalOpen = () => {
+    setIsModal(true);
+  };
+  const handleModalClose = () => {
+    setIsModal(false);
+  };
+  const handleSaveQuiz = async () => {
+    console.log(token);
+    await axios.post(
+      `http://localhost:3000/api/users/${userId}/quizzes`,
+      {
+        category: quizData.category,
+        questions: quizData.questions,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  };
+
   return (
     <>
+      {isModal ? (
+        <Modal
+          content={
+            <LoginForm
+              setUserId={setUserId}
+              setToken={setToken}
+              isModal={isModal}
+              setIsModal={setIsModal}
+            />
+          }
+          closeModal={handleModalClose}
+        />
+      ) : null}
       {quizData ? (
         <>
+          {token ? (
+            <JSXButton onClick={() => handleSaveQuiz()} text={"Save Quiz"} />
+          ) : (
+            <JSXButton
+              onClick={() => handleModalOpen()}
+              text={"Sign in to save quiz!"}
+            />
+          )}
           <JSXButton onClick={() => handleSubmit()} text={"regenerate quiz"} />
           <JSXButton
             onClick={() => setQuizData(null)}

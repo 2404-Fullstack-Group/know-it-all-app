@@ -49,7 +49,14 @@ export default function App() {
           />
           <Route
             path="/create/quiz-generator"
-            element={<GenerateQuizPage userId={userId} token={token} />}
+            element={
+              <GenerateQuizPage
+                userId={userId}
+                setUserId={setUserId}
+                token={token}
+                setToken={setToken}
+              />
+            }
           />
           <Route
             path="/profile/:user_id"
