@@ -7,7 +7,6 @@ const quizRouter = express.Router();
 quizRouter.get("/", async (req, res, next) => {
   try {
     const quizList = await prisma.quiz.findMany({});
-    // console.log(quizList)
     const mainResponse = []
 
     for (let i = 0; i<quizList.length; i++) {
