@@ -6,9 +6,9 @@ export default function UserQuizzes({ userQuizList }) {
   return (
     <div className="user-quizzes">
       <GridTemplate>
-        {userQuizList.length > 0 ? (
+        {userQuizList.length ? (
           userQuizList.map((quiz, index) => (
-            <QuizCard key={index} quiz_id={quiz.id} />
+            <QuizCard key={index} quiz={quiz} />
           ))
         ) : (
           <p>No quizzes available.</p>
