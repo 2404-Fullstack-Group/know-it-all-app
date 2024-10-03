@@ -6,7 +6,7 @@ const questionRouter = express.Router();
 // Get random questions based on category and difficulty
 questionRouter.get("/random", async (req, res, next) => {
   try {
-    const { category, difficulty, questionCount } = req.body;
+    const { category, difficulty, questionCount } = req.query;
 
     const questions = await prisma.question.findMany({
       where: {

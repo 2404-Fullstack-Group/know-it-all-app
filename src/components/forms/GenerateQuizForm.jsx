@@ -2,7 +2,7 @@ import { useState } from "react";
 import { JSXButton, JSXInput, JSXSpan } from "../Elements";
 import axios from "axios";
 
-export default function GenerateQuizForm({ onGenerate }) {
+export default function GenerateQuizForm() {
   const [category, setCategory] = useState("Select Category");
   const [difficulty, setDifficulty] = useState("Select Difficulty");
   const [questionCount, setQuestionCount] = useState(5);
@@ -50,28 +50,25 @@ export default function GenerateQuizForm({ onGenerate }) {
       );
 
       const allQuestions = response.data;
-      console.log("Received quiz data:", allQuestions);
+      console.log("Received questions data:", allQuestions);
+
+      if (!allQuestions || allQuestions.length === 0) {
+        alert("No questions returned from API.");
+        return;
+      }
 
       const quizData = {
         category,
-        questions: allQuestions.map((q) => ({
-          category: q.category,
-          difficulty: q.difficulty,
-          question: q.question,
-          correctAnswer: q.correctAnswer,
-          incorrectAnswers: q.incorrectAnswers,
-          tags: q.tags,
-          type: q.type,
-        })),
+        questions: [...allQuestions], // Directly push the premapped questions
       };
 
       console.log("Generated Quiz Object:", quizData);
-      onGenerate(quizData);
     } catch (error) {
       console.error("Error generating quiz:", error);
       alert("Failed to generate quiz.");
     }
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <h2>Generate Quiz</h2>
