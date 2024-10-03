@@ -7,6 +7,8 @@ import HomePage from "./components/pages/HomePage";
 import LoginPage from "./components/pages/LoginPage";
 import BrowsePage from "./components/pages/BrowsePage";
 import CreateQuizPage from "./components/pages/CreateQuizPage";
+import GenerateQuizPage from "./components/pages/GenerateQuizPage";
+import CreatePage from "./components/pages/CreatePage";
 import ProfilePage from "./components/pages/ProfilePage";
 import RegistrationPage from "./components/pages/RegistrationPage";
 import QuizPage from "./components/pages/QuizPage";
@@ -32,9 +34,14 @@ export default function App() {
           <Route path="/browse" element={<BrowsePage />} />
           <Route path="/quizzes/:quiz_id" element={<QuizPage />} />
           {/* <Route path="/quizzes" element={<QuizPage />} /> */}
+          <Route path="/create" element={<CreatePage />} />
           <Route
-            path="/create-quiz"
+            path="/create/quiz-maker"
             element={<CreateQuizPage userId={userId} token={token} />}
+          />
+          <Route
+            path="/create/quiz-generator"
+            element={<GenerateQuizPage userId={userId} token={token} />}
           />
           <Route
             path="/profile/:user_id"

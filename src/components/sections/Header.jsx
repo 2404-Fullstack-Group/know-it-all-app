@@ -23,7 +23,7 @@ export default function Header({ token, setToken, userId, setUserId }) {
         <Link to="/quizzes">
           <JSXButton text="Play" />
         </Link>
-        <Link to="/create-quiz">
+        <Link to="/create">
           <JSXButton text="Create" />
         </Link>
         {token ? (
