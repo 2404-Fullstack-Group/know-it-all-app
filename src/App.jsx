@@ -45,7 +45,14 @@ export default function App() {
           <Route path="/create" element={<CreatePage />} />
           <Route
             path="/create/quiz-maker"
-            element={<CreateQuizPage userId={userId} token={token} />}
+            element={
+              <CreateQuizPage
+                userId={userId}
+                setUserId={setUserId}
+                token={token}
+                setToken={setToken}
+              />
+            }
           />
           <Route
             path="/create/quiz-generator"
