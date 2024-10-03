@@ -8,13 +8,33 @@ const { isLoggedIn } = require("../models");
 userQuizRouter.get("/", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id } = req.params;
-    const response = await prisma.quiz.findMany({
+    const quizList = await prisma.quiz.findMany({
       where: {
         created_by: user_id,
       },
     });
-    res.send(response);
-    await prisma.$disconnect
+
+    const mainResponse = [];
+
+    for (let i = 0; i < quizList.length; i++) {
+      const response = await prisma.q_junction.findMany({
+        where: {
+          quiz_id: quizList[i].id,
+        },
+        include: {
+          question: true,
+        },
+      });
+      const finalResponse = {
+        quiz_id: response[0].quiz_id,
+        category: response[0].question.category,
+        questions: response.map(({ question }) => question),
+      };
+      mainResponse.push(finalResponse);
+    }
+
+    res.send(mainResponse);
+    await prisma.$disconnect;
   } catch (error) {
     next(error);
   }

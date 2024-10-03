@@ -24,12 +24,21 @@ export default function App() {
         setToken={setToken}
         setUserId={setUserId}
         userId={userId}
+        isHeader={true}
       />
       <main>
         <Routes>
           <Route
             path="/"
-            element={<HomePage setToken={setToken} setUserId={setUserId} />}
+            element={
+              <HomePage
+                token={token}
+                setToken={setToken}
+                setUserId={setUserId}
+                userId={userId}
+                isHeader={true}
+              />
+            }
           />
           <Route path="/browse" element={<BrowsePage />} />
           <Route path="/quizzes/:quiz_id" element={<QuizPage />} />
