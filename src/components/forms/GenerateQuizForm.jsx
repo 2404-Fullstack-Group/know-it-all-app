@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { JSXButton, JSXInput, JSXSpan } from "../Elements";
 import axios from "axios";
+import Quiz from "../sections/Quiz";
 
 export default function GenerateQuizForm() {
   const [category, setCategory] = useState("Select Category");
   const [difficulty, setDifficulty] = useState("Select Difficulty");
   const [questionCount, setQuestionCount] = useState(5);
+  const [quizData, setQuizData] = useState(null);
 
   const handleCategoryChange = (e) => setCategory(e.target.value);
   const handleDifficultyChange = (e) => setDifficulty(e.target.value);
@@ -59,10 +61,11 @@ export default function GenerateQuizForm() {
 
       const quizData = {
         category,
-        questions: [...allQuestions], // Directly push the premapped questions
+        questions: [...allQuestions],
       };
 
       console.log("Generated Quiz Object:", quizData);
+      setQuizData(quizData);
     } catch (error) {
       console.error("Error generating quiz:", error);
       alert("Failed to generate quiz.");
@@ -70,55 +73,58 @@ export default function GenerateQuizForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Generate Quiz</h2>
-      <select
-        id="category"
-        name="category"
-        value={category}
-        onChange={handleCategoryChange}
-      >
-        <option disabled value="Select Category">
-          Select Category
-        </option>
-        <option value="General Knowledge">General Knowledge</option>
-        <option value="Geography">Geography</option>
-        <option value="Society & Culture">Society & Culture</option>
-        <option value="Music">Music</option>
-        <option value="Food & Drink">Food & Drink</option>
-        <option value="Sport & Leisure">Sport & Leisure</option>
-        <option value="Film & TV">Film & TV</option>
-        <option value="Science">Science</option>
-        <option value="Arts & Literature">Arts & Literature</option>
-        <option value="History">History</option>
-      </select>
+    <>
+      <form onSubmit={handleSubmit}>
+        <h2>Generate Quiz</h2>
+        <select
+          id="category"
+          name="category"
+          value={category}
+          onChange={handleCategoryChange}
+        >
+          <option disabled value="Select Category">
+            Select Category
+          </option>
+          <option value="General Knowledge">General Knowledge</option>
+          <option value="Geography">Geography</option>
+          <option value="Society & Culture">Society & Culture</option>
+          <option value="Music">Music</option>
+          <option value="Food & Drink">Food & Drink</option>
+          <option value="Sport & Leisure">Sport & Leisure</option>
+          <option value="Film & TV">Film & TV</option>
+          <option value="Science">Science</option>
+          <option value="Arts & Literature">Arts & Literature</option>
+          <option value="History">History</option>
+        </select>
 
-      <select
-        id="difficulty"
-        name="difficulty"
-        value={difficulty}
-        onChange={handleDifficultyChange}
-      >
-        <option disabled value="Select Difficulty">
-          Select Difficulty
-        </option>
-        <option value="very easy">Very Easy</option>
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-        <option value="very hard">Very Hard</option>
-      </select>
-      <JSXSpan text={`${questionCount} Questions`} />
-      <input
-        type="range"
-        min="5"
-        max="15"
-        value={questionCount}
-        onChange={handleQuestionCountChange}
-        className="slider"
-        id="question-range"
-      />
-      <JSXButton text={"Generate"} />
-    </form>
+        <select
+          id="difficulty"
+          name="difficulty"
+          value={difficulty}
+          onChange={handleDifficultyChange}
+        >
+          <option disabled value="Select Difficulty">
+            Select Difficulty
+          </option>
+          <option value="very easy">Very Easy</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+          <option value="very hard">Very Hard</option>
+        </select>
+        <JSXSpan text={`${questionCount} Questions`} />
+        <input
+          type="range"
+          min="5"
+          max="15"
+          value={questionCount}
+          onChange={handleQuestionCountChange}
+          className="slider"
+          id="question-range"
+        />
+        <JSXButton text={"Generate"} />
+      </form>
+      {quizData && <Quiz quiz={quizData} />}
+    </>
   );
 }
