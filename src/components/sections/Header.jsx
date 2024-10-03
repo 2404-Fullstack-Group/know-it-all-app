@@ -1,46 +1,56 @@
 // react imports
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // component imports
 import { JSXSpan, JSXButton } from "../Elements.jsx";
 
-export default function Header({ token, setToken, userId, setUserId }) {
-  const handleClick = () => {
-    setToken(null);
-    setUserId(null);
-  };
+export default function Header({
+  token,
+  setToken,
+  userId,
+  setUserId,
+  isHeader,
+}) {
+  const location = useLocation()
+  console.log((location.pathname !== "/" || isHeader))
   return (
-    <header className="site-header">
-      <Link to="/">
-        <h1>
-          <JSXSpan text="Know It All" />
-        </h1>
-      </Link>
-      <nav>
-        <Link to="/browse">
-          <JSXButton text="Browse" />
-        </Link>
-        <Link to="/quizzes">
-          <JSXButton text="Play" />
-        </Link>
-        <Link to="/create-quiz">
-          <JSXButton text="Create" />
-        </Link>
-        {token ? (
-          <Link to={`/profile/${userId}`}>
-            <JSXButton text="Profile" />
+    <>
+      {(location.pathname !== "/" || !isHeader) ? 
+      <header className="site-header">
+        {isHeader ? (
+          <Link to="/">
+            <h1>
+              <JSXSpan text="Know It All" />
+            </h1>
           </Link>
         ) : null}
-        {token ? (
-          <Link to="/">
-            <JSXButton text="Logout" onClick={handleClick} />
+        <nav>
+          <Link to="/browse">
+            <JSXButton text="Browse" />
           </Link>
-        ) : (
-          <Link to="/login">
-            <JSXButton text="Login" />
+          <Link to="/quizzes">
+            <JSXButton text="Play" />
           </Link>
-        )}
-      </nav>
-    </header>
+          <Link to="/create-quiz">
+            <JSXButton text="Create" />
+          </Link>
+          {token ? (
+            <Link to={`/profile/${userId}`}>
+              <JSXButton text="Profile" />
+            </Link>
+          ) : null}
+          {token ? (
+            <Link to="/">
+              <JSXButton text="Logout" onClick={handleClick} />
+            </Link>
+          ) : (
+            <Link to="/login">
+              <JSXButton text="Login" />
+            </Link>
+          )}
+        </nav>
+      </header> : null
+      }
+    </>
   );
 }
