@@ -6,8 +6,28 @@ const quizRouter = express.Router();
 // Get all quizzes
 quizRouter.get("/", async (req, res, next) => {
   try {
-    const response = await prisma.quiz.findMany({});
-    res.send(response);
+    const quizList = await prisma.quiz.findMany({});
+    // console.log(quizList)
+    const mainResponse = []
+
+    for (let i = 0; i<quizList.length; i++) {
+      const response = await prisma.q_junction.findMany({
+        where: {
+          quiz_id: quizList[i].id,
+        },
+        include: {
+          question: true,
+        },
+      });
+      const finalResponse = {
+        quiz_id: response[0].quiz_id,
+        category: response[0].question.category,
+        questions: response.map(({ question }) => question),
+      };
+      mainResponse.push(finalResponse)
+    }
+    
+    res.send(mainResponse);
     await prisma.$disconnect;
   } catch (error) {
     next(error);

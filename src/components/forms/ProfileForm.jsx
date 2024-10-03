@@ -8,15 +8,6 @@ export default function ProfileForm({
   user_id,
   token
 }) {
-  const updateEntry = async (username) => {
-    console.log("userData");
-    const response = await axios.put(
-      `http://localhost:3000/api/users/${userData.id}`,
-      {
-        username: username,
-      }
-    );
-  };
 
   const handleUsernameChange = (value) => {
     setUserData((prevState) => ({
@@ -48,7 +39,7 @@ export default function ProfileForm({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.put(
+    await axios.put(
       `http://localhost:3000/api/users/${user_id}`,
       {
         username: userData.username,

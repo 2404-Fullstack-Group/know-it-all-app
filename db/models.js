@@ -57,4 +57,41 @@ const isLoggedIn = async (req, res, next) => {
   }
 };
 
-module.exports = { authenticate, findUserByToken, isLoggedIn };
+const checkDuplicates = async (req, res, next) => {
+  try {
+    const { username, email } = req.body;
+    const usernameResponse = await prisma.user.findMany({
+      where: {
+        username: username,
+      },
+    });
+
+    const emailResponse = await prisma.user.findMany({
+      where: {
+        email: email,
+      },
+    });
+    if (usernameResponse[0] && emailResponse[0]) {
+      const error = Error("Username and Email are Unavailable");
+      error.status = 409;
+      throw error;
+    }
+    if (usernameResponse[0]) {
+      const error = Error("Username Unavailable");
+      error.status = 409;
+      throw error;
+    }
+
+    if (emailResponse[0]) {
+      const error = Error("Email Unavailable");
+      error.status = 401;
+      throw error;
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { authenticate, findUserByToken, isLoggedIn, checkDuplicates };

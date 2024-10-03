@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const express = require("express");
 const userRouter = express.Router();
-const { authenticate, isLoggedIn, findUserByToken } = require("../models");
+const { authenticate, isLoggedIn, checkDuplicates } = require("../models");
 const bcrypt = require("bcrypt");
 
 // Get all Users
@@ -32,7 +32,7 @@ userRouter.get("/:user_id", isLoggedIn, async (req, res, next) => {
 });
 
 // Create a new User
-userRouter.post("/", async (req, res, next) => {
+userRouter.post("/", checkDuplicates, async (req, res, next) => {
   try {
     const { first_name, last_name, username, email, password } = req.body;
     const response = await prisma.user.create({
