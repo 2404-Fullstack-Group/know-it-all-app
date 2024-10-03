@@ -42,7 +42,6 @@ export default function App() {
           />
           <Route path="/browse" element={<BrowsePage />} />
           <Route path="/quizzes/:quiz_id" element={<QuizPage />} />
-          {/* <Route path="/quizzes" element={<QuizPage />} /> */}
           <Route path="/create" element={<CreatePage />} />
           <Route
             path="/create/quiz-maker"
