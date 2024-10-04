@@ -40,7 +40,10 @@ export default function App() {
               />
             }
           />
-          <Route path="/browse" element={<BrowsePage />} />
+          <Route
+            path="/browse"
+            element={<BrowsePage userId={userId} token={token} />}
+          />
           <Route path="/quizzes/:quiz_id" element={<QuizPage />} />
           <Route path="/create" element={<CreatePage />} />
           <Route

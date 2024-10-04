@@ -16,21 +16,23 @@ userQuizRouter.get("/", isLoggedIn, async (req, res, next) => {
 
     const mainResponse = [];
 
-    for (let i = 0; i < quizList.length; i++) {
+    for (let i = 0; i<quizList.length; i++) {
       const response = await prisma.q_junction.findMany({
         where: {
           quiz_id: quizList[i].id,
         },
         include: {
+          quiz: true,
           question: true,
         },
       });
       const finalResponse = {
+        created_by: response[0].quiz.created_by,
         quiz_id: response[0].quiz_id,
         category: response[0].question.category,
         questions: response.map(({ question }) => question),
       };
-      mainResponse.push(finalResponse);
+      mainResponse.push(finalResponse)
     }
 
     res.send(mainResponse);
@@ -115,7 +117,7 @@ userQuizRouter.post("/", isLoggedIn, async (req, res, next) => {
 userQuizRouter.delete("/:quiz_id", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id, quiz_id } = req.params;
-    const { question_id } = req.body;
+    // const { question_id } = req.body;
 
     const quizResponse = await prisma.quiz.findMany({
       where: {
@@ -127,39 +129,13 @@ userQuizRouter.delete("/:quiz_id", isLoggedIn, async (req, res, next) => {
       error.status = 401;
       throw error;
     }
-    // If question_id exist then delete the question from the quiz
-    // If question_id doesn't exist then delete quiz
-    if (question_id) {
-      await prisma.q_junction.delete({
-        where: {
-          quiz_id_question_id: {
-            quiz_id: quiz_id,
-            question_id: question_id,
-          },
-        },
-      });
-    } else {
-      const entries = await prisma.q_junction.findMany({
-        where: {
-          quiz_id: quiz_id,
-        },
-      });
-      entries.forEach(async (entry) => {
-        await prisma.q_junction.delete({
-          where: {
-            quiz_id_question_id: {
-              quiz_id: entry.quiz_id,
-              question_id: entry.question_id,
-            },
-          },
-        });
-      });
-      await prisma.quiz.delete({
-        where: {
-          id: quiz_id,
-        },
-      });
-    }
+
+    await prisma.quiz.delete({
+      where: {
+        id: quiz_id
+      }
+    })
+
     res.sendStatus(204);
   } catch (error) {
     next(error);

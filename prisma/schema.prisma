@@ -55,7 +55,7 @@ model Quiz {
 }
 
 model Q_junction {
-  quiz        Quiz     @relation(fields: [quiz_id], references: [id])
+  quiz        Quiz     @relation(fields: [quiz_id], references: [id], onDelete: Cascade)
   quiz_id     String
   question    Question @relation(fields: [question_id], references: [id])
   question_id String
