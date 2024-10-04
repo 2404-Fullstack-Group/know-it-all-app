@@ -14,7 +14,7 @@ import LoginForm from "./LoginForm";
 import { getDifficulty } from "../../utilities/getDifficulty.js";
 import LoginPage from "../pages/LoginPage.jsx";
 
-export default function QuizForm({ userId, setUserId, token, setToken }) {
+export default function QuizForm({ userId, setUserId, token, setToken, updateQuiz }) {
   const [quizData, setQuizData] = useState({
     category: "",
     questions: Array(5).fill({
@@ -108,6 +108,12 @@ export default function QuizForm({ userId, setUserId, token, setToken }) {
       : setDifficulty("Please Select Question Difficulties");
   }, [quizData]);
 
+  useEffect(() => {
+    if (updateQuiz) {
+      setQuizData(updateQuiz)
+    }
+  }, [])
+
   return (
     <>
       {isModal ? (
@@ -131,7 +137,7 @@ export default function QuizForm({ userId, setUserId, token, setToken }) {
           <select
             id="category"
             name="category"
-            defaultValue={"Select Category"}
+            defaultValue={updateQuiz ? updateQuiz.category :"Select Category"}
             onChange={(e) => handleCategoryChange(e.target.value)}
           >
             <option disabled>Select Category</option>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { JSXButton, JSXInput, JSXSpan } from "../Elements";
 
 export default function QuestionForm({
@@ -18,6 +18,12 @@ export default function QuestionForm({
     updatedArray[index] = value;
     handleQuestionChange(questionNum - 1, array, updatedArray);
   };
+
+  useEffect(() => {
+    for (let i = questionData.tags.length; i<3; i++) {
+      questionData.tags.push("")
+    }
+  },[])
 
   return (
     <div className="question-form">
