@@ -6,7 +6,7 @@ import axios from "axios";
 // component imports
 import { JSXSpan, JSXButton, JSXInput, ErrorMessage } from "../Elements.jsx";
 
-export default function RegistrationForm() {
+export default function RegistrationForm({ setIsLogin, setIsNewAccount }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [unavailableUsername, setUnavailableUsername] = useState(false);
   const [unavailableEmail, setUnavailableEmail] = useState(false);
@@ -76,23 +76,24 @@ export default function RegistrationForm() {
           email: userData.email,
           password: userData.password,
         });
-        navigate("/login");
+        setIsNewAccount(true);
+        setIsLogin(true);
       } catch (error) {
         const errorMessage = error.response.data;
-        console.log(errorMessage)
-        console.log(errorMessage.match("Username and Email are Unavailable"))
+        console.log(errorMessage);
+        console.log(errorMessage.match("Username and Email are Unavailable"));
         if (errorMessage.match("Username Unavailable")) {
           setUnavailableUsername(true);
         } else {
-          setUnavailableUsername(false)
+          setUnavailableUsername(false);
         }
         if (errorMessage.match("Email Unavailable")) {
           setUnavailableEmail(true);
         } else {
-          setUnavailableEmail(false)
+          setUnavailableEmail(false);
         }
         if (errorMessage.match("Username and Email are Unavailable")) {
-          console.log(true)
+          console.log(true);
           setUnavailableUsername(true);
           setUnavailableEmail(true);
         }
@@ -105,22 +106,24 @@ export default function RegistrationForm() {
       <h2>
         <JSXSpan text="Create An Account" />
       </h2>
-      {unavailableUsername ? <ErrorMessage text={"Username Unavailable"} /> : null}
+      {unavailableUsername ? (
+        <ErrorMessage text={"Username Unavailable"} />
+      ) : null}
       <JSXInput
         type="text"
         placeholder="username"
         onChange={(e) => handleUsernameChange(e.target.value)}
-        />
+      />
       <JSXInput
         type="text"
         placeholder="first name"
         onChange={(e) => handleFirstNameChange(e.target.value)}
-        />
+      />
       <JSXInput
         type="text"
         placeholder="last name"
         onChange={(e) => handleLastNameChange(e.target.value)}
-        />
+      />
       {unavailableEmail ? <ErrorMessage text={"Email Unavailable"} /> : null}
       <JSXInput
         type="email"
@@ -142,7 +145,8 @@ export default function RegistrationForm() {
       <JSXSpan
         text={
           <>
-            Already have an account? <Link to="/login">Login Here.</Link>
+            Already have an account?{" "}
+            <Link onClick={() => setIsLogin(true)}>Login Here.</Link>
           </>
         }
       />

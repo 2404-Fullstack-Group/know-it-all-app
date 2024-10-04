@@ -11,7 +11,7 @@ export default function Header({
   setUserId,
   isHeader,
 }) {
-  const location = useLocation()
+  const location = useLocation();
   const handleClick = () => {
     setToken(null);
     setUserId(null);
@@ -43,18 +43,33 @@ export default function Header({
               <JSXButton text="Profile" />
             </Link>
           ) : null}
-          {token ? (
-            <Link to="/">
-              <JSXButton text="Logout" onClick={handleClick} />
+          <nav>
+            <Link to="/browse">
+              <JSXButton text="Browse" />
             </Link>
-          ) : (
-            <Link to="/login">
-              <JSXButton text="Login" />
+            <Link to="/quizzes">
+              <JSXButton text="Play" />
             </Link>
-          )}
-        </nav>
-      </header> : null
-      }
+            <Link to="/create">
+              <JSXButton text="Create" />
+            </Link>
+            {token ? (
+              <Link to={`/profile/${userId}`}>
+                <JSXButton text="Profile" />
+              </Link>
+            ) : null}
+            {token ? (
+              <Link to="/">
+                <JSXButton text="Logout" onClick={handleClick} />
+              </Link>
+            ) : (
+              <Link to="/registration">
+                <JSXButton text="Login" />
+              </Link>
+            )}
+          </nav>
+        </header>
+      ) : null}
     </>
   );
 }
