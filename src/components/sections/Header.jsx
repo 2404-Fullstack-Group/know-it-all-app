@@ -18,7 +18,7 @@ export default function Header({
   };
 
   return (
-     <>
+    <>
       {location.pathname !== "/" || !isHeader ? (
         <header className="site-header">
           {isHeader ? (
