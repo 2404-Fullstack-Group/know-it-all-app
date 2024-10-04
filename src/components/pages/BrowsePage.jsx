@@ -6,7 +6,7 @@ import GridTemplate from "../templates/GridTemplate";
 
 import { JSXInput } from "../Elements";
 
-export default function BrowsePage() {
+export default function BrowsePage({ userId, token }) {
   const [quizList, setQuizList] = useState([]);
   const [filteredQuizList, setFilteredQuizList] = useState([]);
   const [search, setSearch] = useState("");
@@ -45,6 +45,7 @@ export default function BrowsePage() {
       await loadQuizzes();
     };
     fetchData();
+    console.log("useEffect")
   }, []);
 
   useEffect(() => {
@@ -61,7 +62,7 @@ export default function BrowsePage() {
       <GridTemplate>
         {filteredQuizList.length ? (
           filteredQuizList.map((quiz, index) => (
-            <QuizCard key={index} quiz={quiz} />
+            <QuizCard key={index} quiz={quiz} userId={userId} token={token} loadQuizzes={loadQuizzes} />
           ))
         ) : (
           <p>No quizzes available.</p>

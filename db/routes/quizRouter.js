@@ -15,10 +15,12 @@ quizRouter.get("/", async (req, res, next) => {
           quiz_id: quizList[i].id,
         },
         include: {
+          quiz: true,
           question: true,
         },
       });
       const finalResponse = {
+        created_by: response[0].quiz.created_by,
         quiz_id: response[0].quiz_id,
         category: response[0].question.category,
         questions: response.map(({ question }) => question),
