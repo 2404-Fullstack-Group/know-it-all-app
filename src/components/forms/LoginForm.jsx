@@ -11,6 +11,9 @@ export default function LoginForm({
   setUserId,
   isModal,
   setIsModal,
+  isNewAccount,
+  setIsNewAccount,
+  setIsLogin,
 }) {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
@@ -25,8 +28,10 @@ export default function LoginForm({
     });
     setToken(response.data.token);
     setUserId(response.data.user[0].id);
-    isModal ? null : navigate("/browse");
-    setIsModal(false);
+    if (response.data.token) {
+      isModal ? setIsModal(false) : navigate("/browse");
+    }
+    setIsNewAccount(false);
   };
 
   return (
@@ -51,13 +56,16 @@ export default function LoginForm({
         }}
       />
       <JSXButton text="Login" onClick={handleOnClick} />
-      <JSXSpan
-        text={
-          <>
-            Don't have an account? <Link to="/register">Register Here.</Link>
-          </>
-        }
-      />
+      {isNewAccount ? null : (
+        <JSXSpan
+          text={
+            <>
+              Don't have an account?
+              <Link onClick={() => setIsLogin(false)}>Register Here.</Link>
+            </>
+          }
+        />
+      )}
     </form>
   );
 }

@@ -12,6 +12,7 @@ import LoginForm from "./LoginForm";
 
 // function imports
 import { getDifficulty } from "../../utilities/getDifficulty.js";
+import LoginPage from "../pages/LoginPage.jsx";
 
 export default function QuizForm({ userId, setUserId, token, setToken }) {
   const [quizData, setQuizData] = useState({
@@ -112,7 +113,7 @@ export default function QuizForm({ userId, setUserId, token, setToken }) {
       {isModal ? (
         <Modal
           content={
-            <LoginForm
+            <LoginPage
               setUserId={setUserId}
               setToken={setToken}
               isModal={isModal}
