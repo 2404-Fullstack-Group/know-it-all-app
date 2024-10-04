@@ -16,6 +16,8 @@ import QuizPage from "./components/pages/QuizPage";
 export default function App() {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
+  // This useState is the quiz data for a quiz that needs updated
+  const [updateQuiz, setUpdateQuiz] = useState(null)
 
   return (
     <Router>
@@ -42,7 +44,7 @@ export default function App() {
           />
           <Route
             path="/browse"
-            element={<BrowsePage userId={userId} token={token} />}
+            element={<BrowsePage userId={userId} token={token} setUpdateQuiz={setUpdateQuiz} />}
           />
           <Route path="/quizzes/:quiz_id" element={<QuizPage />} />
           <Route path="/create" element={<CreatePage />} />
@@ -54,6 +56,7 @@ export default function App() {
                 setUserId={setUserId}
                 token={token}
                 setToken={setToken}
+                updateQuiz={updateQuiz}
               />
             }
           />

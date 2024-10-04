@@ -1,6 +1,6 @@
 // react imports
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // component imports
@@ -9,16 +9,28 @@ import { JSXButton } from "../Elements";
 // function imports
 import { getDifficulty } from "../../utilities/getDifficulty";
 
-export default function QuizCard({ quiz, userId, token, loadQuizzes }) {
-  const handleUpdateClick = () => {};
-
+export default function QuizCard({
+  quiz,
+  userId,
+  token,
+  loadQuizzes,
+  setUpdateQuiz,
+}) {
+  const navigate = useNavigate();
   const handleDeleteClick = async () => {
-    await axios.delete(`http://localhost:3000/api/users/${userId}/quizzes/${quiz.quiz_id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    await axios.delete(
+      `http://localhost:3000/api/users/${userId}/quizzes/${quiz.quiz_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    })
-    await loadQuizzes()
+    );
+    await loadQuizzes();
+  };
+  const handleUpdateClick = () => {
+    setUpdateQuiz(quiz);
+    navigate("/create/quiz-maker");
   };
 
   return (
