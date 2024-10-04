@@ -70,10 +70,10 @@ export default function App() {
             element={<ProfilePage token={token} />}
           />
           <Route
-            path="/login"
+            path="/registration"
             element={<LoginPage setToken={setToken} setUserId={setUserId} />}
           />
-          <Route path="/register" element={<RegistrationPage />} />
+          {/* <Route path="/register" element={<RegistrationPage />} /> */}
         </Routes>
       </main>
     </Router>

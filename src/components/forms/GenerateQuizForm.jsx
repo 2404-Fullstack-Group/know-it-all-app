@@ -4,6 +4,7 @@ import axios from "axios";
 import Quiz from "../sections/Quiz";
 import { Modal } from "../Elements";
 import LoginForm from "./LoginForm";
+import LoginPage from "../pages/LoginPage";
 
 export default function GenerateQuizForm({
   userId,
@@ -107,7 +108,7 @@ export default function GenerateQuizForm({
       {isModal ? (
         <Modal
           content={
-            <LoginForm
+            <LoginPage
               setUserId={setUserId}
               setToken={setToken}
               isModal={isModal}
