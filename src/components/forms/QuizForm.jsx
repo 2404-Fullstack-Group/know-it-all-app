@@ -7,11 +7,13 @@ import axios from "axios";
 import { ArticleForm } from "../templates/FormTemplates.jsx";
 import { JSXSpan, JSXButton } from "../Elements.jsx";
 import QuestionForm from "./QuestionForm.jsx";
+import { Modal } from "../Elements";
+import LoginForm from "./LoginForm";
 
 // function imports
 import { getDifficulty } from "../../utilities/getDifficulty.js";
 
-export default function QuizForm({ userId, token }) {
+export default function QuizForm({ userId, setUserId, token, setToken }) {
   const [quizData, setQuizData] = useState({
     category: "",
     questions: Array(5).fill({
@@ -26,6 +28,7 @@ export default function QuizForm({ userId, token }) {
   });
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState(null);
+  const [isModal, setIsModal] = useState(false);
 
   const addQuestion = (event) => {
     event.preventDefault();
@@ -90,6 +93,13 @@ export default function QuizForm({ userId, token }) {
     );
   };
 
+  const handleModalOpen = () => {
+    setIsModal(true);
+  };
+  const handleModalClose = () => {
+    setIsModal(false);
+  };
+
   useEffect(() => {
     const diffCalc = getDifficulty(quizData.questions);
     diffCalc
@@ -98,51 +108,72 @@ export default function QuizForm({ userId, token }) {
   }, [quizData]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <header>
-        <h2>
-          <JSXSpan text="Create Your Own Quiz" />
-        </h2>
-        <select
-          id="category"
-          name="category"
-          defaultValue={"Select Category"}
-          onChange={(e) => handleCategoryChange(e.target.value)}
-        >
-          <option disabled>Select Category</option>
-          <option value="General Knowledge">General Knowledge</option>
-          <option value="Geography">Geography</option>
-          <option value="Society & Culture">Society & Culture</option>
-          <option value="Music">Music</option>
-          <option value="Food & Drink">Food & Drink</option>
-          <option value="Sport & Leisure">Sport & Leisure</option>
-          <option value="Film & TV">Film & TV</option>
-          <option value="Science">Science</option>
-          <option value="Arts & Literature">Arts & Literature</option>
-          <option value="History">History</option>
-        </select>
-      </header>
-      <JSXSpan text={`Difficulty: ${difficulty}`} />
-      {quizData.questions.map((_, index) => (
-        <ArticleForm
-          key={index}
-          form={
-            <QuestionForm
-              key={index}
-              questionNum={index + 1}
-              questionData={quizData.questions[index]}
-              handleQuestionChange={handleQuestionChange}
+    <>
+      {isModal ? (
+        <Modal
+          content={
+            <LoginForm
+              setUserId={setUserId}
+              setToken={setToken}
+              isModal={isModal}
+              setIsModal={setIsModal}
             />
           }
-        />
-      ))}
-      {quizData.questions.length < 15 ? (
-        <JSXButton
-          text={`Add Question (${quizData.questions.length}/15)`}
-          onClick={addQuestion}
+          closeModal={() => handleModalClose()}
         />
       ) : null}
-      <JSXButton text="Submit Quiz" />
-    </form>
+      <form onSubmit={handleSubmit}>
+        <header>
+          <h2>
+            <JSXSpan text="Create Your Own Quiz" />
+          </h2>
+          <select
+            id="category"
+            name="category"
+            defaultValue={"Select Category"}
+            onChange={(e) => handleCategoryChange(e.target.value)}
+          >
+            <option disabled>Select Category</option>
+            <option value="General Knowledge">General Knowledge</option>
+            <option value="Geography">Geography</option>
+            <option value="Society & Culture">Society & Culture</option>
+            <option value="Music">Music</option>
+            <option value="Food & Drink">Food & Drink</option>
+            <option value="Sport & Leisure">Sport & Leisure</option>
+            <option value="Film & TV">Film & TV</option>
+            <option value="Science">Science</option>
+            <option value="Arts & Literature">Arts & Literature</option>
+            <option value="History">History</option>
+          </select>
+        </header>
+        <JSXSpan text={`Difficulty: ${difficulty}`} />
+        {quizData.questions.map((_, index) => (
+          <ArticleForm
+            key={index}
+            form={
+              <QuestionForm
+                key={index}
+                questionNum={index + 1}
+                questionData={quizData.questions[index]}
+                handleQuestionChange={handleQuestionChange}
+              />
+            }
+          />
+        ))}
+        {quizData.questions.length < 15 ? (
+          <JSXButton
+            text={`Add Question (${quizData.questions.length}/15)`}
+            onClick={addQuestion}
+          />
+        ) : null}
+        {token ? <JSXButton text="Submit Quiz" /> : null}
+      </form>
+      {token ? null : (
+        <JSXButton
+          onClick={() => handleModalOpen()}
+          text={"Sign in to Save Quiz"}
+        />
+      )}
+    </>
   );
 }
