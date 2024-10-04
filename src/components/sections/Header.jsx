@@ -16,9 +16,8 @@ export default function Header({
     setToken(null);
     setUserId(null);
   };
-  
-  return (
 
+  return (
      <>
       {(location.pathname !== "/" || !isHeader) ? 
       <header className="site-header">
