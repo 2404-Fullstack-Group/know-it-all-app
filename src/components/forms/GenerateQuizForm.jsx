@@ -22,22 +22,27 @@ export default function GenerateQuizForm({
   const handleDifficultyChange = (e) => setDifficulty(e.target.value);
   const handleQuestionCountChange = (e) => setQuestionCount(e.target.value);
 
-  const mapDifficulty = (difficulty) => {
-    switch (difficulty) {
-      case "very easy":
-        return "easy";
-      case "easy":
-        return "easy";
-      case "medium":
-        return "medium";
-      case "hard":
-        return "hard";
-      case "very hard":
-        return "hard";
-      default:
-        return difficulty;
-    }
-  };
+  // const mapDifficulty = (difficulty) => {
+  //   switch (difficulty) {
+  //     case "very easy":
+  //       return "easy";
+  //     case "easy":
+  //       return "easy";
+  //     case "medium":
+  //       return "medium";
+  //     case "hard":
+  //       return "hard";
+  //     case "very hard":
+  //       return "hard";
+  //     default:
+  //       return difficulty;
+  //   }
+  // };
+
+  // basic shuffle function for the handleSubmit
+  function shuffleArray(array) {
+    return array.sort(() => Math.random() - 0.5);
+  }
 
   const handleSubmit = async (e) => {
     e ? e.preventDefault() : null;
@@ -46,22 +51,75 @@ export default function GenerateQuizForm({
       return;
     }
 
-    const mappedDifficulty = mapDifficulty(difficulty);
-
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/questions/random`,
-        {
-          params: {
-            category: category,
-            difficulty: mappedDifficulty,
-            questionCount: questionCount,
-          },
-        }
-      );
+      let allQuestions = [];
 
-      const allQuestions = response.data;
-      console.log("Received questions data:", allQuestions);
+      if (difficulty === "easy" || difficulty === "hard") {
+        const mainDifficultyResponse = await axios.get(
+          `http://localhost:3000/api/questions/random`,
+          {
+            params: {
+              category: category,
+              difficulty: difficulty,
+              questionCount: Math.floor(questionCount * 0.7), // ~70% questions
+            },
+          }
+        );
+        const mediumDifficultyResponse = await axios.get(
+          `http://localhost:3000/api/questions/random`,
+          {
+            params: {
+              category: category,
+              difficulty: "medium",
+              questionCount: Math.ceil(questionCount * 0.3), // ~30% questions
+            },
+          }
+        );
+        allQuestions = [
+          ...mainDifficultyResponse.data,
+          ...mediumDifficultyResponse.data,
+        ];
+      } else if (difficulty === "very easy") {
+        const response = await axios.get(
+          `http://localhost:3000/api/questions/random`,
+          {
+            params: {
+              category: category,
+              difficulty: "easy",
+              questionCount: questionCount,
+            },
+          }
+        );
+        allQuestions = response.data;
+      } else if (difficulty === "very hard") {
+        const response = await axios.get(
+          `http://localhost:3000/api/questions/random`,
+          {
+            params: {
+              category: category,
+              difficulty: "hard",
+              questionCount: questionCount,
+            },
+          }
+        );
+        allQuestions = response.data;
+      } else {
+        const response = await axios.get(
+          `http://localhost:3000/api/questions/random`,
+          {
+            params: {
+              category: category,
+              difficulty: difficulty,
+              questionCount: questionCount,
+            },
+          }
+        );
+        allQuestions = response.data;
+      }
+      allQuestions = shuffleArray(allQuestions);
+      // const allQuestions = response.data;
+
+      // console.log("Received questions data:", allQuestions);
 
       if (!allQuestions || allQuestions.length === 0) {
         alert("No questions returned from API.");
@@ -72,13 +130,13 @@ export default function GenerateQuizForm({
         category,
         questions: [...allQuestions],
       };
-
-      console.log(userId, token);
       setQuizData(quizData);
     } catch (error) {
       console.error("Error generating quiz:", error);
       alert("Failed to generate quiz.");
     }
+
+    //   console.log(userId, token);
   };
 
   const handleModalOpen = () => {
@@ -88,7 +146,7 @@ export default function GenerateQuizForm({
     setIsModal(false);
   };
   const handleSaveQuiz = async () => {
-    console.log(token);
+    // console.log(token);
     await axios.post(
       `http://localhost:3000/api/users/${userId}/quizzes`,
       {
