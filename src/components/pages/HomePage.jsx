@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { JSXSpan } from "../Elements";
 import Header from "../sections/Header";
+import RandomQuiz from "../sections/RandomQuiz";
 
 export default function HomePage({ token, setToken, userId, setUserId }) {
   return (
@@ -26,6 +27,8 @@ export default function HomePage({ token, setToken, userId, setUserId }) {
         userId={userId}
         isHeader={false}
       />
+
+    <RandomQuiz />
     </>
   );
 }
