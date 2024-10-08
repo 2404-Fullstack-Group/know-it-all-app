@@ -70,7 +70,7 @@ const seed = async () => {
     await prisma.question.create({
       data: {
         category: item.category,
-        tags: item.tags,
+        tags: item.tags.length > 3 ? item.tags.slice(0, 3) : item.tags,
         difficulty: item.difficulty,
         question: item.question,
         correctAnswer: item.correctAnswer,

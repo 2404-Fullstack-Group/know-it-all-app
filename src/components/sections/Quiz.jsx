@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { JSXInput, JSXSpan, JSXButton } from "../Elements";
 import { getDifficulty } from "../../utilities/getDifficulty";
+import Question from "./Question";
 
 // shuffle
 const shuffleArray = (array) => {
@@ -142,28 +143,3 @@ export default function Quiz({ quiz }) {
   );
 }
 
-function Question({ question, selectedAnswer, onAnswerChange }) {
-  // shuffle answers (initial render only)
-  const [shuffledAnswers] = useState(() =>
-    shuffleArray([question.correctAnswer, ...question.incorrectAnswers])
-  );
-
-  return (
-    <div className="question-card">
-      <JSXSpan text={question.question} />
-      {shuffledAnswers.map((answer, index) => (
-        <label key={index}>
-          <JSXInput
-            key={index}
-            type="radio"
-            name={`question-${question.id}`}
-            value={answer}
-            checked={selectedAnswer === answer}
-            onChange={() => onAnswerChange(question.id, answer)} // updates userAnswers when an answer is selected
-          />
-          {answer}
-        </label>
-      ))}
-    </div>
-  );
-}
