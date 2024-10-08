@@ -142,7 +142,7 @@ export default function Quiz({ quiz }) {
   );
 }
 
-function Question({ question, selectedAnswer, onAnswerChange }) {
+export default function Question({ question, selectedAnswer, onAnswerChange }) {
   // shuffle answers (initial render only)
   const [shuffledAnswers] = useState(() =>
     shuffleArray([question.correctAnswer, ...question.incorrectAnswers])

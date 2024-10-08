@@ -15,7 +15,9 @@ import { getDifficulty } from "../../utilities/getDifficulty.js";
 import LoginPage from "../pages/LoginPage.jsx";
 
 export default function QuizForm({ userId, setUserId, token, setToken, updateQuiz }) {
-  const [quizData, setQuizData] = useState({
+  // quizData is set to updateQuiz if it exists or creates a blank template object
+  // This allows for QuizForm to be used to create and update a quiz
+  const [quizData, setQuizData] = useState(updateQuiz ? updateQuiz : {
     category: "",
     questions: Array(5).fill({
       category: "",
@@ -107,12 +109,6 @@ export default function QuizForm({ userId, setUserId, token, setToken, updateQui
       ? setDifficulty(diffCalc)
       : setDifficulty("Please Select Question Difficulties");
   }, [quizData]);
-
-  useEffect(() => {
-    if (updateQuiz) {
-      setQuizData(updateQuiz)
-    }
-  }, [])
 
   return (
     <>
