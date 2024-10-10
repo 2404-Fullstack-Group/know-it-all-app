@@ -32,9 +32,6 @@ export default function Header({
             <Link to="/browse">
               <JSXButton text="Browse" />
             </Link>
-            <Link to="/quizzes">
-              <JSXButton text="Play" />
-            </Link>
             <Link to="/create">
               <JSXButton text="Create" />
             </Link>

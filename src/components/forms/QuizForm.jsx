@@ -14,21 +14,31 @@ import LoginForm from "./LoginForm";
 import { getDifficulty } from "../../utilities/getDifficulty.js";
 import LoginPage from "../pages/LoginPage.jsx";
 
-export default function QuizForm({ userId, setUserId, token, setToken, updateQuiz }) {
+export default function QuizForm({
+  userId,
+  setUserId,
+  token,
+  setToken,
+  updateQuiz,
+}) {
   // quizData is set to updateQuiz if it exists or creates a blank template object
   // This allows for QuizForm to be used to create and update a quiz
-  const [quizData, setQuizData] = useState(updateQuiz ? updateQuiz : {
-    category: "",
-    questions: Array(5).fill({
-      category: "",
-      difficulty: "",
-      question: "",
-      correctAnswer: "",
-      incorrectAnswers: Array(3).fill(""),
-      tags: Array(3).fill(""),
-      type: "Multiple Choice",
-    }),
-  });
+  const [quizData, setQuizData] = useState(
+    updateQuiz
+      ? updateQuiz
+      : {
+          category: "",
+          questions: Array(5).fill({
+            category: "",
+            difficulty: "",
+            question: "",
+            correctAnswer: "",
+            incorrectAnswers: Array(3).fill(""),
+            tags: Array(3).fill(""),
+            type: "Multiple Choice",
+          }),
+        }
+  );
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState(null);
   const [isModal, setIsModal] = useState(false);
@@ -133,7 +143,7 @@ export default function QuizForm({ userId, setUserId, token, setToken, updateQui
           <select
             id="category"
             name="category"
-            defaultValue={updateQuiz ? updateQuiz.category :"Select Category"}
+            defaultValue={updateQuiz ? updateQuiz.category : "Select Category"}
             onChange={(e) => handleCategoryChange(e.target.value)}
           >
             <option disabled>Select Category</option>
