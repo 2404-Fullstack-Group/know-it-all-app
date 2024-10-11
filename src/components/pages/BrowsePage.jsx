@@ -12,7 +12,9 @@ export default function BrowsePage({ userId, token, setUpdateQuiz }) {
   const [search, setSearch] = useState("");
 
   const loadQuizzes = async () => {
-    const response = await axios.get("http://localhost:3000/api/quizzes/");
+    const response = await axios.get(
+      "https://know-it-all-app.onrender.com/api/quizzes/"
+    );
     setQuizList(response.data);
     setFilteredQuizList(response.data);
   };

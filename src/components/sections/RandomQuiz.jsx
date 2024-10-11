@@ -15,7 +15,7 @@ export default function RandomQuiz() {
 
   const newQuestion = async () => {
     const response = await axios.get(
-      "http://localhost:3000/api/questions/random",
+      "https://know-it-all-app.onrender.com/api/questions/random",
       {
         params: {
           questionCount: 1,
@@ -33,13 +33,13 @@ export default function RandomQuiz() {
   };
 
   const handleSubmit = () => {
-    newQuestion()
+    newQuestion();
     if (userAnswer[currentQuestion.id] === currentQuestion.correctAnswer) {
-      setStreak(streak + 1)
+      setStreak(streak + 1);
     } else {
-      setStreak(0)
+      setStreak(0);
     }
-    setUserAnswer({})
+    setUserAnswer({});
   };
 
   useEffect(() => {
