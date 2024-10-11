@@ -73,7 +73,7 @@ export default function BrowsePage({ userId, token, setUpdateQuiz }) {
             />
           ))
         ) : (
-          <p>No quizzes available.</p>
+          <p>Loading Quizzes...</p>
         )}
       </GridTemplate>
     </>

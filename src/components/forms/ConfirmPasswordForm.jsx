@@ -32,9 +32,8 @@ export default function ConfirmPasswordForm({
         setIsModal(true);
       }
     } catch (error) {
-      setErrorMessage(true)
+      setErrorMessage(true);
     }
-
   };
 
   const handlePasswordChange = (value) => {

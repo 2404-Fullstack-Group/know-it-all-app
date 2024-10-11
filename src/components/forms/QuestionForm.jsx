@@ -20,10 +20,10 @@ export default function QuestionForm({
   };
 
   useEffect(() => {
-    for (let i = questionData.tags.length; i<3; i++) {
-      questionData.tags.push("")
+    for (let i = questionData.tags.length; i < 3; i++) {
+      questionData.tags.push("");
     }
-  },[])
+  }, []);
 
   return (
     <div className="question-form">

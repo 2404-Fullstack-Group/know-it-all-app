@@ -1,8 +1,6 @@
 // component imports
-import axios from "axios";
 import ProfileForm from "../forms/ProfileForm";
 import ConfirmPasswordForm from "../forms/ConfirmPasswordForm";
-import { useNavigate } from "react-router-dom";
 import { JSXSpan, JSXButton, Modal } from "../Elements";
 import { useState } from "react";
 
@@ -11,12 +9,12 @@ export default function UserProfile({ userData, setUserData, token, user_id }) {
   const [isPassword, setIsPassword] = useState(false);
 
   const handleModalClose = () => {
-    handlePasswordChange("")
+    handlePasswordChange("");
     setIsModal(false);
   };
 
   const handlePasswordClose = () => {
-    handlePasswordChange("")
+    handlePasswordChange("");
     setIsPassword(false);
   };
 
@@ -54,7 +52,7 @@ export default function UserProfile({ userData, setUserData, token, user_id }) {
         <Modal
           content={
             <ConfirmPasswordForm
-            setIsPassword={setIsPassword}
+              setIsPassword={setIsPassword}
               setIsModal={setIsModal}
               setUserData={setUserData}
               userData={userData}

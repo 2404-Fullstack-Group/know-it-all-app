@@ -21,9 +21,9 @@ export default function Question({ question, selectedAnswer, onAnswerChange }) {
         <div className="question-card">
           <JSXSpan text={question.question} />
           {shuffledAnswers.map((answer, index) => (
-            <label key={index}>
+            <label key={answer}>
               <JSXInput
-                key={index}
+                key={answer}
                 type="radio"
                 name={`question-${question.id}`}
                 value={answer}
