@@ -62,7 +62,7 @@ const seed = async () => {
       username: "Admin",
       email: "admin@knowitall.com",
       password: await bcrypt.hash("password", 5),
-      is_admin: true
+      is_admin: true,
     },
   });
 
@@ -136,4 +136,4 @@ const seed = async () => {
 };
 
 seed();
-module.exports = { prisma };
+

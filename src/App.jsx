@@ -38,6 +38,7 @@ export default function App() {
                 setUserId={setUserId}
                 userId={userId}
                 isHeader={true}
+                setUpdateQuiz={setUpdateQuiz}
               />
             }
           />
@@ -52,7 +53,10 @@ export default function App() {
             }
           />
           <Route path="/quizzes/:quiz_id" element={<QuizPage />} />
-          <Route path="/create" element={<CreatePage />} />
+          <Route
+            path="/create"
+            element={<CreatePage setUpdateQuiz={setUpdateQuiz} />}
+          />
           <Route
             path="/create/quiz-maker"
             element={
@@ -62,6 +66,7 @@ export default function App() {
                 token={token}
                 setToken={setToken}
                 updateQuiz={updateQuiz}
+                setUpdateQuiz={setUpdateQuiz}
               />
             }
           />
@@ -78,11 +83,17 @@ export default function App() {
           />
           <Route
             path="/profile/:user_id"
-            element={<ProfilePage token={token} />}
+            element={<ProfilePage token={token} setUpdateQuiz={setUpdateQuiz} />}
           />
           <Route
             path="/registration"
-            element={<LoginPage setToken={setToken} setUserId={setUserId} />}
+            element={
+              <LoginPage
+                setToken={setToken}
+                setUserId={setUserId}
+                setUpdateQuiz={setUpdateQuiz}
+              />
+            }
           />
         </Routes>
       </main>

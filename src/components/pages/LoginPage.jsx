@@ -1,7 +1,9 @@
+// react imports
+import { useState } from "react";
+
 // component imports
 import { AuthForm } from "../templates/FormTemplates";
 import LoginForm from "../forms/LoginForm";
-import { useState } from "react";
 import RegistrationForm from "../forms/RegistrationForm";
 import { JSXSpan } from "../Elements";
 

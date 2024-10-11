@@ -20,6 +20,7 @@ export default function QuizForm({
   token,
   setToken,
   updateQuiz,
+  setUpdateQuiz
 }) {
   // quizData is set to updateQuiz if it exists or creates a blank template object
   // This allows for QuizForm to be used to create and update a quiz
@@ -103,6 +104,8 @@ export default function QuizForm({
         },
       }
     );
+    setUpdateQuiz(null)
+    navigate("/profile/:user_id")
   };
 
   const handleModalOpen = () => {
@@ -168,6 +171,7 @@ export default function QuizForm({
                 questionNum={index + 1}
                 questionData={quizData.questions[index]}
                 handleQuestionChange={handleQuestionChange}
+                updateQuiz={updateQuiz}
               />
             }
           />
