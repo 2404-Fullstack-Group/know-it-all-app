@@ -42,6 +42,7 @@ export default function QuizForm({
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState(null);
   const [isModal, setIsModal] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const addQuestion = (event) => {
     event.preventDefault();
@@ -92,7 +93,7 @@ export default function QuizForm({
   const handleSubmit = async (event) => {
     event.preventDefault();
     await axios.post(
-      `https://know-it-all-app.onrender.com/api/users/${userId}/quizzes`,
+      `${API_URL}/api/users/${userId}/quizzes`,
       {
         category: quizData.category,
         questions: quizData.questions,

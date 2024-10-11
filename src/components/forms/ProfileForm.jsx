@@ -35,11 +35,12 @@ export default function ProfileForm({
       email: value,
     }));
   };
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.put(
-      `https://know-it-all-app.onrender.com/api/users/${user_id}`,
+      `${API_URL}/api/users/${user_id}`,
       {
         username: userData.username,
         first_name: userData.first_name,

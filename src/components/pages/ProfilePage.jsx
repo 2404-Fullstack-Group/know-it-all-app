@@ -10,22 +10,20 @@ export default function ProfilePage({ token }) {
   const { user_id } = useParams();
   const [userData, setUserData] = useState("");
   const [userQuizList, setUserQuizList] = useState([]);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const getUserInfo = async () => {
-    const response = await axios.get(
-      `https://know-it-all-app.onrender.com/api/users/${user_id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.get(`${API_URL}/api/users/${user_id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     setUserData(response.data);
   };
 
   const loadQuizzes = async () => {
     const response = await axios.get(
-      `https://know-it-all-app.onrender.com/api/users/${user_id}/quizzes`,
+      `${API_URL}/api/users/${user_id}/quizzes`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -10,11 +10,10 @@ export default function BrowsePage({ userId, token, setUpdateQuiz }) {
   const [quizList, setQuizList] = useState([]);
   const [filteredQuizList, setFilteredQuizList] = useState([]);
   const [search, setSearch] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const loadQuizzes = async () => {
-    const response = await axios.get(
-      "https://know-it-all-app.onrender.com/api/quizzes/"
-    );
+    const response = await axios.get(`${API_URL}/api/quizzes/`);
     setQuizList(response.data);
     setFilteredQuizList(response.data);
   };

@@ -19,9 +19,11 @@ export default function QuizCard({
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const handleDeleteClick = async () => {
     await axios.delete(
-      `https://know-it-all-app.onrender.com/api/users/${userId}/quizzes/${quiz.quiz_id}`,
+      `${API_URL}/api/users/${userId}/quizzes/${quiz.quiz_id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

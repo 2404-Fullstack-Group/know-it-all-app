@@ -14,17 +14,15 @@ export default function RandomQuiz() {
     correctAnswer: "",
     incorrectAnswers: [],
   });
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const newQuestion = async () => {
-    const response = await axios.get(
-      "https://know-it-all-app.onrender.com/api/questions/random",
-      {
-        params: {
-          questionCount: 1,
-          difficulty: difficulty,
-        },
-      }
-    );
+    const response = await axios.get(`${API_URL}/api/questions/random`, {
+      params: {
+        questionCount: 1,
+        difficulty: difficulty,
+      },
+    });
     setCurrentQuestion(response.data[0]);
   };
 

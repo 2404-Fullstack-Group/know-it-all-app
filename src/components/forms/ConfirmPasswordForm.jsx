@@ -11,12 +11,13 @@ export default function ConfirmPasswordForm({
 }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleClick = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `https://know-it-all-app.onrender.com/api/users/login`,
+        `${API_URL}/api/users/login`,
         {
           username: userData.username,
           password: userData.password,
