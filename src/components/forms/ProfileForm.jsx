@@ -6,9 +6,8 @@ export default function ProfileForm({
   setUserData,
   handleModalClose,
   user_id,
-  token
+  token,
 }) {
-
   const handleUsernameChange = (value) => {
     setUserData((prevState) => ({
       ...prevState,

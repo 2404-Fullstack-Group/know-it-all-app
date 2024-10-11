@@ -3,7 +3,6 @@ import { JSXButton, JSXInput, JSXSpan } from "../Elements";
 import axios from "axios";
 import Quiz from "../sections/Quiz";
 import { Modal } from "../Elements";
-import LoginForm from "./LoginForm";
 import LoginPage from "../pages/LoginPage";
 
 export default function GenerateQuizForm({
@@ -21,23 +20,6 @@ export default function GenerateQuizForm({
   const handleCategoryChange = (e) => setCategory(e.target.value);
   const handleDifficultyChange = (e) => setDifficulty(e.target.value);
   const handleQuestionCountChange = (e) => setQuestionCount(e.target.value);
-
-  // const mapDifficulty = (difficulty) => {
-  //   switch (difficulty) {
-  //     case "very easy":
-  //       return "easy";
-  //     case "easy":
-  //       return "easy";
-  //     case "medium":
-  //       return "medium";
-  //     case "hard":
-  //       return "hard";
-  //     case "very hard":
-  //       return "hard";
-  //     default:
-  //       return difficulty;
-  //   }
-  // };
 
   // basic shuffle function for the handleSubmit
   function shuffleArray(array) {
@@ -117,9 +99,6 @@ export default function GenerateQuizForm({
         allQuestions = response.data;
       }
       allQuestions = shuffleArray(allQuestions);
-      // const allQuestions = response.data;
-
-      // console.log("Received questions data:", allQuestions);
 
       if (!allQuestions || allQuestions.length === 0) {
         alert("No questions returned from API.");
@@ -135,8 +114,6 @@ export default function GenerateQuizForm({
       console.error("Error generating quiz:", error);
       alert("Failed to generate quiz.");
     }
-
-    //   console.log(userId, token);
   };
 
   const handleModalOpen = () => {
@@ -146,7 +123,6 @@ export default function GenerateQuizForm({
     setIsModal(false);
   };
   const handleSaveQuiz = async () => {
-    // console.log(token);
     await axios.post(
       `https://know-it-all-app.onrender.com/api/users/${userId}/quizzes`,
       {

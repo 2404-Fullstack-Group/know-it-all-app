@@ -91,7 +91,6 @@ export default function QuizForm({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(token);
     await axios.post(
       `https://know-it-all-app.onrender.com/api/users/${userId}/quizzes`,
       {

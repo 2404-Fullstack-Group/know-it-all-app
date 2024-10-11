@@ -22,10 +22,13 @@ export default function LoginForm({
 
   const handleOnClick = async (e) => {
     e.preventDefault();
-    const response = await axios.post(`https://know-it-all-app.onrender.com/api/users/login`, {
-      username: username,
-      password: password,
-    });
+    const response = await axios.post(
+      `https://know-it-all-app.onrender.com/api/users/login`,
+      {
+        username: username,
+        password: password,
+      }
+    );
     setToken(response.data.token);
     setUserId(response.data.user[0].id);
     if (response.data.token) {

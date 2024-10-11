@@ -6,7 +6,7 @@ import axios from "axios";
 export default function RandomQuiz() {
   const [userAnswer, setUserAnswer] = useState({});
   const [streak, setStreak] = useState(0);
-  const [showCorrect, setShowCorrect] = useState(false)
+  const [showCorrect, setShowCorrect] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState({
     id: "",
     question: "",
@@ -35,17 +35,17 @@ export default function RandomQuiz() {
 
   const handleSubmit = () => {
     if (userAnswer[currentQuestion.id] === currentQuestion.correctAnswer) {
-      setStreak(streak + 1)
-      newQuestion()
-      setUserAnswer({})
+      setStreak(streak + 1);
+      newQuestion();
+      setUserAnswer({});
     } else {
-      setShowCorrect(true)
+      setShowCorrect(true);
       setTimeout(() => {
-        newQuestion()
-        setUserAnswer({})
-        setStreak(0)
-        setShowCorrect(false)
-      }, 2500)
+        newQuestion();
+        setUserAnswer({});
+        setStreak(0);
+        setShowCorrect(false);
+      }, 2500);
     }
   };
 
@@ -68,9 +68,11 @@ export default function RandomQuiz() {
         selectedAnswer={userAnswer[currentQuestion.id]}
         onAnswerChange={handleAnswerChange}
       />
-      {showCorrect ? `Correct Answer: ${currentQuestion.correctAnswer}` : <JSXButton text={"Submit"} onClick={handleSubmit} />}
-      
-
+      {showCorrect ? (
+        `Correct Answer: ${currentQuestion.correctAnswer}`
+      ) : (
+        <JSXButton text={"Submit"} onClick={handleSubmit} />
+      )}
     </div>
   );
 }

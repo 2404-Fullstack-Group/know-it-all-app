@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { JSXInput, JSXSpan, JSXButton } from "../Elements";
+import { JSXSpan, JSXButton } from "../Elements";
 import { getDifficulty } from "../../utilities/getDifficulty";
 import Question from "./Question";
 
@@ -36,15 +36,12 @@ export default function Quiz({ quiz }) {
     }
   }, [shuffledQuestions]);
 
-  useEffect(() => {
-    console.log(results);
-  }, [results]);
-
   // handle quiz-submission
   const handleSubmit = () => {
     const now = Date.now();
     setEndTime(now); // stop timer
     const quizResults = shuffledQuestions.map((question) => ({
+      id: question.id,
       question: question.question,
       correctAnswer: question.correctAnswer,
       userAnswer: userAnswers[question.id] || "No answer",
@@ -93,9 +90,9 @@ export default function Quiz({ quiz }) {
       </header>
       {!results ? (
         <>
-          {shuffledQuestions.map((question) => (
+          {shuffledQuestions.map((question, index) => (
             <Question
-              key={question.id}
+              key={`${question.id}-${index}`}
               question={question}
               selectedAnswer={userAnswers[question.id]}
               onAnswerChange={handleAnswerChange}
@@ -117,7 +114,7 @@ export default function Quiz({ quiz }) {
           <hr />
           {results.map((result, index) => (
             <div
-              key={index}
+              key={`${result.id}-${index}`}
               className={`quiz-result-${
                 result.isCorrect ? "correct" : "incorrect"
               }`}
@@ -142,4 +139,3 @@ export default function Quiz({ quiz }) {
     </div>
   );
 }
-

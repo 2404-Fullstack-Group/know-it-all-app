@@ -19,7 +19,6 @@ export default function RegistrationForm({ setIsLogin, setIsNewAccount }) {
     confirm_password: "",
   });
   const [errorMessage, setErrorMessage] = useState(false);
-  const navigate = useNavigate();
 
   const handleUsernameChange = (value) => {
     setUserData((prevState) => ({
@@ -80,8 +79,7 @@ export default function RegistrationForm({ setIsLogin, setIsNewAccount }) {
         setIsLogin(true);
       } catch (error) {
         const errorMessage = error.response.data;
-        console.log(errorMessage);
-        console.log(errorMessage.match("Username and Email are Unavailable"));
+
         if (errorMessage.match("Username Unavailable")) {
           setUnavailableUsername(true);
         } else {
@@ -93,7 +91,6 @@ export default function RegistrationForm({ setIsLogin, setIsNewAccount }) {
           setUnavailableEmail(false);
         }
         if (errorMessage.match("Username and Email are Unavailable")) {
-          console.log(true);
           setUnavailableUsername(true);
           setUnavailableEmail(true);
         }
