@@ -68,11 +68,13 @@ export default function RandomQuiz() {
         selectedAnswer={userAnswer[currentQuestion.id]}
         onAnswerChange={handleAnswerChange}
       />
-      {showCorrect ? (
-        `Correct Answer: ${currentQuestion.correctAnswer}`
-      ) : (
-        <JSXButton text={"Submit"} onClick={handleSubmit} />
-      )}
+      {currentQuestion.id ? (
+        showCorrect ? (
+          `Correct Answer: ${currentQuestion.correctAnswer}`
+        ) : (
+          <JSXButton text={"Submit"} onClick={handleSubmit} />
+        )
+      ) : null}
     </div>
   );
 }

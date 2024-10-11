@@ -6,11 +6,20 @@ function JSXButton({ text, type, onClick }) {
   );
 }
 
-function JSXInput({ id, type, name, value, placeholder, onChange, checked }) {
+function JSXInput({
+  id,
+  className,
+  type,
+  name,
+  value,
+  placeholder,
+  onChange,
+  checked,
+}) {
   return (
     <input
       id={id}
-      className="jsx-input"
+      className={"jsx-input" + (className ? ` ${className}` : "")}
       type={type}
       name={name}
       value={value}
@@ -21,8 +30,12 @@ function JSXInput({ id, type, name, value, placeholder, onChange, checked }) {
   );
 }
 
-function JSXSpan({ text }) {
-  return <span className="jsx-span">{text}</span>;
+function JSXSpan({ text, className }) {
+  return (
+    <span className={"jsx-span" + (className ? ` ${className}` : "")}>
+      {text}
+    </span>
+  );
 }
 
 function Modal({ content, closeModal }) {

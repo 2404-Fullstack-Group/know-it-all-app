@@ -7,6 +7,7 @@ import { JSXButton } from "../Elements";
 
 // function imports
 import { getDifficulty } from "../../utilities/getDifficulty";
+import { useEffect, useState } from "react";
 
 export default function QuizCard({
   quiz,
@@ -15,6 +16,7 @@ export default function QuizCard({
   loadQuizzes,
   setUpdateQuiz,
 }) {
+  const [category, setCategory] = useState("");
   const navigate = useNavigate();
   const handleDeleteClick = async () => {
     await axios.delete(
@@ -32,10 +34,14 @@ export default function QuizCard({
     navigate("/create/quiz-maker");
   };
 
+  useEffect(() => {
+    setUpdateQuiz(quiz);
+  }, []);
+
   return (
-    <div className="quiz-card">
+    <div className={"quiz-card " + (category ? ` quiz-${category}` : null)}>
       <>
-        <p>{quiz.category}</p>
+        <h3>{quiz.category}</h3>
         <p>{`${quiz.questions.length} Questions`}</p>
         <p>{getDifficulty(quiz.questions)}</p>
       </>
