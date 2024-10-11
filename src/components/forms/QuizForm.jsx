@@ -93,7 +93,7 @@ export default function QuizForm({
     event.preventDefault();
     console.log(token);
     await axios.post(
-      `http://localhost:3000/api/users/${userId}/quizzes`,
+      `https://know-it-all-app.onrender.com/api/users/${userId}/quizzes`,
       {
         category: quizData.category,
         questions: quizData.questions,

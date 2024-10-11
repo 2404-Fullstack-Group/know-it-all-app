@@ -40,7 +40,7 @@ export default function ProfileForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.put(
-      `http://localhost:3000/api/users/${user_id}`,
+      `https://know-it-all-app.onrender.com/api/users/${user_id}`,
       {
         username: userData.username,
         first_name: userData.first_name,
