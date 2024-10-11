@@ -19,7 +19,7 @@ export default function QuizCard({
   const navigate = useNavigate();
   const handleDeleteClick = async () => {
     await axios.delete(
-      `http://localhost:3000/api/users/${userId}/quizzes/${quiz.quiz_id}`,
+      `https://know-it-all-app.onrender.com/api/users/${userId}/quizzes/${quiz.quiz_id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

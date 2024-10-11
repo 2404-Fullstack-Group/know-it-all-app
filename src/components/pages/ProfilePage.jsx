@@ -13,7 +13,7 @@ export default function ProfilePage({ token }) {
 
   const getUserInfo = async () => {
     const response = await axios.get(
-      `http://localhost:3000/api/users/${user_id}`,
+      `https://know-it-all-app.onrender.com/api/users/${user_id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -25,7 +25,7 @@ export default function ProfilePage({ token }) {
 
   const loadQuizzes = async () => {
     const response = await axios.get(
-      `http://localhost:3000/api/users/${user_id}/quizzes`,
+      `https://know-it-all-app.onrender.com/api/users/${user_id}/quizzes`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -44,7 +44,12 @@ export default function ProfilePage({ token }) {
       <h2>
         <JSXSpan text="My Profile" />
       </h2>
-      <UserProfile userData={userData} setUserData={setUserData} token={token} user_id={user_id} />
+      <UserProfile
+        userData={userData}
+        setUserData={setUserData}
+        token={token}
+        user_id={user_id}
+      />
       <h2>
         <JSXSpan text="My Quizzes" />
       </h2>

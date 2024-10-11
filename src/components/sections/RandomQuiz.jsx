@@ -16,7 +16,7 @@ export default function RandomQuiz() {
 
   const newQuestion = async () => {
     const response = await axios.get(
-      "http://localhost:3000/api/questions/random",
+      "https://know-it-all-app.onrender.com/api/questions/random",
       {
         params: {
           questionCount: 1,

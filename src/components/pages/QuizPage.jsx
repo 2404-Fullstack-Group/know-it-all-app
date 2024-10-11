@@ -129,7 +129,7 @@ export default function QuizPage() {
   const loadQuiz = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/quizzes/${quiz_id}`
+        `https://know-it-all-app.onrender.com/api/quizzes/${quiz_id}`
       );
       setQuiz(response.data);
     } catch (error) {
