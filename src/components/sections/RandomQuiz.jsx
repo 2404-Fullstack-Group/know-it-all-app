@@ -6,6 +6,7 @@ import axios from "axios";
 export default function RandomQuiz() {
   const [userAnswer, setUserAnswer] = useState({});
   const [streak, setStreak] = useState(0);
+  const [difficulty, setDifficulty] = useState("easy");
   const [showCorrect, setShowCorrect] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState({
     id: "",
@@ -20,6 +21,7 @@ export default function RandomQuiz() {
       {
         params: {
           questionCount: 1,
+          difficulty: difficulty,
         },
       }
     );
@@ -49,7 +51,20 @@ export default function RandomQuiz() {
     }
   };
 
+  const updateDifficulty = () => {
+    if (streak < 5) {
+      setDifficulty("easy");
+      return;
+    } else if (streak <= 15) {
+      setDifficulty("medium");
+      return;
+    } else if (streak > 15) {
+      setDifficulty("hard");
+    }
+  };
+
   useEffect(() => {
+    updateDifficulty();
     newQuestion();
   }, []);
 
