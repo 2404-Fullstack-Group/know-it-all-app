@@ -1,6 +1,10 @@
-function JSXButton({ text, type, onClick }) {
+function JSXButton({ text, type, onClick, className }) {
   return (
-    <button className="jsx-button" type={type} onClick={onClick}>
+    <button
+      className={"jsx-button" + (className ? ` ${className}` : "")}
+      type={type}
+      onClick={onClick}
+    >
       {text}
     </button>
   );

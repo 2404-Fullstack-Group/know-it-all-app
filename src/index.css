@@ -188,15 +188,56 @@ input[type="radio"]:checked + .custom-box {
 }
 /* ----- QuizCard */
 .quiz-card {
-  border: 1px solid black;
+  border-radius: 0.2rem;
   width: 8rem;
   height: 8rem;
   padding: 1rem;
   display: flex;
+  position: relative;
   flex-direction: column;
+  justify-content: space-between;
+}
+.quiz-card > h3 {
+  margin: 0;
 }
 .quiz-card > p {
   margin: 0;
+}
+.quiz-card-play {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.quiz-card-play-button {
+  display: none;
+}
+.difficulty-very-easy,
+.difficulty-easy,
+.difficulty-medium,
+.difficulty-hard,
+.difficulty-very-hard {
+  font-weight: 700;
+  width: fit-content;
+  padding: 0.2rem 0.3rem;
+  border-radius: 0.2rem;
+  color: var(--color-secondary-background);
+}
+.difficulty-very-easy {
+  background-color: var(--color-very-easy);
+}
+.difficulty-easy {
+  background-color: var(--color-easy);
+}
+.difficulty-medium {
+  background-color: var(--color-medium);
+}
+.difficulty-hard {
+  background-color: var(--color-hard);
+}
+.difficulty-very-hard {
+  background-color: var(--color-very-hard);
 }
 
 /* quiz card categories */

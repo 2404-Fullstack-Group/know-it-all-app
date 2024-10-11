@@ -17,6 +17,7 @@ export default function QuizCard({
   setUpdateQuiz,
 }) {
   const [category, setCategory] = useState("");
+  const [difficulty, setDifficulty] = useState("");
   const navigate = useNavigate();
   const handleDeleteClick = async () => {
     await axios.delete(
@@ -34,15 +35,12 @@ export default function QuizCard({
     navigate("/create/quiz-maker");
   };
 
-  const handleClassName = () => {
-    let classCategory = quiz.category;
-    return classCategory
-      .toLowerCase()
-      .replace(/&/g, "and")
-      .replace(/\s+/g, "-");
+  const handleClassName = (name) => {
+    return name.toLowerCase().replace(/&/g, "and").replace(/\s+/g, "-");
   };
   useEffect(() => {
-    setCategory(handleClassName());
+    setCategory(handleClassName(quiz.category));
+    setDifficulty(handleClassName(getDifficulty(quiz.questions)));
   }, [quiz]);
 
   useEffect(() => {
@@ -54,10 +52,12 @@ export default function QuizCard({
       <>
         <h3>{quiz.category}</h3>
         <p>{`${quiz.questions.length} Questions`}</p>
-        <p>{getDifficulty(quiz.questions)}</p>
+        <p className={`difficulty-${difficulty}`}>
+          {getDifficulty(quiz.questions)}
+        </p>
       </>
-      <Link to={`/quizzes/${quiz.quiz_id}`}>
-        <JSXButton text="play" />
+      <Link className="quiz-card-play" to={`/quizzes/${quiz.quiz_id}`}>
+        <JSXButton className="quiz-card-play-button" text="play" />
       </Link>
 
       {userId === quiz.created_by ? (
