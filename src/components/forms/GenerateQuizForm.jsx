@@ -56,7 +56,7 @@ export default function GenerateQuizForm({
 
       if (difficulty === "easy" || difficulty === "hard") {
         const mainDifficultyResponse = await axios.get(
-          `http://localhost:3000/api/questions/random`,
+          `https://know-it-all-app.onrender.com/api/questions/random`,
           {
             params: {
               category: category,
@@ -66,7 +66,7 @@ export default function GenerateQuizForm({
           }
         );
         const mediumDifficultyResponse = await axios.get(
-          `http://localhost:3000/api/questions/random`,
+          `https://know-it-all-app.onrender.com/api/questions/random`,
           {
             params: {
               category: category,
@@ -81,7 +81,7 @@ export default function GenerateQuizForm({
         ];
       } else if (difficulty === "very easy") {
         const response = await axios.get(
-          `http://localhost:3000/api/questions/random`,
+          `https://know-it-all-app.onrender.com/api/questions/random`,
           {
             params: {
               category: category,
@@ -93,7 +93,7 @@ export default function GenerateQuizForm({
         allQuestions = response.data;
       } else if (difficulty === "very hard") {
         const response = await axios.get(
-          `http://localhost:3000/api/questions/random`,
+          `https://know-it-all-app.onrender.com/api/questions/random`,
           {
             params: {
               category: category,
@@ -105,7 +105,7 @@ export default function GenerateQuizForm({
         allQuestions = response.data;
       } else {
         const response = await axios.get(
-          `http://localhost:3000/api/questions/random`,
+          `https://know-it-all-app.onrender.com/api/questions/random`,
           {
             params: {
               category: category,
@@ -148,7 +148,7 @@ export default function GenerateQuizForm({
   const handleSaveQuiz = async () => {
     // console.log(token);
     await axios.post(
-      `http://localhost:3000/api/users/${userId}/quizzes`,
+      `https://know-it-all-app.onrender.com/api/users/${userId}/quizzes`,
       {
         category: quizData.category,
         questions: quizData.questions,

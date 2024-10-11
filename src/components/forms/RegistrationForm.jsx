@@ -69,7 +69,7 @@ export default function RegistrationForm({ setIsLogin, setIsNewAccount }) {
       setErrorMessage(true);
     } else {
       try {
-        await axios.post("http://localhost:3000/api/users", {
+        await axios.post("https://know-it-all-app.onrender.com/api/users", {
           username: userData.username,
           first_name: userData.first_name,
           last_name: userData.last_name,

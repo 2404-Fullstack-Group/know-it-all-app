@@ -5,7 +5,7 @@ export default function RandomQuizForm() {
   const [question, setQuestion] = useState({})
 
   const loadQuestion = async () => {
-    const response = await axios.get("http://localhost:3000/api/questions/random")
+    const response = await axios.get("https://know-it-all-app.onrender.com/api/questions/random")
   }
 
   return (
