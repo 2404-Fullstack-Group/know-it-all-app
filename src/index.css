@@ -8,6 +8,23 @@
   --color-success: #28a745;
   --color-error: #dc3545;
   --color-warning: #ffc107;
+
+  --color-very-easy: #a8d5ba;
+  --color-easy: #d3e9b9;
+  --color-medium: #f2d79e;
+  --color-hard: #f4b6a0;
+  --color-very-hard: #f5a4a0;
+
+  --color-general-knowledge: #82bbc4;
+  --color-geography: #cf936d;
+  --color-society-and-culture: #c88998;
+  --color-music: #8980b3;
+  --color-food-and-drink: #86ac9f;
+  --color-sport-and-leisure: #d4c276;
+  --color-film-and-tv: #c17185;
+  --color-science: #a8bb84;
+  --color-arts-and-literature: #b0a1c8;
+  --color-history: #e5a861;
 }
 /* --------------- FONT --------------- */
 

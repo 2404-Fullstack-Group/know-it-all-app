@@ -10,7 +10,6 @@ import CreateQuizPage from "./components/pages/CreateQuizPage";
 import GenerateQuizPage from "./components/pages/GenerateQuizPage";
 import CreatePage from "./components/pages/CreatePage";
 import ProfilePage from "./components/pages/ProfilePage";
-import RegistrationPage from "./components/pages/RegistrationPage";
 import QuizPage from "./components/pages/QuizPage";
 
 export default function App() {

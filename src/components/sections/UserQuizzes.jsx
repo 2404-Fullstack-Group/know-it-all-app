@@ -1,4 +1,3 @@
-import { useState } from "react";
 import GridTemplate from "../templates/GridTemplate";
 import QuizCard from "./QuizCard";
 export default function UserQuizzes({ userQuizList, setUpdateQuiz, token, loadQuizzes, user_id }) {
