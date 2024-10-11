@@ -41,9 +41,11 @@ export default function QuizCard({
       .replace(/&/g, "and")
       .replace(/\s+/g, "-");
   };
+  useEffect(() => {
+    setCategory(handleClassName());
+  }, [quiz]);
 
   useEffect(() => {
-    setCategory(() => handleClassName());
     setUpdateQuiz(quiz);
   }, []);
 
