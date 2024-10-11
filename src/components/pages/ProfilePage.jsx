@@ -36,7 +36,7 @@ export default function ProfilePage({ token, setUpdateQuiz }) {
   };
 
   useEffect(() => {
-    setUpdateQuiz(null)
+    setUpdateQuiz(null);
     getUserInfo();
     loadQuizzes();
   }, []);
@@ -54,7 +54,7 @@ export default function ProfilePage({ token, setUpdateQuiz }) {
       <h2>
         <JSXSpan text="My Quizzes" />
       </h2>
-      <UserQuizzes userQuizList={userQuizList} />
+      <UserQuizzes userQuizList={userQuizList} setUpdateQuiz={setUpdateQuiz} token={token} loadQuizzes={loadQuizzes} user_id={user_id} />
     </>
   );
 }
