@@ -1,3 +1,4 @@
+// component imports
 import GenerateQuizForm from "../forms/GenerateQuizForm";
 import { AuthForm } from "../templates/FormTemplates";
 

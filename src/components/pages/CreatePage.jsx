@@ -1,6 +1,9 @@
+// react imports
 import { Link } from "react-router-dom";
-import { JSXButton } from "../Elements";
 import { useEffect } from "react";
+
+// component imports
+import { JSXButton } from "../Elements";
 
 export default function CreatePage({ setUpdateQuiz }) {
   useEffect(() => {
