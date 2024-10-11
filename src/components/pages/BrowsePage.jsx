@@ -43,6 +43,7 @@ export default function BrowsePage({ userId, token, setUpdateQuiz }) {
   };
 
   useEffect(() => {
+    setUpdateQuiz(null);
     const fetchData = async () => {
       await loadQuizzes();
     };

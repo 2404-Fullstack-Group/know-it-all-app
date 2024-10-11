@@ -5,8 +5,9 @@ export default function QuestionForm({
   questionNum,
   questionData,
   handleQuestionChange,
+  updateQuiz,
 }) {
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(updateQuiz ? false : true);
 
   const handleToggleEdit = (e) => {
     e.preventDefault();
@@ -20,10 +21,10 @@ export default function QuestionForm({
   };
 
   useEffect(() => {
-    for (let i = questionData.tags.length; i<3; i++) {
-      questionData.tags.push("")
+    for (let i = questionData.tags.length; i < 3; i++) {
+      questionData.tags.push("");
     }
-  },[])
+  }, []);
 
   return (
     <div className="question-form">

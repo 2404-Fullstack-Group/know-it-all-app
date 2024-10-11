@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { JSXButton } from "../Elements";
+import { useEffect } from "react";
 
-export default function CreatePage() {
+export default function CreatePage({ setUpdateQuiz }) {
+  useEffect(() => {
+    setUpdateQuiz(null);
+  });
   return (
     <>
       <header>
