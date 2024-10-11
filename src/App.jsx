@@ -17,7 +17,7 @@ export default function App() {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
   // This useState is the quiz data for a quiz that needs updated
-  const [updateQuiz, setUpdateQuiz] = useState(null)
+  const [updateQuiz, setUpdateQuiz] = useState(null);
 
   return (
     <Router>
@@ -39,15 +39,25 @@ export default function App() {
                 setUserId={setUserId}
                 userId={userId}
                 isHeader={true}
+                setUpdateQuiz={setUpdateQuiz}
               />
             }
           />
           <Route
             path="/browse"
-            element={<BrowsePage userId={userId} token={token} setUpdateQuiz={setUpdateQuiz} />}
+            element={
+              <BrowsePage
+                userId={userId}
+                token={token}
+                setUpdateQuiz={setUpdateQuiz}
+              />
+            }
           />
           <Route path="/quizzes/:quiz_id" element={<QuizPage />} />
-          <Route path="/create" element={<CreatePage />} />
+          <Route
+            path="/create"
+            element={<CreatePage setUpdateQuiz={setUpdateQuiz} />}
+          />
           <Route
             path="/create/quiz-maker"
             element={
@@ -57,6 +67,7 @@ export default function App() {
                 token={token}
                 setToken={setToken}
                 updateQuiz={updateQuiz}
+                setUpdateQuiz={setUpdateQuiz}
               />
             }
           />
@@ -73,13 +84,18 @@ export default function App() {
           />
           <Route
             path="/profile/:user_id"
-            element={<ProfilePage token={token} />}
+            element={<ProfilePage token={token} setUpdateQuiz={setUpdateQuiz} />}
           />
           <Route
             path="/registration"
-            element={<LoginPage setToken={setToken} setUserId={setUserId} />}
+            element={
+              <LoginPage
+                setToken={setToken}
+                setUserId={setUserId}
+                setUpdateQuiz={setUpdateQuiz}
+              />
+            }
           />
-          {/* <Route path="/register" element={<RegistrationPage />} /> */}
         </Routes>
       </main>
     </Router>

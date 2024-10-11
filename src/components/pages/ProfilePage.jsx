@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-export default function ProfilePage({ token }) {
+export default function ProfilePage({ token, setUpdateQuiz }) {
   const { user_id } = useParams();
   const [userData, setUserData] = useState("");
   const [userQuizList, setUserQuizList] = useState([]);
@@ -36,6 +36,7 @@ export default function ProfilePage({ token }) {
   };
 
   useEffect(() => {
+    setUpdateQuiz(null);
     getUserInfo();
     loadQuizzes();
   }, []);
@@ -53,7 +54,7 @@ export default function ProfilePage({ token }) {
       <h2>
         <JSXSpan text="My Quizzes" />
       </h2>
-      <UserQuizzes userQuizList={userQuizList} />
+      <UserQuizzes userQuizList={userQuizList} setUpdateQuiz={setUpdateQuiz} token={token} loadQuizzes={loadQuizzes} user_id={user_id} />
     </>
   );
 }
