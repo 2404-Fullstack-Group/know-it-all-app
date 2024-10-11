@@ -1,10 +1,12 @@
+// react imports
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
 // component imports
 import UserProfile from "../sections/UserProfile";
 import UserQuizzes from "../sections/UserQuizzes";
 import { JSXSpan } from "../Elements";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
 
 export default function ProfilePage({ token, setUpdateQuiz }) {
   const { user_id } = useParams();

@@ -1,8 +1,11 @@
+// react imports
 import { Link } from "react-router-dom";
 import { JSXSpan } from "../Elements";
+import { useEffect } from "react";
+
+// component imports
 import Header from "../sections/Header";
 import RandomQuiz from "../sections/RandomQuiz";
-import { useEffect } from "react";
 
 export default function HomePage({
   token,

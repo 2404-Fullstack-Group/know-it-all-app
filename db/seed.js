@@ -136,4 +136,4 @@ const seed = async () => {
 };
 
 seed();
-module.exports = { prisma };
+
