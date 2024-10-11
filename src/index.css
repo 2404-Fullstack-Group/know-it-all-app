@@ -198,6 +198,39 @@ input[type="radio"]:checked + .custom-box {
 .quiz-card > p {
   margin: 0;
 }
+
+/* quiz card categories */
+.quiz-card-general-knowledge {
+  background-color: var(--color-general-knowledge);
+}
+.quiz-card-geography {
+  background-color: var(--color-geography);
+}
+.quiz-card-society-and-culture {
+  background-color: var(--color-society-and-culture);
+}
+.quiz-card-music {
+  background-color: var(--color-music);
+}
+.quiz-card-food-and-drink {
+  background-color: var(--color-food-and-drink);
+}
+.quiz-card-sport-and-leisure {
+  background-color: var(--color-sport-and-leisure);
+}
+.quiz-card-film-and-tv {
+  background-color: var(--color-film-and-tv);
+}
+.quiz-card-arts-and-literature {
+  background-color: var(--color-arts-and-literature);
+}
+.quiz-card-science {
+  background-color: var(--color-science);
+}
+.quiz-card-history {
+  background-color: var(--color-history);
+}
+
 /* --------------- FORMS --------------- */
 /* ----- QuestionForm */
 .question-form {

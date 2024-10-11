@@ -34,12 +34,21 @@ export default function QuizCard({
     navigate("/create/quiz-maker");
   };
 
+  const handleClassName = () => {
+    let classCategory = quiz.category;
+    return classCategory
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/\s+/g, "-");
+  };
+
   useEffect(() => {
+    setCategory(() => handleClassName());
     setUpdateQuiz(quiz);
   }, []);
 
   return (
-    <div className={"quiz-card " + (category ? ` quiz-${category}` : null)}>
+    <div className={"quiz-card" + (category ? ` quiz-card-${category}` : "")}>
       <>
         <h3>{quiz.category}</h3>
         <p>{`${quiz.questions.length} Questions`}</p>
