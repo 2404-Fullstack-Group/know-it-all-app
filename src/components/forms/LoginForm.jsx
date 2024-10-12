@@ -14,6 +14,7 @@ export default function LoginForm({
   isNewAccount,
   setIsNewAccount,
   setIsLogin,
+  setIsAdmin,
 }) {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
@@ -29,6 +30,7 @@ export default function LoginForm({
     });
     setToken(response.data.token);
     setUserId(response.data.user[0].id);
+    setIsAdmin(response.data.user[0].is_admin)
     if (response.data.token) {
       isModal ? setIsModal(false) : navigate("/browse");
     }

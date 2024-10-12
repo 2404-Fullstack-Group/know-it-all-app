@@ -93,20 +93,43 @@ export default function QuizForm({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await axios.post(
-      `${API_URL}/api/users/${userId}/quizzes`,
-      {
-        category: quizData.category,
-        questions: quizData.questions,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    if (updateQuiz) {
+      for (let i=0; i<quizData.questions.length; i++) {
+        const currentQuestion = quizData.questions[i]
+        await axios.put(`${API_URL}/api/users/${currentQuestion.created_by}/questions/${currentQuestion.id}`,
+          {
+            category: currentQuestion.category,
+            tags: currentQuestion.tags,
+            difficulty: currentQuestion.difficulty,
+            question: currentQuestion.question,
+            correctAnswer: currentQuestion.correctAnswer,
+            incorrectAnswer: currentQuestion.incorrectAnswer,
+            type: currentQuestion.type,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
       }
-    );
+    } else {
+      await axios.post(
+        `${API_URL}/api/users/${userId}/quizzes`,
+        {
+          category: quizData.category,
+          questions: quizData.questions,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      
+    }
     setUpdateQuiz(null)
-    navigate("/profile/:user_id")
+    navigate(`/profile/${userId}`)
   };
 
   const handleModalOpen = () => {
