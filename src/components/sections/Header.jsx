@@ -28,7 +28,11 @@ export default function Header({
               </h1>
             </Link>
           ) : null}
-          <nav>
+          <nav
+            className={
+              location.pathname !== "/" ? "nav-monitor" : "nav-home-monitor"
+            }
+          >
             <Link to="/browse">
               <JSXButton text="Browse" />
             </Link>
@@ -50,6 +54,35 @@ export default function Header({
               </Link>
             )}
           </nav>
+          {location.pathname !== "/" ? (
+            <nav className="nav-mobile">
+              <div className="dropdown">
+                <span>Dropdown</span>
+                <div className="dropdown-content">
+                  <Link to="/browse">
+                    <JSXButton text="Browse" />
+                  </Link>
+                  <Link to="/create">
+                    <JSXButton text="Create" />
+                  </Link>
+                  {token ? (
+                    <Link to={`/profile/${userId}`}>
+                      <JSXButton text="Profile" />
+                    </Link>
+                  ) : null}
+                  {token ? (
+                    <Link to="/">
+                      <JSXButton text="Logout" onClick={handleClick} />
+                    </Link>
+                  ) : (
+                    <Link to="/registration">
+                      <JSXButton text="Login" />
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </nav>
+          ) : null}
         </header>
       ) : null}
     </>

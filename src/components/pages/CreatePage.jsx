@@ -12,10 +12,14 @@ export default function CreatePage({ setUpdateQuiz }) {
   return (
     <>
       <header>
-        <Link to="/create/quiz-generator">
+        <Link className="create-generator-link" to="/create/quiz-generator">
           <JSXButton text={"Generate Quiz"} />
         </Link>
-        <Link to="/create/quiz-maker">
+        <Link
+          className="create-creator-link"
+          to="/create/quiz-maker"
+          onClick={setUpdateQuiz(null)}
+        >
           <JSXButton text={"Create Quiz"} />
         </Link>
       </header>

@@ -19,6 +19,7 @@ export default function RegistrationForm({ setIsLogin, setIsNewAccount }) {
     confirm_password: "",
   });
   const [errorMessage, setErrorMessage] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleUsernameChange = (value) => {
     setUserData((prevState) => ({
@@ -68,7 +69,7 @@ export default function RegistrationForm({ setIsLogin, setIsNewAccount }) {
       setErrorMessage(true);
     } else {
       try {
-        await axios.post("https://know-it-all-app.onrender.com/api/users", {
+        await axios.post(`${API_URL}/api/users`, {
           username: userData.username,
           first_name: userData.first_name,
           last_name: userData.last_name,

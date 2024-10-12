@@ -6,6 +6,7 @@ import axios from "axios";
 export default function RandomQuiz() {
   const [userAnswer, setUserAnswer] = useState({});
   const [streak, setStreak] = useState(0);
+  const [difficulty, setDifficulty] = useState("easy");
   const [showCorrect, setShowCorrect] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState({
     id: "",
@@ -13,16 +14,15 @@ export default function RandomQuiz() {
     correctAnswer: "",
     incorrectAnswers: [],
   });
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const newQuestion = async () => {
-    const response = await axios.get(
-      "https://know-it-all-app.onrender.com/api/questions/random",
-      {
-        params: {
-          questionCount: 1,
-        },
-      }
-    );
+    const response = await axios.get(`${API_URL}/api/questions/random`, {
+      params: {
+        questionCount: 1,
+        difficulty: difficulty,
+      },
+    });
     setCurrentQuestion(response.data[0]);
   };
 
@@ -49,7 +49,20 @@ export default function RandomQuiz() {
     }
   };
 
+  const updateDifficulty = () => {
+    if (streak < 5) {
+      setDifficulty("easy");
+      return;
+    } else if (streak <= 15) {
+      setDifficulty("medium");
+      return;
+    } else if (streak > 15) {
+      setDifficulty("hard");
+    }
+  };
+
   useEffect(() => {
+    updateDifficulty();
     newQuestion();
   }, []);
 
@@ -68,11 +81,13 @@ export default function RandomQuiz() {
         selectedAnswer={userAnswer[currentQuestion.id]}
         onAnswerChange={handleAnswerChange}
       />
-      {showCorrect ? (
-        `Correct Answer: ${currentQuestion.correctAnswer}`
-      ) : (
-        <JSXButton text={"Submit"} onClick={handleSubmit} />
-      )}
+      {currentQuestion.id ? (
+        showCorrect ? (
+          `Correct Answer: ${currentQuestion.correctAnswer}`
+        ) : (
+          <JSXButton text={"Submit"} onClick={handleSubmit} />
+        )
+      ) : null}
     </div>
   );
 }

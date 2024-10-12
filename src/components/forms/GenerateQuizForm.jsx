@@ -20,6 +20,7 @@ export default function GenerateQuizForm({
   const handleCategoryChange = (e) => setCategory(e.target.value);
   const handleDifficultyChange = (e) => setDifficulty(e.target.value);
   const handleQuestionCountChange = (e) => setQuestionCount(e.target.value);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // basic shuffle function for the handleSubmit
   function shuffleArray(array) {
@@ -38,7 +39,7 @@ export default function GenerateQuizForm({
 
       if (difficulty === "easy" || difficulty === "hard") {
         const mainDifficultyResponse = await axios.get(
-          `https://know-it-all-app.onrender.com/api/questions/random`,
+          `${API_URL}/api/questions/random`,
           {
             params: {
               category: category,
@@ -48,7 +49,7 @@ export default function GenerateQuizForm({
           }
         );
         const mediumDifficultyResponse = await axios.get(
-          `https://know-it-all-app.onrender.com/api/questions/random`,
+          `${API_URL}/api/questions/random`,
           {
             params: {
               category: category,
@@ -62,40 +63,31 @@ export default function GenerateQuizForm({
           ...mediumDifficultyResponse.data,
         ];
       } else if (difficulty === "very easy") {
-        const response = await axios.get(
-          `https://know-it-all-app.onrender.com/api/questions/random`,
-          {
-            params: {
-              category: category,
-              difficulty: "easy",
-              questionCount: questionCount,
-            },
-          }
-        );
+        const response = await axios.get(`${API_URL}/api/questions/random`, {
+          params: {
+            category: category,
+            difficulty: "easy",
+            questionCount: questionCount,
+          },
+        });
         allQuestions = response.data;
       } else if (difficulty === "very hard") {
-        const response = await axios.get(
-          `https://know-it-all-app.onrender.com/api/questions/random`,
-          {
-            params: {
-              category: category,
-              difficulty: "hard",
-              questionCount: questionCount,
-            },
-          }
-        );
+        const response = await axios.get(`${API_URL}/api/questions/random`, {
+          params: {
+            category: category,
+            difficulty: "hard",
+            questionCount: questionCount,
+          },
+        });
         allQuestions = response.data;
       } else {
-        const response = await axios.get(
-          `https://know-it-all-app.onrender.com/api/questions/random`,
-          {
-            params: {
-              category: category,
-              difficulty: difficulty,
-              questionCount: questionCount,
-            },
-          }
-        );
+        const response = await axios.get(`${API_URL}/api/questions/random`, {
+          params: {
+            category: category,
+            difficulty: difficulty,
+            questionCount: questionCount,
+          },
+        });
         allQuestions = response.data;
       }
       allQuestions = shuffleArray(allQuestions);
@@ -124,7 +116,7 @@ export default function GenerateQuizForm({
   };
   const handleSaveQuiz = async () => {
     await axios.post(
-      `https://know-it-all-app.onrender.com/api/users/${userId}/quizzes`,
+      `${API_URL}/api/users/${userId}/quizzes`,
       {
         category: quizData.category,
         questions: quizData.questions,
@@ -171,7 +163,7 @@ export default function GenerateQuizForm({
         </>
       ) : (
         <>
-          <form onSubmit={handleSubmit}>
+          <form>
             <h2>Generate Quiz</h2>
             <select
               id="category"
@@ -219,7 +211,7 @@ export default function GenerateQuizForm({
               className="slider"
               id="question-range"
             />
-            <JSXButton text={"Generate"} />
+            <JSXButton onClick={handleSubmit} text={"Generate"} />
           </form>
         </>
       )}
