@@ -7,8 +7,7 @@ import { JSXInput } from "../Elements";
 import QuizCard from "../sections/QuizCard";
 import GridTemplate from "../templates/GridTemplate";
 
-
-export default function BrowsePage({ userId, token, setUpdateQuiz }) {
+export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
   const [quizList, setQuizList] = useState([]);
   const [filteredQuizList, setFilteredQuizList] = useState([]);
   const [search, setSearch] = useState("");
@@ -72,6 +71,7 @@ export default function BrowsePage({ userId, token, setUpdateQuiz }) {
               token={token}
               loadQuizzes={loadQuizzes}
               setUpdateQuiz={setUpdateQuiz}
+              isAdmin={isAdmin}
             />
           ))
         ) : (
