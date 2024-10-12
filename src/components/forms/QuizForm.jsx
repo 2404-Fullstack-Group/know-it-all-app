@@ -20,7 +20,7 @@ export default function QuizForm({
   token,
   setToken,
   updateQuiz,
-  setUpdateQuiz
+  setUpdateQuiz,
 }) {
   // quizData is set to updateQuiz if it exists or creates a blank template object
   // This allows for QuizForm to be used to create and update a quiz
@@ -105,8 +105,8 @@ export default function QuizForm({
         },
       }
     );
-    setUpdateQuiz(null)
-    navigate("/profile/:user_id")
+    setUpdateQuiz(null);
+    navigate("/profile/:user_id");
   };
 
   const handleModalOpen = () => {
@@ -148,6 +148,7 @@ export default function QuizForm({
             name="category"
             defaultValue={updateQuiz ? updateQuiz.category : "Select Category"}
             onChange={(e) => handleCategoryChange(e.target.value)}
+            required
           >
             <option disabled>Select Category</option>
             <option value="General Knowledge">General Knowledge</option>
