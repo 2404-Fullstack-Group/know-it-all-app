@@ -5,8 +5,9 @@ export default function QuestionForm({
   questionNum,
   questionData,
   handleQuestionChange,
+  updateQuiz,
 }) {
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(updateQuiz ? false : true);
 
   const handleToggleEdit = (e) => {
     e.preventDefault();

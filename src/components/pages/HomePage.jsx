@@ -1,9 +1,22 @@
+// react imports
 import { Link } from "react-router-dom";
 import { JSXSpan } from "../Elements";
+import { useEffect } from "react";
+
+// component imports
 import Header from "../sections/Header";
 import RandomQuiz from "../sections/RandomQuiz";
 
-export default function HomePage({ token, setToken, userId, setUserId }) {
+export default function HomePage({
+  token,
+  setToken,
+  userId,
+  setUserId,
+  setUpdateQuiz,
+}) {
+  useEffect(() => {
+    setUpdateQuiz(null);
+  });
   return (
     <>
       <Link to="/">
@@ -13,9 +26,9 @@ export default function HomePage({ token, setToken, userId, setUserId }) {
       </Link>
       <h1>Welcome!</h1>
       <p>
-        Welcome to Know It All – the ultimate destination for trivia lovers! Test
-        your knowledge, challenge your friends, and discover fascinating facts
-        across a variety of topics. Whether you're a trivia expert or just
+        Welcome to Know It All – the ultimate destination for trivia lovers!
+        Test your knowledge, challenge your friends, and discover fascinating
+        facts across a variety of topics. Whether you're a trivia expert or just
         looking to learn something new, there's always something exciting
         waiting for you here. Let’s see how much you really know – start playing
         now and prove you're the ultimate Know It All!
@@ -28,7 +41,7 @@ export default function HomePage({ token, setToken, userId, setUserId }) {
         isHeader={false}
       />
 
-    <RandomQuiz />
+      <RandomQuiz />
     </>
   );
 }

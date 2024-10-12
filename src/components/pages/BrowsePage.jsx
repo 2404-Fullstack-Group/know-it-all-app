@@ -1,10 +1,12 @@
 // react imports
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { JSXInput } from "../Elements";
+
+// component imports
 import QuizCard from "../sections/QuizCard";
 import GridTemplate from "../templates/GridTemplate";
 
-import { JSXInput } from "../Elements";
 
 export default function BrowsePage({ userId, token, setUpdateQuiz }) {
   const [quizList, setQuizList] = useState([]);
@@ -42,6 +44,7 @@ export default function BrowsePage({ userId, token, setUpdateQuiz }) {
   };
 
   useEffect(() => {
+    setUpdateQuiz(null);
     const fetchData = async () => {
       await loadQuizzes();
     };

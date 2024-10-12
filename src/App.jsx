@@ -38,6 +38,7 @@ export default function App() {
                 setUserId={setUserId}
                 userId={userId}
                 isHeader={true}
+                setUpdateQuiz={setUpdateQuiz}
               />
             }
           />
@@ -65,6 +66,7 @@ export default function App() {
                 token={token}
                 setToken={setToken}
                 updateQuiz={updateQuiz}
+                setUpdateQuiz={setUpdateQuiz}
               />
             }
           />
@@ -87,7 +89,13 @@ export default function App() {
           />
           <Route
             path="/registration"
-            element={<LoginPage setToken={setToken} setUserId={setUserId} />}
+            element={
+              <LoginPage
+                setToken={setToken}
+                setUserId={setUserId}
+                setUpdateQuiz={setUpdateQuiz}
+              />
+            }
           />
         </Routes>
       </main>
