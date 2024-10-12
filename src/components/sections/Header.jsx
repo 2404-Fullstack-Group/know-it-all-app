@@ -28,7 +28,11 @@ export default function Header({
               </h1>
             </Link>
           ) : null}
-          <nav className="nav-monitor">
+          <nav
+            className={
+              location.pathname !== "/" ? "nav-monitor" : "nav-home-monitor"
+            }
+          >
             <Link to="/browse">
               <JSXButton text="Browse" />
             </Link>
@@ -53,7 +57,7 @@ export default function Header({
           {location.pathname !== "/" ? (
             <nav className="nav-mobile">
               <div className="dropdown">
-                <span>dropdown</span>
+                <span>Dropdown</span>
                 <div className="dropdown-content">
                   <Link to="/browse">
                     <JSXButton text="Browse" />

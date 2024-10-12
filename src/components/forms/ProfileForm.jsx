@@ -57,7 +57,7 @@ export default function ProfileForm({
   };
 
   return (
-    <form className="profile-form" onSubmit={(e) => handleSubmit(e)}>
+    <form className="profile-form">
       <div className="profile-username">
         <JSXSpan text="Username:" />
         <JSXInput
@@ -90,7 +90,7 @@ export default function ProfileForm({
           onChange={(e) => handleEmailChange(e.target.value)}
         />
       </div>
-      <JSXButton text={"Submit"} />
+      <JSXButton text={"Submit"} onClick={(e) => handleSubmit(e)} />
     </form>
   );
 }

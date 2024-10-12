@@ -132,6 +132,8 @@ a {
   padding: 0.2rem 0.5rem;
   border-radius: 0.2rem;
   cursor: pointer;
+  text-align: center;
+  padding: 0.5rem;
 }
 .jsx-button:hover {
   background-color: var(--color-button-hover);
@@ -334,9 +336,9 @@ input[type="radio"]:checked + .custom-box {
 }
 
 /* HEADER */
-/* .nav-monitor {
+.nav-monitor {
   display: none;
-} */
+}
 .dropdown {
   position: relative;
   display: inline-block;
@@ -404,4 +406,15 @@ input[type="radio"]:checked + .custom-box {
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+}
+
+/* SCREEN-SIZE ADAPTATIONS */
+
+@media screen and (min-width: 700px) {
+  .nav-monitor {
+    display: contents;
+  }
+  .nav-mobile {
+    display: none;
+  }
 }
