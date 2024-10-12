@@ -7,6 +7,7 @@ import { JSXButton } from "../Elements";
 
 // function imports
 import { getDifficulty } from "../../utilities/getDifficulty";
+import { useEffect, useState } from "react";
 
 export default function QuizCard({
   quiz,
@@ -15,10 +16,14 @@ export default function QuizCard({
   loadQuizzes,
   setUpdateQuiz,
 }) {
+  const [category, setCategory] = useState("");
+  const [difficulty, setDifficulty] = useState("");
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const handleDeleteClick = async () => {
     await axios.delete(
-      `https://know-it-all-app.onrender.com/api/users/${userId}/quizzes/${quiz.quiz_id}`,
+      `${API_URL}/api/users/${userId}/quizzes/${quiz.quiz_id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -32,22 +37,49 @@ export default function QuizCard({
     navigate("/create/quiz-maker");
   };
 
+  const handleClassName = (name) => {
+    return name.toLowerCase().replace(/&/g, "and").replace(/\s+/g, "-");
+  };
+  useEffect(() => {
+    setCategory(handleClassName(quiz.category));
+    setDifficulty(handleClassName(getDifficulty(quiz.questions)));
+  }, [quiz]);
+
+  useEffect(() => {
+    setUpdateQuiz(quiz);
+  }, []);
+
   return (
-    <div className="quiz-card">
+    <div className={"quiz-card" + (category ? ` quiz-card-${category}` : "")}>
       <>
-        <p>{quiz.category}</p>
-        <p>{`${quiz.questions.length} Questions`}</p>
-        <p>{getDifficulty(quiz.questions)}</p>
+        <h3>{quiz.category}</h3>
+        <div className="quiz-card-questions">
+          <span className="quiz-card-questions-span1">
+            {quiz.questions.length}
+          </span>
+          {/* <span className="quiz-card-questions-span2">Questions</span> */}
+        </div>
+        <div className={`difficulty difficulty-${difficulty}`}>
+          {getDifficulty(quiz.questions)}
+        </div>
       </>
-      <Link to={`/quizzes/${quiz.quiz_id}`}>
-        <JSXButton text="play" />
+      <Link className="quiz-card-play" to={`/quizzes/${quiz.quiz_id}`}>
+        <JSXButton className="quiz-card-play-button" text="play" />
       </Link>
 
       {userId === quiz.created_by ? (
-        <>
-          <JSXButton text="update" onClick={handleUpdateClick} />
-          <JSXButton text="delete" onClick={handleDeleteClick} />
-        </>
+        <div className="update-delete">
+          <JSXButton
+            className={"quiz-card-update"}
+            text="update"
+            onClick={handleUpdateClick}
+          />
+          <JSXButton
+            className={"quiz-card-delete"}
+            text="delete"
+            onClick={handleDeleteClick}
+          />
+        </div>
       ) : null}
     </div>
   );

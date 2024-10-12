@@ -98,7 +98,6 @@ export default function Quiz({ quiz }) {
               onAnswerChange={handleAnswerChange}
             />
           ))}
-          <hr />
           <JSXButton text="Submit" onClick={handleSubmit} />
         </>
       ) : null}

@@ -43,6 +43,7 @@ export default function QuizForm({
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState(null);
   const [isModal, setIsModal] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const addQuestion = (event) => {
     event.preventDefault();
@@ -93,7 +94,7 @@ export default function QuizForm({
   const handleSubmit = async (event) => {
     event.preventDefault();
     await axios.post(
-      `https://know-it-all-app.onrender.com/api/users/${userId}/quizzes`,
+      `${API_URL}/api/users/${userId}/quizzes`,
       {
         category: quizData.category,
         questions: quizData.questions,
@@ -137,7 +138,7 @@ export default function QuizForm({
           closeModal={() => handleModalClose()}
         />
       ) : null}
-      <form onSubmit={handleSubmit}>
+      <form>
         <header>
           <h2>
             <JSXSpan text="Create Your Own Quiz" />
@@ -182,7 +183,7 @@ export default function QuizForm({
             onClick={addQuestion}
           />
         ) : null}
-        {token ? <JSXButton text="Submit Quiz" /> : null}
+        {token ? <JSXButton text="Submit Quiz" onClick={handleSubmit} /> : null}
       </form>
       {token ? null : (
         <JSXButton

@@ -20,12 +20,11 @@ export default function QuizPage() {
       type: "Multiple Choice",
     }),
   });
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const loadQuiz = async () => {
     try {
-      const response = await axios.get(
-        `https://know-it-all-app.onrender.com/api/quizzes/${quiz_id}`
-      );
+      const response = await axios.get(`${API_URL}/api/quizzes/${quiz_id}`);
       setQuiz(response.data);
     } catch (error) {
       console.error("Error loading quiz:", error);

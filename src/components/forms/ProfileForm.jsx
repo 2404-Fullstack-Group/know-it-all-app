@@ -35,11 +35,12 @@ export default function ProfileForm({
       email: value,
     }));
   };
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.put(
-      `https://know-it-all-app.onrender.com/api/users/${user_id}`,
+      `${API_URL}/api/users/${user_id}`,
       {
         username: userData.username,
         first_name: userData.first_name,
@@ -56,7 +57,7 @@ export default function ProfileForm({
   };
 
   return (
-    <form className="profile-form" onSubmit={(e) => handleSubmit(e)}>
+    <form className="profile-form">
       <div className="profile-username">
         <JSXSpan text="Username:" />
         <JSXInput
@@ -89,7 +90,7 @@ export default function ProfileForm({
           onChange={(e) => handleEmailChange(e.target.value)}
         />
       </div>
-      <JSXButton text={"Submit"} />
+      <JSXButton text={"Submit"} onClick={(e) => handleSubmit(e)} />
     </form>
   );
 }

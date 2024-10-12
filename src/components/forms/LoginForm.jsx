@@ -19,16 +19,14 @@ export default function LoginForm({
   const [password, setPassword] = useState(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleOnClick = async (e) => {
     e.preventDefault();
-    const response = await axios.post(
-      `https://know-it-all-app.onrender.com/api/users/login`,
-      {
-        username: username,
-        password: password,
-      }
-    );
+    const response = await axios.post(`${API_URL}/api/users/login`, {
+      username: username,
+      password: password,
+    });
     setToken(response.data.token);
     setUserId(response.data.user[0].id);
     if (response.data.token) {

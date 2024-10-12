@@ -9,6 +9,17 @@
   --color-error: #dc3545;
   --color-warning: #ffc107;
 
+  --color-background: #2a2c2e;
+  --color-secondary-background: #333638;
+  --color-text: #f3f3f3;
+
+  --color-question: #313438;
+  --color-questionAnswers: #4e5257;
+  --color-questionAnswersChecked: #363a3e;
+
+  --color-button: #576165;
+  --color-button-hover: #656f74;
+
   --color-very-easy: #a8d5ba;
   --color-easy: #d3e9b9;
   --color-medium: #f2d79e;
@@ -27,11 +38,19 @@
   --color-history: #e5a861;
 }
 /* --------------- FONT --------------- */
-
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
+}
 /* ------------------------- HTML ------------------------- */
 body {
-  background-color: var(--color-primary);
-  color: var(--color-secondary);
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 header {
   display: flex;
@@ -49,12 +68,17 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1rem;
 }
 form {
   display: flex;
   flex-direction: column;
   text-align: center;
   gap: 0.5rem;
+}
+a {
+  text-decoration: none;
+  color: var(--color-text);
 }
 
 /* ------------------------- COMPONENTS ------------------------- */
@@ -101,13 +125,73 @@ form {
   z-index: 3;
   box-shadow: 0px 0px 65px 0px rgba(0, 0, 0, 0.43);
 }
+.jsx-button {
+  background-color: var(--color-button);
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  text-align: center;
+  padding: 0.5rem;
+}
+.jsx-button:hover {
+  background-color: var(--color-button-hover);
+}
 /* --------------- SECTIONS --------------- */
 /* ----- Quiz */
 .question-card {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.8rem;
+  background-color: var(--color-question);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
+.question-card-question {
+  font-size: 1.2rem;
+  margin: 0.5rem 0rem 0.5rem 0rem;
+  text-align: center;
+}
+
+/* question radio inputs */
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 0;
+  height: 0;
+  position: absolute;
+  opacity: 0;
+}
+.custom-box-container {
+  display: flex;
+  cursor: pointer;
+  user-select: none; /* Standard syntax */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+.custom-box {
+  border: 2px solid var(--color-questionAnswersChecked);
+  background-color: var(--color-secondary-background);
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  display: inline-block;
+  font-size: 0.8rem;
+  text-align: center;
+  width: 100%;
+  padding: 0.5rem;
+}
+input[type="radio"]:checked + .custom-box {
+  background-color: var(--color-questionAnswers);
+  color: white;
+  border-color: var(--color-questionAnswers);
+}
+.custom-box:hover {
+  background-color: var(--color-questionAnswersChecked);
+}
+
 .quiz {
   display: flex;
   flex-direction: column;
@@ -125,11 +209,159 @@ form {
 }
 /* ----- QuizCard */
 .quiz-card {
-  border: 1px solid black;
-  width: 10rem;
-  height: 15rem;
+  border-radius: 0.2rem;
+  width: 8rem;
+  height: 8rem;
   padding: 1rem;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
+  overflow: hidden;
 }
+.quiz-card:hover {
+  transform: scale(1.025);
+}
+.quiz-card > h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+.quiz-card-questions {
+  position: absolute;
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* font-size: 5rem; */
+  opacity: 20%;
+  z-index: 0;
+  text-overflow: clip;
+}
+.quiz-card-questions-span1 {
+  font-weight: 900;
+  transform: scale(8);
+  margin: 0;
+  padding-bottom: 0.15rem;
+}
+.quiz-card-questions-span2 {
+  font-size: 1rem;
+  margin: 0;
+}
+.quiz-card-play {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.update-delete {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 0.2rem;
+}
+.quiz-card-update,
+.quiz-card-delete {
+  z-index: 1;
+}
+.quiz-card-play-button {
+  display: none;
+}
+
+.difficulty {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 0.8rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  text-align: center;
+  border-radius: 0;
+  color: var(--color-secondary-background);
+}
+.difficulty-very-easy {
+  background-color: var(--color-very-easy);
+}
+.difficulty-easy {
+  background-color: var(--color-easy);
+}
+.difficulty-medium {
+  background-color: var(--color-medium);
+}
+.difficulty-hard {
+  background-color: var(--color-hard);
+}
+.difficulty-very-hard {
+  background-color: var(--color-very-hard);
+}
+
+/* quiz card categories */
+.quiz-card-general-knowledge {
+  background-color: var(--color-general-knowledge);
+}
+.quiz-card-geography {
+  background-color: var(--color-geography);
+}
+.quiz-card-society-and-culture {
+  background-color: var(--color-society-and-culture);
+}
+.quiz-card-music {
+  background-color: var(--color-music);
+}
+.quiz-card-food-and-drink {
+  background-color: var(--color-food-and-drink);
+}
+.quiz-card-sport-and-leisure {
+  background-color: var(--color-sport-and-leisure);
+}
+.quiz-card-film-and-tv {
+  background-color: var(--color-film-and-tv);
+}
+.quiz-card-arts-and-literature {
+  background-color: var(--color-arts-and-literature);
+}
+.quiz-card-science {
+  background-color: var(--color-science);
+}
+.quiz-card-history {
+  background-color: var(--color-history);
+}
+
+/* HEADER */
+.nav-monitor {
+  display: none;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  min-width: 6rem;
+  z-index: 1;
+}
+.dropdown-content > a > .jsx-button {
+  padding: 0.5rem 0.5rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: end;
+  border-radius: 0;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 /* --------------- FORMS --------------- */
 /* ----- QuestionForm */
 .question-form {
@@ -174,4 +406,15 @@ form {
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+}
+
+/* SCREEN-SIZE ADAPTATIONS */
+
+@media screen and (min-width: 700px) {
+  .nav-monitor {
+    display: flex;
+  }
+  .nav-mobile {
+    display: none;
+  }
 }
