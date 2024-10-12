@@ -52,7 +52,10 @@ export default function App() {
             }
           />
           <Route path="/quizzes/:quiz_id" element={<QuizPage />} />
-          <Route path="/create" element={<CreatePage />} />
+          <Route
+            path="/create"
+            element={<CreatePage setUpdateQuiz={setUpdateQuiz} />}
+          />
           <Route
             path="/create/quiz-maker"
             element={

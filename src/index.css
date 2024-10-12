@@ -76,6 +76,10 @@ form {
   text-align: center;
   gap: 0.5rem;
 }
+a {
+  text-decoration: none;
+  color: var(--color-text);
+}
 
 /* ------------------------- COMPONENTS ------------------------- */
 
@@ -327,6 +331,33 @@ input[type="radio"]:checked + .custom-box {
 }
 .quiz-card-history {
   background-color: var(--color-history);
+}
+
+/* HEADER */
+/* .nav-monitor {
+  display: none;
+} */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  min-width: 6rem;
+  z-index: 1;
+}
+.dropdown-content > a > .jsx-button {
+  padding: 0.5rem 0.5rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: end;
+  border-radius: 0;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 /* --------------- FORMS --------------- */
