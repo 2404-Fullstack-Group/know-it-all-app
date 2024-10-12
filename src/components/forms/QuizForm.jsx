@@ -135,7 +135,7 @@ export default function QuizForm({
           closeModal={() => handleModalClose()}
         />
       ) : null}
-      <form onSubmit={handleSubmit}>
+      <form>
         <header>
           <h2>
             <JSXSpan text="Create Your Own Quiz" />
@@ -179,7 +179,7 @@ export default function QuizForm({
             onClick={addQuestion}
           />
         ) : null}
-        {token ? <JSXButton text="Submit Quiz" /> : null}
+        {token ? <JSXButton text="Submit Quiz" onClick={handleSubmit} /> : null}
       </form>
       {token ? null : (
         <JSXButton
