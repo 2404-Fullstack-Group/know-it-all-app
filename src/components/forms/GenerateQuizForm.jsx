@@ -4,6 +4,7 @@ import axios from "axios";
 import Quiz from "../sections/Quiz";
 import { Modal } from "../Elements";
 import LoginPage from "../pages/LoginPage";
+import { useNavigate } from "react-router-dom";
 
 export default function GenerateQuizForm({
   userId,
@@ -16,6 +17,7 @@ export default function GenerateQuizForm({
   const [questionCount, setQuestionCount] = useState(5);
   const [quizData, setQuizData] = useState(null);
   const [isModal, setIsModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleCategoryChange = (e) => setCategory(e.target.value);
   const handleDifficultyChange = (e) => setDifficulty(e.target.value);
@@ -127,6 +129,7 @@ export default function GenerateQuizForm({
         },
       }
     );
+    navigate(`/profile/${userId}`);
   };
 
   return (
