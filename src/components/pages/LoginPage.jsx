@@ -12,6 +12,7 @@ export default function LoginPage({
   setUserId,
   isModal,
   setIsModal,
+  setIsAdmin,
 }) {
   const [isLogin, setIsLogin] = useState(true);
   const [isNewAccount, setIsNewAccount] = useState(false);
@@ -31,6 +32,7 @@ export default function LoginPage({
               setIsNewAccount={setIsNewAccount}
               isModal={isModal}
               setIsModal={setIsModal}
+              setIsAdmin={setIsAdmin}
             />
           }
         />

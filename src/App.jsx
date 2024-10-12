@@ -15,6 +15,7 @@ import QuizPage from "./components/pages/QuizPage";
 export default function App() {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
   // This useState is the quiz data for a quiz that needs updated
   const [updateQuiz, setUpdateQuiz] = useState(null);
 
@@ -49,6 +50,7 @@ export default function App() {
                 userId={userId}
                 token={token}
                 setUpdateQuiz={setUpdateQuiz}
+                isAdmin={isAdmin}
               />
             }
           />
@@ -94,6 +96,7 @@ export default function App() {
                 setToken={setToken}
                 setUserId={setUserId}
                 setUpdateQuiz={setUpdateQuiz}
+                setIsAdmin={setIsAdmin}
               />
             }
           />

@@ -15,6 +15,7 @@ export default function QuizCard({
   token,
   loadQuizzes,
   setUpdateQuiz,
+  isAdmin,
 }) {
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
@@ -23,7 +24,7 @@ export default function QuizCard({
 
   const handleDeleteClick = async () => {
     await axios.delete(
-      `${API_URL}/api/users/${userId}/quizzes/${quiz.quiz_id}`,
+      `${API_URL}/api/users/${quiz.created_by}/quizzes/${quiz.quiz_id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,7 +68,7 @@ export default function QuizCard({
         <JSXButton className="quiz-card-play-button" text="play" />
       </Link>
 
-      {userId === quiz.created_by ? (
+      {userId === quiz.created_by || isAdmin ? (
         <div className="update-delete">
           <JSXButton
             className={"quiz-card-update"}
