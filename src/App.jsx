@@ -78,7 +78,9 @@ export default function App() {
           />
           <Route
             path="/profile/:user_id"
-            element={<ProfilePage token={token} />}
+            element={
+              <ProfilePage token={token} setUpdateQuiz={setUpdateQuiz} />
+            }
           />
           <Route
             path="/registration"

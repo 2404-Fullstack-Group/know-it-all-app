@@ -163,7 +163,7 @@ export default function GenerateQuizForm({
         </>
       ) : (
         <>
-          <form onSubmit={handleSubmit}>
+          <form>
             <h2>Generate Quiz</h2>
             <select
               id="category"
@@ -211,7 +211,7 @@ export default function GenerateQuizForm({
               className="slider"
               id="question-range"
             />
-            <JSXButton text={"Generate"} />
+            <JSXButton onClick={handleSubmit} text={"Generate"} />
           </form>
         </>
       )}

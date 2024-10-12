@@ -53,20 +53,33 @@ export default function QuizCard({
     <div className={"quiz-card" + (category ? ` quiz-card-${category}` : "")}>
       <>
         <h3>{quiz.category}</h3>
-        <p>{`${quiz.questions.length} Questions`}</p>
-        <p className={`difficulty-${difficulty}`}>
+        <div className="quiz-card-questions">
+          <span className="quiz-card-questions-span1">
+            {quiz.questions.length}
+          </span>
+          {/* <span className="quiz-card-questions-span2">Questions</span> */}
+        </div>
+        <div className={`difficulty difficulty-${difficulty}`}>
           {getDifficulty(quiz.questions)}
-        </p>
+        </div>
       </>
       <Link className="quiz-card-play" to={`/quizzes/${quiz.quiz_id}`}>
         <JSXButton className="quiz-card-play-button" text="play" />
       </Link>
 
       {userId === quiz.created_by ? (
-        <>
-          <JSXButton text="update" onClick={handleUpdateClick} />
-          <JSXButton text="delete" onClick={handleDeleteClick} />
-        </>
+        <div className="update-delete">
+          <JSXButton
+            className={"quiz-card-update"}
+            text="update"
+            onClick={handleUpdateClick}
+          />
+          <JSXButton
+            className={"quiz-card-delete"}
+            text="delete"
+            onClick={handleDeleteClick}
+          />
+        </div>
       ) : null}
     </div>
   );
