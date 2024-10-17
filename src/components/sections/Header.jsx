@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import browseIcon from "../../assets/search-icon.svg";
+import browseIcon from "../../../public/search-icon.svg";
 
 // component imports
 import { JSXSpan, JSXButton, NavLink } from "../Elements.jsx";
