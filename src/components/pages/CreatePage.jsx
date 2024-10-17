@@ -5,6 +5,9 @@ import { useEffect } from "react";
 // component imports
 import { JSXSpan } from "../Elements";
 
+import generateIcon from "../../../public/quiz-generator-icon.svg";
+import createIcon from "../../../public/quiz-creator-icon.svg";
+
 export default function CreatePage({ setUpdateQuiz }) {
   useEffect(() => {
     setUpdateQuiz(null);
@@ -20,7 +23,7 @@ export default function CreatePage({ setUpdateQuiz }) {
             <h3>Ready to test your wits?</h3>
           </div>
           <Link className="create-generator-link" to="/create/quiz-generator">
-            <img src="../public/quiz-generator-icon.svg" />
+            <img src={generateIcon} />
 
             <JSXSpan text={"Generate Quiz"} />
           </Link>
@@ -35,7 +38,7 @@ export default function CreatePage({ setUpdateQuiz }) {
             to="/create/quiz-maker"
             onClick={setUpdateQuiz(null)}
           >
-            <img src="../public/quiz-creator-icon.svg" />
+            <img src={createIcon} />
             <JSXSpan text={"Create Quiz"} />
           </Link>
           <p>Craft your own questions and prove you know your stuff.</p>

@@ -9,6 +9,9 @@ import { JSXButton } from "../Elements";
 import { getDifficulty } from "../../utilities/getDifficulty";
 import { useEffect, useState } from "react";
 
+// asset imports
+import difficultyIcon from "../../../public/lightbulb-icon.svg";
+
 export default function QuizCard({
   quiz,
   userId,
@@ -62,7 +65,7 @@ export default function QuizCard({
         </div>
         <div className={`difficulty difficulty-${difficulty}`}>
           {/* <span>{getDifficulty(quiz.questions)}</span> */}
-          <img src={`../src/assets/lightbulb-${difficulty}-icon.svg`} />
+          <img src={difficultyIcon} />
         </div>
       </>
       <Link className="quiz-card-play" to={`/quizzes/${quiz.quiz_id}`}>

@@ -2,6 +2,10 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import browseIcon from "../../../public/search-icon.svg";
+import formIcon from "../../../public/form-icon.svg";
+import profileIcon from "../../../public/profile-icon.svg";
+import logoutIcon from "../../../public/logout-icon.svg";
+import loginIcon from "../../../public/login-icon.svg";
 
 // component imports
 import { JSXSpan, JSXButton, NavLink } from "../Elements.jsx";
@@ -49,24 +53,24 @@ export default function Header({
               <NavLink text="Browse" icon={browseIcon} />
             </Link>
             <Link to="/create">
-              <NavLink text="Create" icon="form-icon.svg" />
+              <NavLink text="Create" icon={formIcon} />
             </Link>
             {token ? (
               <Link to={`/profile/${userId}`}>
-                <NavLink text="Profile" icon="profile-icon.svg" />
+                <NavLink text="Profile" icon={profileIcon} />
               </Link>
             ) : null}
             {token ? (
               <Link to="/">
                 <NavLink
                   text="Logout"
-                  icon="logout-icon.svg"
+                  icon={logoutIcon}
                   onClick={handleClick}
                 />
               </Link>
             ) : (
               <Link to="/registration">
-                <NavLink text="Login" icon="login-icon.svg" />
+                <NavLink text="Login" icon={loginIcon} />
               </Link>
             )}
           </nav>
