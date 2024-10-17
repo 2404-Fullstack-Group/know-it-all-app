@@ -143,8 +143,10 @@ export default function RegistrationForm({ setIsLogin, setIsNewAccount }) {
       <JSXSpan
         text={
           <>
-            Already have an account?{" "}
-            <Link onClick={() => setIsLogin(true)}>Login Here.</Link>
+            Already have an account?
+            <Link onClick={() => setIsLogin(true)}>
+              &nbsp;<span style={{ color: "lightblue" }}>Login Here.</span>
+            </Link>
           </>
         }
       />

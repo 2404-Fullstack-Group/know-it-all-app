@@ -1,8 +1,8 @@
-// react imports
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 // component imports
-import { JSXSpan, JSXButton } from "../Elements.jsx";
+import { JSXSpan, JSXButton, NavLink } from "../Elements.jsx";
 
 export default function Header({
   token,
@@ -17,13 +17,23 @@ export default function Header({
     setUserId(null);
   };
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleSelection = () => {
+    setIsDropdownOpen(false);
+  };
+
   return (
     <>
       {location.pathname !== "/" || !isHeader ? (
         <header className="site-header">
           {isHeader ? (
             <Link to="/">
-              <h1>
+              <h1 className="site-title">
                 <JSXSpan text="Know It All" />
               </h1>
             </Link>
@@ -34,52 +44,66 @@ export default function Header({
             }
           >
             <Link to="/browse">
-              <JSXButton text="Browse" />
+              <NavLink text="Browse" icon="search-icon.svg" />
             </Link>
             <Link to="/create">
-              <JSXButton text="Create" />
+              <NavLink text="Create" icon="form-icon.svg" />
             </Link>
             {token ? (
               <Link to={`/profile/${userId}`}>
-                <JSXButton text="Profile" />
+                <NavLink text="Profile" icon="profile-icon.svg" />
               </Link>
             ) : null}
             {token ? (
               <Link to="/">
-                <JSXButton text="Logout" onClick={handleClick} />
+                <NavLink
+                  text="Logout"
+                  icon="logout-icon.svg"
+                  onClick={handleClick}
+                />
               </Link>
             ) : (
               <Link to="/registration">
-                <JSXButton text="Login" />
+                <NavLink text="Login" icon="login-icon.svg" />
               </Link>
             )}
           </nav>
           {location.pathname !== "/" ? (
             <nav className="nav-mobile">
               <div className="dropdown">
-                <span>Dropdown</span>
-                <div className="dropdown-content">
-                  <Link to="/browse">
-                    <JSXButton text="Browse" />
-                  </Link>
-                  <Link to="/create">
-                    <JSXButton text="Create" />
-                  </Link>
-                  {token ? (
-                    <Link to={`/profile/${userId}`}>
-                      <JSXButton text="Profile" />
+                <span className="dropdown-text" onClick={handleDropdownToggle}>
+                  Menu
+                </span>
+                {isDropdownOpen && (
+                  <div className="dropdown-content">
+                    <Link to="/browse" onClick={handleSelection}>
+                      <JSXButton text="Browse" />
                     </Link>
-                  ) : null}
-                  {token ? (
-                    <Link to="/">
-                      <JSXButton text="Logout" onClick={handleClick} />
+                    <Link to="/create" onClick={handleSelection}>
+                      <JSXButton text="Create" />
                     </Link>
-                  ) : (
-                    <Link to="/registration">
-                      <JSXButton text="Login" />
-                    </Link>
-                  )}
-                </div>
+                    {token ? (
+                      <Link to={`/profile/${userId}`} onClick={handleSelection}>
+                        <JSXButton text="Profile" />
+                      </Link>
+                    ) : null}
+                    {token ? (
+                      <Link
+                        to="/"
+                        onClick={() => {
+                          handleSelection();
+                          handleClick();
+                        }}
+                      >
+                        <JSXButton text="Logout" />
+                      </Link>
+                    ) : (
+                      <Link to="/registration" onClick={handleSelection}>
+                        <JSXButton text="Login" />
+                      </Link>
+                    )}
+                  </div>
+                )}
               </div>
             </nav>
           ) : null}

@@ -28,20 +28,24 @@ export default function UserProfile({ userData, setUserData, token, user_id }) {
   return (
     <div className="user-profile">
       <div className="profile-username">
-        <JSXSpan text="Username:" />
-        <JSXSpan text={userData.username} />
+        <JSXSpan className="component-left" text="Username" />
+        <span className="dots"></span>
+        <JSXSpan className="component-right" text={userData.username} />
       </div>
       <div className="profile-firstname">
-        <JSXSpan text="First Name:" />
-        <JSXSpan text={userData.first_name} />
+        <JSXSpan className="component-left" text="First Name" />
+        <span className="dots"></span>
+        <JSXSpan className="component-right" text={userData.first_name} />
       </div>
       <div className="profile-lastname">
-        <JSXSpan text="Last Name:" />
-        <JSXSpan text={userData.last_name} />
+        <JSXSpan className="component-left" text="Last Name" />
+        <span className="dots"></span>
+        <JSXSpan className="component-right" text={userData.last_name} />
       </div>
       <div className="profile-email">
-        <JSXSpan text="Email:" />
-        <JSXSpan text={userData.email} />
+        <JSXSpan className="component-left" text="Email" />
+        <span className="dots"></span>
+        <JSXSpan className="component-right" text={userData.email} />
       </div>
       <JSXButton
         text={"Change Account Information"}

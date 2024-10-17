@@ -11,6 +11,7 @@ import GenerateQuizPage from "./components/pages/GenerateQuizPage";
 import CreatePage from "./components/pages/CreatePage";
 import ProfilePage from "./components/pages/ProfilePage";
 import QuizPage from "./components/pages/QuizPage";
+import { ScrollToTop } from "./components/Elements";
 
 export default function App() {
   const [token, setToken] = useState(null);
@@ -21,6 +22,7 @@ export default function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Header
         token={token}
         setToken={setToken}

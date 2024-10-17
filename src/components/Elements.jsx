@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 function JSXButton({ text, type, onClick, className }) {
   return (
     <div
@@ -6,6 +9,15 @@ function JSXButton({ text, type, onClick, className }) {
       onClick={onClick}
     >
       {text}
+    </div>
+  );
+}
+
+function NavLink({ text, icon, onClick }) {
+  return (
+    <div className="nav-link" onClick={onClick}>
+      <img src={`../src/assets/${icon}`} />
+      <span>{text}</span>
     </div>
   );
 }
@@ -19,6 +31,7 @@ function JSXInput({
   placeholder,
   onChange,
   checked,
+  isRequired,
 }) {
   return (
     <input
@@ -30,6 +43,7 @@ function JSXInput({
       placeholder={placeholder}
       onChange={onChange}
       checked={checked}
+      required={isRequired}
     />
   );
 }
@@ -53,6 +67,16 @@ function Modal({ content, closeModal }) {
   );
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function ErrorMessage({ text }) {
   return <span className="error-message">{text}</span>;
 }
@@ -60,4 +84,13 @@ function LoadingMessage({ text }) {
   return <span className="loading-message">{text}</span>;
 }
 
-export { JSXButton, JSXInput, JSXSpan, Modal, ErrorMessage, LoadingMessage };
+export {
+  JSXButton,
+  JSXInput,
+  JSXSpan,
+  Modal,
+  ErrorMessage,
+  LoadingMessage,
+  NavLink,
+  ScrollToTop,
+};

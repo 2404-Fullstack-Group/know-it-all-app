@@ -93,17 +93,42 @@ export default function QuizForm({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // check if the category is selected
+    if (!quizData.category) {
+      alert("Please select a category.");
+      return;
+    }
+
+    // validate questions
+    const allQuestionsValid = quizData.questions.every((question) => {
+      return (
+        question.question &&
+        question.correctAnswer &&
+        question.difficulty &&
+        question.incorrectAnswers.every((answer) => answer)
+      );
+    });
+
+    if (!allQuestionsValid) {
+      alert(
+        "Please fill in all questions with valid answers and difficulties."
+      );
+      return;
+    }
+
     if (updateQuiz) {
-      for (let i=0; i<quizData.questions.length; i++) {
-        const currentQuestion = quizData.questions[i]
-        await axios.put(`${API_URL}/api/users/${currentQuestion.created_by}/questions/${currentQuestion.id}`,
+      for (let i = 0; i < quizData.questions.length; i++) {
+        const currentQuestion = quizData.questions[i];
+        await axios.put(
+          `${API_URL}/api/users/${currentQuestion.created_by}/questions/${currentQuestion.id}`,
           {
             category: currentQuestion.category,
             tags: currentQuestion.tags,
             difficulty: currentQuestion.difficulty,
             question: currentQuestion.question,
             correctAnswer: currentQuestion.correctAnswer,
-            incorrectAnswer: currentQuestion.incorrectAnswer,
+            incorrectAnswers: currentQuestion.incorrectAnswers, // corrected key
             type: currentQuestion.type,
           },
           {
@@ -111,9 +136,8 @@ export default function QuizForm({
               Authorization: `Bearer ${token}`,
             },
           }
-        )
+        );
       }
-
     } else {
       await axios.post(
         `${API_URL}/api/users/${userId}/quizzes`,
@@ -127,10 +151,9 @@ export default function QuizForm({
           },
         }
       );
-      
     }
-    setUpdateQuiz(null)
-    navigate(`/profile/${userId}`)
+    setUpdateQuiz(null);
+    navigate(`/profile/${userId}`);
   };
 
   const handleModalOpen = () => {
