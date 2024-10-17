@@ -9,6 +9,14 @@ import GridTemplate from "../templates/GridTemplate";
 
 import { getDifficulty } from "../../utilities/getDifficulty";
 
+// asset imports
+import difficultyIcon from "../../../public/lightbulb-icon.svg";
+import veryEasyIcon from "../../../public/lightbulb-very-easy.svg";
+import easyIcon from "../../../public/lightbulb-easy.svg";
+import mediumIcon from "../../../public/lightbulb-medium.svg";
+import hardIcon from "../../../public/lightbulb-hard.svg";
+import veryHardIcon from "../../../public/lightbulb-very-hard.svg";
+
 export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
   const [quizList, setQuizList] = useState([]);
   const [filteredQuizList, setFilteredQuizList] = useState([]);
@@ -18,7 +26,7 @@ export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
   const API_URL = import.meta.env.VITE_API_URL;
 
   const difficultyLevels = [
-    "Filter Difficulty",
+    "Difficulty",
     "Very Easy",
     "Easy",
     "Medium",
@@ -53,6 +61,27 @@ export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
     setFilteredQuizList(filtered);
   };
 
+  const handleDifficultyIcon = () => {
+    if (difficulty === 0) {
+      return difficultyIcon;
+    }
+    if (difficulty === 1) {
+      return veryEasyIcon;
+    }
+    if (difficulty === 2) {
+      return easyIcon;
+    }
+    if (difficulty === 3) {
+      return mediumIcon;
+    }
+    if (difficulty === 4) {
+      return hardIcon;
+    }
+    if (difficulty === 5) {
+      return veryHardIcon;
+    }
+  };
+
   useEffect(() => {
     setUpdateQuiz(null);
     const fetchData = async () => {
@@ -84,6 +113,7 @@ export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
             value={difficulty}
             onChange={(e) => setDifficulty(Number(e.target.value))}
           />
+          <img src={handleDifficultyIcon()} />
           <span>{difficultyLevels[difficulty]}</span>
         </div>
       </div>

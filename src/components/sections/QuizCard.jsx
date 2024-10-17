@@ -10,7 +10,11 @@ import { getDifficulty } from "../../utilities/getDifficulty";
 import { useEffect, useState } from "react";
 
 // asset imports
-import difficultyIcon from "../../../public/lightbulb-icon.svg";
+import veryEasyIcon from "../../../public/lightbulb-very-easy.svg";
+import easyIcon from "../../../public/lightbulb-easy.svg";
+import mediumIcon from "../../../public/lightbulb-medium.svg";
+import hardIcon from "../../../public/lightbulb-hard.svg";
+import veryHardIcon from "../../../public/lightbulb-very-hard.svg";
 
 export default function QuizCard({
   quiz,
@@ -41,6 +45,24 @@ export default function QuizCard({
     navigate("/create/quiz-maker");
   };
 
+  const handleDifficultyIcon = () => {
+    if (difficulty === "very-easy") {
+      return veryEasyIcon;
+    }
+    if (difficulty === "easy") {
+      return easyIcon;
+    }
+    if (difficulty === "medium") {
+      return mediumIcon;
+    }
+    if (difficulty === "hard") {
+      return hardIcon;
+    }
+    if (difficulty === "very-hard") {
+      return veryHardIcon;
+    }
+  };
+
   const handleClassName = (name) => {
     return name.toLowerCase().replace(/&/g, "and").replace(/\s+/g, "-");
   };
@@ -65,7 +87,7 @@ export default function QuizCard({
         </div>
         <div className={`difficulty difficulty-${difficulty}`}>
           {/* <span>{getDifficulty(quiz.questions)}</span> */}
-          <img src={difficultyIcon} />
+          <img src={handleDifficultyIcon()} />
         </div>
       </>
       <Link className="quiz-card-play" to={`/quizzes/${quiz.quiz_id}`}>
