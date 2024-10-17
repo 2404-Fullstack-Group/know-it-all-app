@@ -62,7 +62,7 @@ export default function QuizCard({
         </div>
         <div className={`difficulty difficulty-${difficulty}`}>
           <span>{getDifficulty(quiz.questions)}</span>
-          <img src={`../src/assets/lightbulb-icon.svg`} />
+          {/* <img src={`../src/assets/lightbulb-${difficulty}-icon.svg`} /> */}
         </div>
       </>
       <Link className="quiz-card-play" to={`/quizzes/${quiz.quiz_id}`}>
