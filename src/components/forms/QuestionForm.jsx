@@ -59,6 +59,7 @@ export default function QuestionForm({
                     e.target.value
                   )
                 }
+                isRequired={true}
               />
               {questionData.incorrectAnswers.map((answer, index) => (
                 <JSXInput
@@ -68,6 +69,7 @@ export default function QuestionForm({
                   onChange={(e) =>
                     handleArrayChange(index, "incorrectAnswers", e.target.value)
                   }
+                  isRequired={true}
                 />
               ))}
             </div>
@@ -83,6 +85,7 @@ export default function QuestionForm({
                     e.target.value
                   )
                 }
+                required={true}
               >
                 <option disabled>Select Difficulty</option>
                 <option value="easy">Easy</option>

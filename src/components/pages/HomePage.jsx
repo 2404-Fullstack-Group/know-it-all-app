@@ -18,21 +18,22 @@ export default function HomePage({
     setUpdateQuiz(null);
   });
   return (
-    <>
+    <div className="home-page">
       <Link to="/">
-        <h1>
+        <h1 className="site-title home-title">
           <JSXSpan text="Know It All" />
         </h1>
       </Link>
-      <h1>Welcome!</h1>
-      <p>
-        Welcome to Know It All – the ultimate destination for trivia lovers!
-        Test your knowledge, challenge your friends, and discover fascinating
-        facts across a variety of topics. Whether you're a trivia expert or just
-        looking to learn something new, there's always something exciting
-        waiting for you here. Let’s see how much you really know – start playing
-        now and prove you're the ultimate Know It All!
-      </p>
+      <div className="welcome-message">
+        <h2>Welcome!</h2>
+        <p>
+          Dive into trivia, challenge your friends, and uncover weird facts
+          along the way.
+        </p>
+        <p>
+          Think you know it all? <strong>Prove it.</strong>
+        </p>
+      </div>
       <Header
         token={token}
         setToken={setToken}
@@ -42,6 +43,6 @@ export default function HomePage({
       />
 
       <RandomQuiz />
-    </>
+    </div>
   );
 }

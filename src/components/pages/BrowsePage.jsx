@@ -7,39 +7,50 @@ import { JSXInput } from "../Elements";
 import QuizCard from "../sections/QuizCard";
 import GridTemplate from "../templates/GridTemplate";
 
+import { getDifficulty } from "../../utilities/getDifficulty";
+
 export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
   const [quizList, setQuizList] = useState([]);
   const [filteredQuizList, setFilteredQuizList] = useState([]);
   const [search, setSearch] = useState("");
+  const [difficulty, setDifficulty] = useState(0);
+  const [loading, setLoading] = useState(true); // New loading state
   const API_URL = import.meta.env.VITE_API_URL;
 
+  const difficultyLevels = [
+    "Filter Difficulty",
+    "Very Easy",
+    "Easy",
+    "Medium",
+    "Hard",
+    "Very Hard",
+  ];
+
   const loadQuizzes = async () => {
-    const response = await axios.get(`${API_URL}/api/quizzes/`);
-    setQuizList(response.data);
-    setFilteredQuizList(response.data);
+    setLoading(true); // Start loading
+    try {
+      const response = await axios.get(`${API_URL}/api/quizzes/`);
+      setQuizList(response.data);
+      setFilteredQuizList(response.data);
+    } catch (error) {
+      console.error("Error loading quizzes", error);
+    } finally {
+      setLoading(false); // End loading
+    }
   };
 
   const filterList = () => {
-    setFilteredQuizList(
-      quizList.filter((quiz) => {
-        const category = quiz.category.toLowerCase();
-        if (category.includes(search.toLowerCase())) {
-          return true;
-        }
-        const questions = quiz.questions;
-        for (let i = 0; i < questions.length; i++) {
-          const tags = questions[i].tags;
-          if (tags.length > 0) {
-            for (let j = 0; j < tags.length; j++) {
-              const tag = tags[j].toLowerCase();
-              if (tag.includes(search.toLowerCase())) {
-                return true;
-              }
-            }
-          }
-        }
-      })
-    );
+    const filtered = quizList.filter((quiz) => {
+      const category = quiz.category.toLowerCase();
+      const searchMatch = category.includes(search.toLowerCase());
+
+      const difficultyMatch =
+        difficulty === 0 ||
+        getDifficulty(quiz.questions) === difficultyLevels[difficulty];
+
+      return searchMatch && difficultyMatch;
+    });
+    setFilteredQuizList(filtered);
   };
 
   useEffect(() => {
@@ -54,16 +65,34 @@ export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
     if (quizList.length) {
       filterList();
     }
-  }, [search]);
+  }, [search, difficulty]);
+
   return (
     <>
-      <JSXInput
-        placeholder={"Search..."}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <GridTemplate>
-        {filteredQuizList.length ? (
-          filteredQuizList.map((quiz, index) => (
+      <div className="filter-bar">
+        <JSXInput
+          className={"search-input"}
+          placeholder={"Search..."}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <div className="slider-container">
+          <input
+            id="difficulty-slider"
+            type="range"
+            min="0"
+            max="5"
+            value={difficulty}
+            onChange={(e) => setDifficulty(Number(e.target.value))}
+          />
+          <span>{difficultyLevels[difficulty]}</span>
+        </div>
+      </div>
+
+      {loading ? (
+        <p>Loading Quizzes...</p>
+      ) : filteredQuizList.length ? (
+        <GridTemplate>
+          {filteredQuizList.map((quiz, index) => (
             <QuizCard
               key={index}
               quiz={quiz}
@@ -73,11 +102,11 @@ export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
               setUpdateQuiz={setUpdateQuiz}
               isAdmin={isAdmin}
             />
-          ))
-        ) : (
-          <p>Loading Quizzes...</p>
-        )}
-      </GridTemplate>
+          ))}
+        </GridTemplate>
+      ) : (
+        <p>Cannot find quizzes matching your search...</p>
+      )}
     </>
   );
 }

@@ -8,7 +8,7 @@ const shuffleArray = (array) => {
   return array.sort(() => Math.random() - 0.5);
 };
 
-export default function Quiz({ quiz }) {
+export default function Quiz({ quiz, onRegenerate }) {
   // set quiz-difficulty
   const [difficulty, setDifficulty] = useState(null);
 
@@ -27,6 +27,8 @@ export default function Quiz({ quiz }) {
     const shuffled = shuffleArray(quiz.questions);
     setShuffledQuestions(shuffled);
     setStartTime(Date.now()); // start timer
+    setUserAnswers({}); // Reset user answers
+    setResults(null); // Reset results
   }, [quiz.questions]);
 
   // set difficulty AFTER questions are loaded
@@ -78,14 +80,26 @@ export default function Quiz({ quiz }) {
   };
 
   return (
-    <div className="quiz">
-      <header>
+    <div
+      className={
+        "quiz" +
+        (quiz.category
+          ? ` quiz-${quiz.category
+              .toLowerCase()
+              .replace(/&/g, "and")
+              .replace(/\s+/g, "-")}`
+          : "")
+      }
+    >
+      <header className="quiz-header">
         <h2>
           <JSXSpan text={`${quiz.category} Quiz`} />
         </h2>
         <div>
-          <strong>Difficulty:</strong>&nbsp;
-          <JSXSpan text={difficulty} />
+          Difficulty:&nbsp;
+          <strong>
+            <JSXSpan text={difficulty} />
+          </strong>
         </div>
       </header>
       {!results ? (
@@ -100,39 +114,38 @@ export default function Quiz({ quiz }) {
           ))}
           <JSXButton text="Submit" onClick={handleSubmit} />
         </>
-      ) : null}
-      {results && (
+      ) : (
         <div className="results">
-          <h3>Results</h3>
-          <p>
-            <strong>Score:</strong> {getScore()}
-          </p>
-          <p>
-            <strong>Time Taken:</strong> {getTimeTaken()}
-          </p>
-          <hr />
-          {results.map((result, index) => (
-            <div
-              key={`${result.id}-${index}`}
-              className={`quiz-result-${
-                result.isCorrect ? "correct" : "incorrect"
-              }`}
-            >
-              <p>
-                <strong>Question:</strong> {result.question}
-              </p>
-              <p>
-                <strong>Your Answer:</strong> {result.userAnswer}
-              </p>
-              <p>
-                <strong>Correct Answer:</strong> {result.correctAnswer}
-              </p>
-              <p className="result">
-                {result.isCorrect ? "Correct!" : "Incorrect"}
-              </p>
-              <hr />
-            </div>
-          ))}
+          <div className="results-stats">
+            <h3>Results</h3>
+            <p>
+              <strong>Score:</strong> {getScore()}
+            </p>
+            <p>
+              <strong>Time Taken:</strong> {getTimeTaken()}
+            </p>
+          </div>
+          {shuffledQuestions.map((question, index) => {
+            const userAnswer = userAnswers[question.id];
+            const isCorrect = userAnswer === question.correctAnswer;
+            return (
+              <Question
+                key={`${question.id}-${index}`}
+                question={question}
+                selectedAnswer={userAnswer}
+                onAnswerChange={() => {}} // No need to change answers after submission
+                feedback={isCorrect ? "correct" : "incorrect"}
+                showCorrect={true} // Always show the correct answer
+                style={{
+                  backgroundColor: isCorrect
+                    ? "lightgreen"
+                    : userAnswer
+                    ? "lightcoral"
+                    : "transparent",
+                }}
+              />
+            );
+          })}
         </div>
       )}
     </div>

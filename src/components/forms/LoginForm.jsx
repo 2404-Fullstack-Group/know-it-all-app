@@ -30,7 +30,7 @@ export default function LoginForm({
     });
     setToken(response.data.token);
     setUserId(response.data.user[0].id);
-    setIsAdmin(response.data.user[0].is_admin)
+    setIsAdmin(response.data.user[0].is_admin);
     if (response.data.token) {
       isModal ? setIsModal(false) : navigate("/browse");
     }
@@ -64,7 +64,9 @@ export default function LoginForm({
           text={
             <>
               Don't have an account?
-              <Link onClick={() => setIsLogin(false)}>Register Here.</Link>
+              <Link onClick={() => setIsLogin(false)}>
+                &nbsp;<span style={{ color: "lightblue" }}>Register Here.</span>
+              </Link>
             </>
           }
         />
