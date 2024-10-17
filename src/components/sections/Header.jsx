@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import browseIcon from "../../assets/search-icon.svg";
+
 // component imports
 import { JSXSpan, JSXButton, NavLink } from "../Elements.jsx";
 
@@ -44,7 +46,7 @@ export default function Header({
             }
           >
             <Link to="/browse">
-              <NavLink text="Browse" icon="search-icon.svg" />
+              <NavLink text="Browse" icon={browseIcon} />
             </Link>
             <Link to="/create">
               <NavLink text="Create" icon="form-icon.svg" />

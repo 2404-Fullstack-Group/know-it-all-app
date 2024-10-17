@@ -16,7 +16,7 @@ function JSXButton({ text, type, onClick, className }) {
 function NavLink({ text, icon, onClick }) {
   return (
     <div className="nav-link" onClick={onClick}>
-      <img src={`../public/${icon}`} />
+      <img src={icon} />
       <span>{text}</span>
     </div>
   );
