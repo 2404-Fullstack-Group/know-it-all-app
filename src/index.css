@@ -812,8 +812,12 @@ input[type="radio"]:checked + .custom-box {
     display: flex;
     gap: 1rem;
     justify-content: center;
+    span {
+      margin-left: 1rem;
+    }
   }
   #difficulty-slider {
     max-width: 20rem;
   }
+
 }
