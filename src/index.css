@@ -651,8 +651,15 @@ input[type="radio"]:checked + .custom-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 2rem;
   span {
     flex: 1;
+    margin-left: -1rem;
+    font-size: 0.8rem;
+    text-wrap: nowrap;
+  }
+  img {
+    height: 2rem;
   }
 }
 #difficulty-slider {
