@@ -2,8 +2,15 @@
 import { SectionForm } from "../templates/FormTemplates";
 import QuizForm from "../forms/QuizForm";
 
-
-export default function CreateQuizPage({ userId, setUserId, token, setToken, updateQuiz, setUpdateQuiz }) {
+export default function CreateQuizPage({
+  userId,
+  setUserId,
+  token,
+  setToken,
+  updateQuiz,
+  setUpdateQuiz,
+  setIsAdmin,
+}) {
   return (
     <SectionForm
       form={
@@ -14,6 +21,7 @@ export default function CreateQuizPage({ userId, setUserId, token, setToken, upd
           setToken={setToken}
           updateQuiz={updateQuiz}
           setUpdateQuiz={setUpdateQuiz}
+          setIsAdmin={setIsAdmin}
         />
       }
     />

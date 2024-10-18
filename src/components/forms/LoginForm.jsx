@@ -35,6 +35,7 @@ export default function LoginForm({
       isModal ? setIsModal(false) : navigate("/browse");
     }
     setIsNewAccount(false);
+    setIsModal(false);
   };
 
   return (

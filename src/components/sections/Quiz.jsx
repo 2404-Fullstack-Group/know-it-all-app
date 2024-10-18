@@ -50,6 +50,7 @@ export default function Quiz({ quiz, onRegenerate }) {
       isCorrect: userAnswers[question.id] === question.correctAnswer,
     }));
     setResults(quizResults);
+    window.scrollTo(0, 0);
   };
 
   // handle changes to answers

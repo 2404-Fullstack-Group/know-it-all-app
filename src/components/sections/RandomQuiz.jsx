@@ -15,16 +15,25 @@ export default function RandomQuiz() {
     correctAnswer: "",
     incorrectAnswers: [],
   });
+  const [askedQuestions, setAskedQuestions] = useState([]);
   const API_URL = import.meta.env.VITE_API_URL;
 
   const newQuestion = async () => {
-    const response = await axios.get(`${API_URL}/api/questions/random`, {
-      params: {
-        questionCount: 1,
-        difficulty: difficulty,
-      },
-    });
-    setCurrentQuestion(response.data[0]);
+    let newQuestionData;
+    let isDuplicate = true;
+
+    while (isDuplicate) {
+      const response = await axios.get(`${API_URL}/api/questions/random`, {
+        params: {
+          questionCount: 1,
+          difficulty: difficulty,
+        },
+      });
+      newQuestionData = response.data[0];
+      isDuplicate = askedQuestions.includes(newQuestionData.id);
+    }
+    setAskedQuestions((prev) => [...prev, newQuestionData.id]);
+    setCurrentQuestion(newQuestionData);
     setFeedback(null); // resets feedback for the new question
   };
 
@@ -40,11 +49,12 @@ export default function RandomQuiz() {
         newQuestion();
       } else {
         setStreak(0);
+        setAskedQuestions([]);
         setShowCorrect(true);
         setTimeout(() => {
           newQuestion();
           setShowCorrect(false);
-        }, 1000); // added delay if wrong answer to show correct answer before moving to the next question
+        }, 1200); // added delay if wrong answer to show correct answer before moving to the next question
       }
       setUserAnswer({});
     }, 300); // here lies the delay before moving to the next question
@@ -65,9 +75,30 @@ export default function RandomQuiz() {
     newQuestion();
   }, []);
 
-  const boxShadowSize = Math.min(Math.max(streak * 2, 2), 50); // Subtle increase starting from streak 1
-  const greenIntensity = Math.min(streak * 7, 255); // Increased multiplier for more gradual intensity
-  const boxShadowColor = `rgba(0, ${greenIntensity}, 0, 0.6)`;
+  const boxShadowSize = Math.max(Math.pow(streak, 2), 2);
+  let boxShadowColor;
+
+  if (streak > 20) {
+    const colors = [
+      "rgba(130, 187, 196, 0.6)", // --color-general-knowledge
+      "rgba(207, 147, 109, 0.6)", // --color-geography
+      "rgba(200, 137, 152, 0.6)", // --color-society-and-culture
+      "rgba(137, 128, 179, 0.6)", // --color-music
+      "rgba(134, 172, 159, 0.6)", // --color-food-and-drink
+      "rgba(212, 194, 118, 0.6)", // --color-sport-and-leisure
+      "rgba(193, 113, 133, 0.6)", // --color-film-and-tv
+      "rgba(168, 187, 132, 0.6)", // --color-science
+      "rgba(176, 161, 200, 0.6)", // --color-arts-and-literature
+      "rgba(229, 168, 97, 0.6)", // --color-history
+    ];
+    const index = (streak - 20) % colors.length;
+    boxShadowColor = colors[index];
+  } else {
+    boxShadowColor =
+      streak === 0
+        ? "rgba(154, 233, 154, 0)"
+        : `rgba(154, 233, 154, ${Math.min(0.6, streak / 10)})`;
+  }
 
   return (
     <div className="random-quiz">

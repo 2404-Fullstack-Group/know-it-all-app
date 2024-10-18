@@ -21,6 +21,7 @@ export default function QuizForm({
   setToken,
   updateQuiz,
   setUpdateQuiz,
+  setIsAdmin,
 }) {
   // quizData is set to updateQuiz if it exists or creates a blank template object
   // This allows for QuizForm to be used to create and update a quiz
@@ -180,6 +181,7 @@ export default function QuizForm({
               setToken={setToken}
               isModal={isModal}
               setIsModal={setIsModal}
+              setIsAdmin={setIsAdmin}
             />
           }
           closeModal={() => handleModalClose()}
