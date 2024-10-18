@@ -7,6 +7,7 @@ export default function GenerateQuizPage({
   setUserId,
   token,
   setToken,
+  setIsAdmin,
 }) {
   return (
     <>
@@ -17,6 +18,7 @@ export default function GenerateQuizPage({
             setUserId={setUserId}
             token={token}
             setToken={setToken}
+            setIsAdmin={setIsAdmin}
           />
         }
       />

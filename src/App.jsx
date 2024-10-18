@@ -71,6 +71,7 @@ export default function App() {
                 setToken={setToken}
                 updateQuiz={updateQuiz}
                 setUpdateQuiz={setUpdateQuiz}
+                setIsAdmin={setIsAdmin}
               />
             }
           />
@@ -82,6 +83,7 @@ export default function App() {
                 setUserId={setUserId}
                 token={token}
                 setToken={setToken}
+                setIsAdmin={setIsAdmin}
               />
             }
           />

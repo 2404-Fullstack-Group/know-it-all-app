@@ -22,6 +22,8 @@ export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
   const [filteredQuizList, setFilteredQuizList] = useState([]);
   const [search, setSearch] = useState("");
   const [difficulty, setDifficulty] = useState(0);
+  const [tags, setTags] = useState([]);
+  const [selectedTag, setSelectedTag] = useState("");
   const [loading, setLoading] = useState(true); // New loading state
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -47,17 +49,41 @@ export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
     }
   };
 
+  const extractTags = (quizzes) => {
+    const allTags = quizzes
+      .flatMap((quiz) => quiz.questions.flatMap((question) => question.tags))
+      .filter((tag, index, self) => self.indexOf(tag) === index) // remove duplicates
+      .sort(); // sort in alphabetical order
+    return allTags;
+  };
   const filterList = () => {
     const filtered = quizList.filter((quiz) => {
-      const category = quiz.category.toLowerCase();
-      const searchMatch = category.includes(search.toLowerCase());
+      const searchTerm = search.toLowerCase();
+
+      const searchMatch =
+        quiz.category.toLowerCase().includes(searchTerm) ||
+        quiz.questions.some((question) => {
+          return (
+            question.question.toLowerCase().includes(searchTerm) ||
+            question.correctAnswer.toLowerCase().includes(searchTerm) ||
+            question.incorrectAnswers.some((answer) =>
+              answer.toLowerCase().includes(searchTerm)
+            ) ||
+            question.tags.some((tag) => tag.toLowerCase().includes(searchTerm))
+          );
+        });
 
       const difficultyMatch =
         difficulty === 0 ||
         getDifficulty(quiz.questions) === difficultyLevels[difficulty];
 
-      return searchMatch && difficultyMatch;
+      const tagMatch =
+        selectedTag === "" ||
+        quiz.questions.some((question) => question.tags.includes(selectedTag));
+
+      return searchMatch && difficultyMatch && tagMatch;
     });
+
     setFilteredQuizList(filtered);
   };
 
@@ -92,9 +118,15 @@ export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
 
   useEffect(() => {
     if (quizList.length) {
+      setTags(extractTags(quizList));
+    }
+  }, [quizList]);
+
+  useEffect(() => {
+    if (quizList.length) {
       filterList();
     }
-  }, [search, difficulty]);
+  }, [search, difficulty, selectedTag]);
 
   return (
     <>
@@ -104,6 +136,17 @@ export default function BrowsePage({ userId, token, setUpdateQuiz, isAdmin }) {
           placeholder={"Search..."}
           onChange={(e) => setSearch(e.target.value)}
         />
+        <select
+          value={selectedTag}
+          onChange={(e) => setSelectedTag(e.target.value)}
+        >
+          <option value="">All Tags</option>
+          {tags.map((tag) => (
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
+          ))}
+        </select>
         <div className="slider-container">
           <input
             id="difficulty-slider"

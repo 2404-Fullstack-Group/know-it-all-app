@@ -11,6 +11,7 @@ export default function GenerateQuizForm({
   setUserId,
   token,
   setToken,
+  setIsAdmin,
 }) {
   const [category, setCategory] = useState("Select Category");
   const [difficulty, setDifficulty] = useState("Select Difficulty");
@@ -142,6 +143,7 @@ export default function GenerateQuizForm({
               setToken={setToken}
               isModal={isModal}
               setIsModal={setIsModal}
+              setIsAdmin={setIsAdmin}
             />
           }
           closeModal={handleModalClose}

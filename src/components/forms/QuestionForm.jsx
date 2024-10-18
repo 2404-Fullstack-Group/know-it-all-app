@@ -41,6 +41,7 @@ export default function QuestionForm({
       {isEditing ? (
         <>
           <JSXInput
+            className="question-form-question"
             placeholder="Question"
             value={questionData.question}
             onChange={(e) =>
@@ -50,6 +51,7 @@ export default function QuestionForm({
           <div>
             <div className="question-form-container">
               <JSXInput
+                className="question-form-correct-answer"
                 placeholder="Correct Answer"
                 value={questionData.correctAnswer}
                 onChange={(e) =>
@@ -64,6 +66,7 @@ export default function QuestionForm({
               {questionData.incorrectAnswers.map((answer, index) => (
                 <JSXInput
                   key={index}
+                  className="question-form-wrong-answer"
                   placeholder={`Incorrect Answer ${index + 1}`}
                   value={answer}
                   onChange={(e) =>
@@ -95,6 +98,7 @@ export default function QuestionForm({
               {questionData.tags.map((tag, index) => (
                 <JSXInput
                   key={index}
+                  className={`question-form-tag-${index + 1}`}
                   placeholder={`Tag ${index + 1}`}
                   value={tag}
                   onChange={(e) =>
